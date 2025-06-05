@@ -1,6 +1,7 @@
 export interface IShip {
   typeID: number;
   typeName: string;
+  groupID: number;
   slots: {
     high: number;
     mid: number;

@@ -1,9 +1,9 @@
-import { IModule, IShip } from './types/domain.types';
 import { z } from 'zod';
 
 const ShipSchema = z.object({
   typeID: z.number(),
   typeName: z.string(),
+  groupID: z.number(),
   slots: z.object({
     high: z.number(),
     mid: z.number(),
@@ -18,6 +18,7 @@ const ShipSchema = z.object({
 export class Ship implements IShip {
   typeID: number;
   typeName: string;
+  groupID: number;
   slots: {
     high: number;
     mid: number;
@@ -27,6 +28,7 @@ export class Ship implements IShip {
   };
   attributes: Record<number, number>;
   bonuses: string[];
+  subsystem: number;
 
   constructor(ship: IShip) {
     const validatedShip = ShipSchema.parse(ship);
@@ -37,18 +39,19 @@ export class Ship implements IShip {
     const shipData: IShip = {
       typeID: sdeData.typeID,
       typeName: sdeData.name.en,
+      groupID: sdeData.groupID,
       slots: {
-        high: sdeData.dogmaAttributes.find(a => a.attributeID === 14)?.value || 0,
-        mid: sdeData.dogmaAttributes.find(a => a.attributeID === 13)?.value || 0,
-        low: sdeData.dogmaAttributes.find(a => a.attributeID === 12)?.value || 0,
-        rig: sdeData.dogmaAttributes.find(a => a.attributeID === 1137)?.value || 0,
-        subsystem: sdeData.dogmaAttributes.find(a => a.attributeID === 1367)?.value || 0,
+        high: sdeData.dogmaAttributes.find((a: any) => a.attributeID === 14)?.value || 0,
+        mid: sdeData.dogmaAttributes.find((a: any) => a.attributeID === 13)?.value || 0,
+        low: sdeData.dogmaAttributes.find((a: any) => a.attributeID === 12)?.value || 0,
+        rig: sdeData.dogmaAttributes.find((a: any) => a.attributeID === 1137)?.value || 0,
+        subsystem: sdeData.dogmaAttributes.find((a: any) => a.attributeID === 1367)?.value || 0,
       },
-      attributes: sdeData.dogmaAttributes.reduce((acc, attr) => {
+      attributes: sdeData.dogmaAttributes.reduce((acc: Record<number, number>, attr: any) => {
         acc[attr.attributeID] = attr.value;
         return acc;
       }, {}),
-      bonuses: sdeData.traits?.types?.map(t => t.bonusText?.en) || [],
+      bonuses: sdeData.traits?.types?.map((t: any) => t.bonusText?.en) || [],
     };
     return new Ship(shipData);
   }
@@ -93,7 +96,15 @@ export interface IShip {
   typeID: number;
   typeName: string;
   groupID: number;
+  slots: {
+    high: number;
+    mid: number;
+    low: number;
+    rig: number;
+    subsystem: number;
+  };
   attributes: Record<number, number>;
+  bonuses: string[];
 }
 
 export interface ISkill {
