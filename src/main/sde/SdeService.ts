@@ -77,6 +77,9 @@ export class SdeService {
 
       await this.importTypeIDs();
       await this.importDogmaAttributes();
+      await this.importDogmaEffects();
+      await this.importDogmaTypeEffects();
+      await this.importDogmaExpressions();
 
     } catch (error) {
       console.error('Error downloading or extracting SDE:', error);
@@ -202,6 +205,144 @@ export class SdeService {
 
     } catch (error) {
       console.error('Error importing Dogma attributes:', error);
+      throw error;
+    }
+  }
+
+  private async importDogmaEffects(): Promise<void> {
+    try {
+      this.sendProgress('importing_dogma_effects');
+      console.log('Starting Dogma effect import...');
+      const dogmaEffectsPath = path.join(this.sdePath, 'sde', 'fsd', 'dogma_effects.yaml');
+      const dogmaEffectsCachePath = path.join(this.sdePath, 'dogma_effects.json');
+      let dogmaEffects: Record<string, any>;
+
+      if (await fs.pathExists(dogmaEffectsCachePath)) {
+        console.log('Loading Dogma effects from cache...');
+        dogmaEffects = await fs.readJson(dogmaEffectsCachePath);
+      } else {
+        console.log('Parsing dogma_effects.yaml...');
+        const fileContents = await fs.readFile(dogmaEffectsPath, 'utf8');
+        dogmaEffects = yaml.load(fileContents) as Record<string, any>;
+        await fs.writeJson(dogmaEffectsCachePath, dogmaEffects);
+        console.log('Saved Dogma effects to cache.');
+      }
+
+      const dbService = DatabaseService.getInstance();
+      const effectsToInsert = [];
+
+      for (const id in dogmaEffects) {
+        const effectData = dogmaEffects[id];
+        effectsToInsert.push({
+          effectID: effectData.effectID,
+          effectName: effectData.name,
+          description: effectData.description,
+          displayName: effectData.displayName,
+          preExpression: effectData.preExpression,
+          postExpression: effectData.postExpression,
+        });
+      }
+
+      await dbService.getDataSource().transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.getRepository('DogmaEffect').save(effectsToInsert);
+      });
+
+      console.log(`Imported ${effectsToInsert.length} Dogma effects.`);
+
+    } catch (error) {
+      console.error('Error importing Dogma effects:', error);
+      throw error;
+    }
+  }
+
+  private async importDogmaTypeEffects(): Promise<void> {
+    try {
+      this.sendProgress('importing_dogma_type_effects');
+      console.log('Starting Dogma type effect import...');
+      const dogmaTypeEffectsPath = path.join(this.sdePath, 'sde', 'fsd', 'dogma_type_effects.yaml');
+      const dogmaTypeEffectsCachePath = path.join(this.sdePath, 'dogma_type_effects.json');
+      let dogmaTypeEffects: Record<string, any>;
+
+      if (await fs.pathExists(dogmaTypeEffectsCachePath)) {
+        console.log('Loading Dogma type effects from cache...');
+        dogmaTypeEffects = await fs.readJson(dogmaTypeEffectsCachePath);
+      } else {
+        console.log('Parsing dogma_type_effects.yaml...');
+        const fileContents = await fs.readFile(dogmaTypeEffectsPath, 'utf8');
+        dogmaTypeEffects = yaml.load(fileContents) as Record<string, any>;
+        await fs.writeJson(dogmaTypeEffectsCachePath, dogmaTypeEffects);
+        console.log('Saved Dogma type effects to cache.');
+      }
+
+      const dbService = DatabaseService.getInstance();
+      const typeEffectsToInsert = [];
+
+      for (const id in dogmaTypeEffects) {
+        const typeEffectData = dogmaTypeEffects[id];
+        typeEffectsToInsert.push({
+          typeID: typeEffectData.typeID,
+          effectID: typeEffectData.effectID,
+        });
+      }
+
+      await dbService.getDataSource().transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.getRepository('DogmaTypeEffect').save(typeEffectsToInsert);
+      });
+
+      console.log(`Imported ${typeEffectsToInsert.length} Dogma type effects.`);
+
+    } catch (error) {
+      console.error('Error importing Dogma type effects:', error);
+      throw error;
+    }
+  }
+
+  private async importDogmaExpressions(): Promise<void> {
+    try {
+      this.sendProgress('importing_dogma_expressions');
+      console.log('Starting Dogma expression import...');
+      const dogmaExpressionsPath = path.join(this.sdePath, 'sde', 'fsd', 'dogma_expressions.yaml');
+      const dogmaExpressionsCachePath = path.join(this.sdePath, 'dogma_expressions.json');
+      let dogmaExpressions: Record<string, any>;
+
+      if (await fs.pathExists(dogmaExpressionsCachePath)) {
+        console.log('Loading Dogma expressions from cache...');
+        dogmaExpressions = await fs.readJson(dogmaExpressionsCachePath);
+      } else {
+        console.log('Parsing dogma_expressions.yaml...');
+        const fileContents = await fs.readFile(dogmaExpressionsPath, 'utf8');
+        dogmaExpressions = yaml.load(fileContents) as Record<string, any>;
+        await fs.writeJson(dogmaExpressionsCachePath, dogmaExpressions);
+        console.log('Saved Dogma expressions to cache.');
+      }
+
+      const dbService = DatabaseService.getInstance();
+      const expressionsToInsert = [];
+
+      for (const id in dogmaExpressions) {
+        const expressionData = dogmaExpressions[id];
+        expressionsToInsert.push({
+          expressionID: expressionData.expressionID,
+          operandID: expressionData.operandID,
+          arg1: expressionData.arg1,
+          arg2: expressionData.arg2,
+          expressionValue: expressionData.expressionValue,
+          description: expressionData.description,
+          expressionName: expressionData.expressionName,
+          expressionTypeID: expressionData.expressionTypeID,
+          expressionGroupID: expressionData.expressionGroupID,
+          expressionAttributeID: expressionData.expressionAttributeID,
+        });
+      }
+
+      await dbService.getDataSource().transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.getRepository('DogmaExpression').save(expressionsToInsert);
+      });
+
+      console.log(`Imported ${expressionsToInsert.length} Dogma expressions.`);
+
+    } catch (error) {
+      console.error('Error importing Dogma expressions:', error);
       throw error;
     }
   }

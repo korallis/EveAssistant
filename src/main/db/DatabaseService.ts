@@ -4,6 +4,9 @@ import { Module } from './entities/Module.entity';
 import { Skill } from './entities/Skill.entity';
 import { MarketGroup } from './entities/MarketGroup.entity';
 import { DogmaAttribute } from './entities/DogmaAttribute.entity';
+import { DogmaEffect } from './entities/DogmaEffect.entity';
+import { DogmaTypeEffect } from './entities/DogmaTypeEffect.entity';
+import { DogmaExpression } from './entities/DogmaExpression.entity';
 import { AppDataSource } from './dataSource';
 import path from 'path';
 import { app } from 'electron';
@@ -17,6 +20,9 @@ export class DatabaseService {
   public skillRepository: Repository<Skill>;
   public marketGroupRepository: Repository<MarketGroup>;
   public dogmaAttributeRepository: Repository<DogmaAttribute>;
+  public dogmaEffectRepository: Repository<DogmaEffect>;
+  public dogmaTypeEffectRepository: Repository<DogmaTypeEffect>;
+  public dogmaExpressionRepository: Repository<DogmaExpression>;
 
   private constructor() {
     this.dataSource = AppDataSource;
@@ -39,6 +45,9 @@ export class DatabaseService {
     this.skillRepository = this.dataSource.getRepository(Skill);
     this.marketGroupRepository = this.dataSource.getRepository(MarketGroup);
     this.dogmaAttributeRepository = this.dataSource.getRepository(DogmaAttribute);
+    this.dogmaEffectRepository = this.dataSource.getRepository(DogmaEffect);
+    this.dogmaTypeEffectRepository = this.dataSource.getRepository(DogmaTypeEffect);
+    this.dogmaExpressionRepository = this.dataSource.getRepository(DogmaExpression);
   }
 
   public getDataSource(): DataSource {
