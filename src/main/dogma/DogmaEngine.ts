@@ -1,4 +1,5 @@
 import { DatabaseService } from '../db/DatabaseService';
+import { operands } from '../../shared/operands';
 
 export class DogmaEngine {
   private static instance: DogmaEngine;
@@ -21,7 +22,7 @@ export class DogmaEngine {
       return;
     }
 
-    console.log(`Traversing expression ${expressionId}:`, expression);
+    this.interpretExpression(expression);
 
     if (expression.arg1) {
       await this.traverseExpressionTree(expression.arg1);
@@ -29,6 +30,15 @@ export class DogmaEngine {
 
     if (expression.arg2) {
       await this.traverseExpressionTree(expression.arg2);
+    }
+  }
+
+  private interpretExpression(expression: any): void {
+    const operand = operands[expression.operandID];
+    if (operand) {
+      console.log(`Interpreting expression ${expression.expressionID}: ${operand.key}`);
+    } else {
+      console.warn(`Unknown operand ID: ${expression.operandID}`);
     }
   }
 } 
