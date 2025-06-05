@@ -147,6 +147,8 @@ export class SdeService {
           groupID: typeData.groupID,
           attributes: typeData.dogmaAttributes || {},
           effects: typeData.dogmaEffects || {},
+          cpu: typeData.dogmaAttributes?.find(a => a.attributeID === 50)?.value || 0,
+          powergrid: typeData.dogmaAttributes?.find(a => a.attributeID === 30)?.value || 0,
         });
       }
 

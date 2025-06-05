@@ -85,6 +85,8 @@ export interface IModule {
   groupID: number;
   attributes: Record<number, number>;
   effects: Record<number, number>;
+  cpu: number;
+  powergrid: number;
 }
 
 export interface ISkill {

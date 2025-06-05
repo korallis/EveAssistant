@@ -115,6 +115,34 @@ export class FittingCalculator {
     return result;
   }
 
+  public calculateCpu(): { usage: number, output: number } {
+    const cacheKey = `cpu`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
+    }
+
+    const usage = this.fitting.modules.reduce((acc, module) => acc + module.cpu, 0);
+    const output = this.fitting.ship.attributes[this.attributes.get('cpuOutput')] || 0;
+    const result = { usage, output };
+
+    this.cache.set(cacheKey, result);
+    return result;
+  }
+
+  public calculatePowergrid(): { usage: number, output: number } {
+    const cacheKey = `powergrid`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
+    }
+
+    const usage = this.fitting.modules.reduce((acc, module) => acc + module.powergrid, 0);
+    const output = this.fitting.ship.attributes[this.attributes.get('powergridOutput')] || 0;
+    const result = { usage, output };
+
+    this.cache.set(cacheKey, result);
+    return result;
+  }
+
   public calculateDps(damageProfile: DamageProfile = new DamageProfile(0.25, 0.25, 0.25, 0.25)): number {
     const cacheKey = `dps-${JSON.stringify(damageProfile)}`;
     if (this.cache.has(cacheKey)) {

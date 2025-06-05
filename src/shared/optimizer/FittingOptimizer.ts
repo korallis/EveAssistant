@@ -93,7 +93,18 @@ export class FittingOptimizer {
     const dps = calculator.calculateDps();
     const ehp = calculator.calculateEhp();
     const cap = calculator.calculateCapacitor();
-    return [dps, ehp, cap.stable ? 1 : 0];
+    const cpu = calculator.calculateCpu();
+    const powergrid = calculator.calculatePowergrid();
+
+    let penalty = 0;
+    if (cpu.usage > cpu.output) {
+      penalty += cpu.usage - cpu.output;
+    }
+    if (powergrid.usage > powergrid.output) {
+      penalty += powergrid.usage - powergrid.output;
+    }
+
+    return [dps - penalty, ehp - penalty, cap.stable ? 1 : 0];
   }
 
   private createInitialPopulation(): IFitting[] {
