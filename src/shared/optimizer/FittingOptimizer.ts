@@ -66,8 +66,22 @@ export class FittingOptimizer {
   }
 
   private crossoverFunction(phenotypeA, phenotypeB) {
-    // TODO: Implement crossover logic
-    return [phenotypeA, phenotypeB];
+    const crossoverPoint = Math.floor(Math.random() * phenotypeA.modules.length);
+    const newPhenotypeA = {
+      ...phenotypeA,
+      modules: [
+        ...phenotypeA.modules.slice(0, crossoverPoint),
+        ...phenotypeB.modules.slice(crossoverPoint),
+      ],
+    };
+    const newPhenotypeB = {
+      ...phenotypeB,
+      modules: [
+        ...phenotypeB.modules.slice(0, crossoverPoint),
+        ...phenotypeA.modules.slice(crossoverPoint),
+      ],
+    };
+    return [newPhenotypeA, newPhenotypeB];
   }
 
   private fitnessFunction(phenotype: IFitting): number[] {
