@@ -6,13 +6,17 @@ export class FittingOptimizer {
   private options: any;
   private ship: IShip;
 
-  constructor(ship: IShip) {
+  constructor(ship: IShip, options: any = {}) {
     this.ship = ship;
     this.options = {
       mutationFunction: this.mutationFunction,
       crossoverFunction: this.crossoverFunction,
       fitnessFunction: this.fitnessFunction,
       population: this.createInitialPopulation(),
+      populationSize: options.populationSize || 100,
+      mutationProbability: options.mutationProbability || 0.1,
+      crossoverProbability: options.crossoverProbability || 0.8,
+      maxGenerations: options.maxGenerations || 100,
     };
   }
 
@@ -73,6 +77,9 @@ export class FittingOptimizer {
   }
 
   private mutationFunction(phenotype) {
+    if (Math.random() > this.options.mutationProbability) {
+      return phenotype;
+    }
     const mutationPoint = Math.floor(Math.random() * phenotype.modules.length);
     window.dogma.getModules().then(modules => {
       const randomModule = modules[Math.floor(Math.random() * modules.length)];
@@ -82,6 +89,9 @@ export class FittingOptimizer {
   }
 
   private crossoverFunction(phenotypeA, phenotypeB) {
+    if (Math.random() > this.options.crossoverProbability) {
+      return [phenotypeA, phenotypeB];
+    }
     const crossoverPoint = Math.floor(Math.random() * phenotypeA.modules.length);
     const newPhenotypeA = {
       ...phenotypeA,
@@ -121,7 +131,7 @@ export class FittingOptimizer {
 
   private createInitialPopulation(): IFitting[] {
     const population = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < this.options.populationSize; i++) {
       const fitting: IFitting = {
         ship: this.ship,
         modules: [],
