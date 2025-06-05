@@ -30,7 +30,7 @@ export class FittingOptimizer {
         break;
       }
     }
-    const bestFitting = this.options.population[0];
+    const bestFitting = this.getRepresentativeFittings();
     return bestFitting;
   }
 
@@ -229,5 +229,20 @@ export class FittingOptimizer {
         front[j].crowdingDistance += (front[j + 1].fitness[i] - front[j - 1].fitness[i]);
       }
     }
+  }
+
+  private getRepresentativeFittings() {
+    const population = this.options.population;
+    const fronts = this.nonDominatedSort(population);
+    const firstFront = fronts[0];
+    this.crowdingDistance(firstFront);
+    firstFront.sort((a, b) => b.crowdingDistance - a.crowdingDistance);
+
+    const representativeFittings = [];
+    for (let i = 0; i < 5; i++) {
+      const index = Math.floor(i * (firstFront.length / 5));
+      representativeFittings.push(firstFront[index]);
+    }
+    return representativeFittings;
   }
 } 
