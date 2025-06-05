@@ -1,16 +1,18 @@
 import geneticalgorithm from 'geneticalgorithm';
 import { FittingCalculator } from '../FittingCalculator';
-import { IFitting } from '../domain';
+import { IFitting, IShip } from '../domain';
 
 export class FittingOptimizer {
   private options: any;
+  private ship: IShip;
 
-  constructor() {
+  constructor(ship: IShip) {
+    this.ship = ship;
     this.options = {
       mutationFunction: this.mutationFunction,
       crossoverFunction: this.crossoverFunction,
       fitnessFunction: this.fitnessFunction,
-      population: [],
+      population: this.createInitialPopulation(),
     };
   }
 
@@ -74,6 +76,25 @@ export class FittingOptimizer {
     const ehp = calculator.calculateEhp();
     const cap = calculator.calculateCapacitor();
     return [dps, ehp, cap.stable ? 1 : 0];
+  }
+
+  private createInitialPopulation(): IFitting[] {
+    const population = [];
+    for (let i = 0; i < 100; i++) {
+      const fitting: IFitting = {
+        ship: this.ship,
+        modules: [],
+        skills: [],
+      };
+      window.dogma.getModules().then(modules => {
+        for (let j = 0; j < 8; j++) {
+          const randomModule = modules[Math.floor(Math.random() * modules.length)];
+          fitting.modules.push(randomModule);
+        }
+      });
+      population.push(fitting);
+    }
+    return population;
   }
 
   private nonDominatedSort(population) {

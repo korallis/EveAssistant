@@ -57,4 +57,12 @@ export class DatabaseService {
   public async findDogmaAttributeByName(name: string): Promise<DogmaAttribute | undefined> {
     return this.dogmaAttributeRepository.findOne({ where: { attributeName: name } });
   }
+
+  public async getShip(typeId: number): Promise<IShip> {
+    return await this.shipRepository.findOne({ where: { typeID: typeId } });
+  }
+
+  public async getModules(): Promise<IModule[]> {
+    return await this.moduleRepository.find();
+  }
 } 

@@ -64,6 +64,11 @@ const createWindow = () => {
     }
   });
 
+  ipcMain.handle('get-modules', async () => {
+    const dbService = DatabaseService.getInstance();
+    return await dbService.getModules();
+  });
+
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
