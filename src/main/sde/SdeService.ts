@@ -146,6 +146,7 @@ export class SdeService {
           typeName: typeData.name.en,
           groupID: typeData.groupID,
           attributes: typeData.dogmaAttributes || {},
+          effects: typeData.dogmaEffects || {},
         });
       }
 

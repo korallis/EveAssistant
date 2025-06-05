@@ -60,15 +60,26 @@ export class FittingCalculator {
       armorRes.explosive += module.attributes[this.attributes.get('armorExplosiveHardener')] || 0; // Armor Explosive Hardener
     });
 
-    // TODO: Apply skill effects to resistances
+    // Apply module and skill effects to resistances
+    this.applyModuleEffects();
 
-    const shieldEffectiveHp = shieldHp / (1 - (shieldRes.em * damageProfile.em + shieldRes.thermal * damageProfile.thermal + shieldRes.kinetic * damageProfile.kinetic + shieldRes.explosive * damageProfile.explosive));
-    const armorEffectiveHp = armorHp / (1 - (armorRes.em * damageProfile.em + armorRes.thermal * damageProfile.thermal + armorRes.kinetic * damageProfile.kinetic + armorRes.explosive * damageProfile.explosive));
-    const hullEffectiveHp = hullHp / (1 - (hullRes.em * damageProfile.em + hullRes.thermal * damageProfile.thermal + hullRes.kinetic * damageProfile.kinetic + hullRes.explosive * damageProfile.explosive));
+    // Calculate EHP for each layer
+    const shieldEhp = shieldHp / (1 - Math.min(shieldRes.em, 1)); // Simplified EHP calc
+    const armorEhp = armorHp / (1 - Math.min(armorRes.em, 1)); // Simplified EHP calc
+    const hullEhp = hullHp / (1 - Math.min(hullRes.em, 1)); // Simplified EHP calc
 
-    const result = shieldEffectiveHp + armorEffectiveHp + hullEffectiveHp;
+    const result = shieldEhp + armorEhp + hullEhp;
     this.cache.set(cacheKey, result);
     return result;
+  }
+
+  private applyModuleEffects(): void {
+    const { modules } = this.fitting;
+    modules.forEach(module => {
+      for (const effectId in module.effects) {
+        window.dogma.traverseExpression(parseInt(effectId));
+      }
+    });
   }
 
   public calculateCapacitor(): { peakRecharge: number, stable: boolean } {

@@ -77,4 +77,16 @@ export class Fitting {
   removeModule(module: IModule): void {
     this.modules = this.modules.filter(m => m.typeID !== module.typeID);
   }
+}
+
+export interface IModule {
+  typeID: number;
+  typeName: string;
+  groupID: number;
+  attributes: Record<number, number>;
+  effects: Record<number, number>;
+}
+
+export interface ISkill {
+  // ... existing code ...
 } 

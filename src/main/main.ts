@@ -8,6 +8,7 @@ import { SdeService } from './sde/SdeService';
 import { FittingDataService } from './services/FittingDataService';
 import { attributeNames } from '../shared/attributes';
 import { Attributes } from '../shared/Attributes';
+import { DogmaEngine } from './dogma/DogmaEngine';
 
 dotenv.config();
 
@@ -51,6 +52,15 @@ const createWindow = () => {
       mainWindow.webContents.send('sde-download-complete');
     } catch (error) {
       mainWindow.webContents.send('sde-download-error', error.message);
+    }
+  });
+
+  ipcMain.on('traverse-dogma-expression', async (event, expressionId) => {
+    try {
+      const dogmaEngine = DogmaEngine.getInstance();
+      await dogmaEngine.traverseExpressionTree(expressionId);
+    } catch (error) {
+      console.error('Error traversing Dogma expression:', error);
     }
   });
 
