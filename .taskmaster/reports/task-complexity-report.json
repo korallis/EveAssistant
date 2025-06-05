@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "generatedAt": "2025-06-05T20:12:33.712Z",
+    "tasksAnalyzed": 25,
+    "totalTasks": 25,
+    "analysisCount": 25,
+    "thresholdScore": 6,
+    "projectName": "Taskmaster",
+    "usedResearch": true
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Setup Electron + TypeScript Project Foundation",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the Electron + TypeScript project setup into detailed steps including: initializing the project, configuring TypeScript, setting up Electron Forge, configuring Webpack, structuring source directories, installing dependencies, and setting up development tools with CSP headers.",
+      "reasoning": "This task involves multiple technologies (Electron, TypeScript, Webpack) and requires careful configuration. The existing 7 subtasks cover the essential components but each requires technical knowledge across different tools."
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Implement SQLite Database Layer",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide the SQLite database implementation into detailed steps including: installing dependencies, designing the database schema, creating entity classes, setting up migrations, implementing the DatabaseService with connection pooling, configuring repositories, and adding performance optimizations like indexes.",
+      "reasoning": "Database implementation requires deep technical knowledge of both SQLite and TypeORM. The task involves schema design, entity relationships, migrations, and performance considerations. The 8 subtasks appropriately cover the scope."
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Create EVE SDE Data Import System",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down the EVE SDE data import system into detailed steps including: implementing a downloader with retry logic, creating YAML parsers, building data transformers for different file types, handling incremental imports, adding progress tracking, implementing checksum verification, validating imported data, setting up background processing with IPC, and implementing caching mechanisms.",
+      "reasoning": "This task involves complex data processing, file handling, and asynchronous operations. The SDE data is large and requires careful parsing, transformation, and validation. The 9 subtasks cover the necessary components for a robust import system."
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Implement EVE ESI OAuth 2.0 PKCE Authentication",
+      "complexityScore": 7,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide the OAuth 2.0 PKCE authentication implementation into detailed steps including: implementing PKCE challenge generation, configuring OAuth scopes, initiating the login flow, handling callbacks, securely storing tokens, implementing token refresh logic, and handling authentication errors.",
+      "reasoning": "Authentication is security-critical and involves complex OAuth flows. The PKCE implementation requires cryptographic operations and careful handling of tokens. The 7 subtasks cover the essential components of a secure authentication system."
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Build ESI API Integration Layer",
+      "complexityScore": 8,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down the ESI API integration layer into detailed steps including: creating the base API client, implementing authentication token injection, adding rate limiting, implementing response caching, defining typed interfaces for all endpoints, implementing specific endpoint handlers, adding retry logic with exponential backoff, and handling ESI-specific error codes.",
+      "reasoning": "API integration requires handling authentication, rate limiting, caching, and error handling. The ESI API has specific requirements and the integration must be robust. The 8 subtasks cover the necessary components for a comprehensive API client."
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Design Core Data Models and Types",
+      "complexityScore": 6,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Divide the core data model design into detailed steps including: defining interfaces and type structures, implementing value objects, creating domain logic classes, adding runtime validation with zod, creating factory functions for complex objects, and writing comprehensive unit tests for validation.",
+      "reasoning": "Data modeling requires careful design to ensure type safety and domain correctness. The task involves creating interfaces, classes, and validation logic. The 6 subtasks cover the essential components of a robust type system."
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Create React Application Shell with Material-UI",
+      "complexityScore": 5,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Break down the React application shell creation into detailed steps including: installing dependencies, setting up routing with React Router, creating layout components (AppBar, Drawer, Container), implementing a Material-UI theme with EVE Online colors, configuring responsive breakpoints, creating reusable components, and optimizing Webpack for React builds.",
+      "reasoning": "This task involves frontend development with React and Material-UI. While not as complex as some other tasks, it requires knowledge of React, routing, theming, and responsive design. The 7 subtasks cover the essential components of a well-structured React application."
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Implement State Management with Zustand",
+      "complexityScore": 5,
+      "recommendedSubtasks": 6,
+      "expansionPrompt": "Divide the Zustand state management implementation into detailed steps including: setting up the core store structure, creating individual store slices (auth, ships, fittings, skills), implementing persistence with electron-store, adding computed values with subscriptions, configuring store devtools for debugging, and creating memoized hooks for components.",
+      "reasoning": "State management is a fundamental aspect of the application but Zustand is relatively straightforward compared to other state management solutions. The task requires creating multiple store slices and handling persistence. 6 subtasks would cover the essential components."
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Build Ship Browser UI Component",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down the ship browser UI component into detailed steps including: creating the main component structure, implementing filters for ship types and classes, adding search with fuzzy matching, displaying ship cards with relevant information, implementing virtualization for performance, adding sorting functionality, creating a detailed ship modal, and optimizing rendering with React.memo.",
+      "reasoning": "This UI component is complex with filtering, search, virtualization, and detailed displays. It requires handling potentially large datasets and optimizing performance. The 8 subtasks cover the necessary components for a comprehensive ship browser."
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Implement Fitting Statistics Calculation Engine",
+      "complexityScore": 9,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Divide the fitting statistics calculation engine into detailed steps including: implementing DPS calculation for all weapon types, calculating tank statistics (EHP, resistances), simulating capacitor usage and stability, calculating speed and agility metrics, implementing stacking penalties logic, handling skill bonuses, calculating CPU and powergrid usage, implementing damage profile handling, creating a calculation cache system, and building a module effect handling engine.",
+      "reasoning": "This is one of the most complex tasks, involving sophisticated game mechanics calculations and simulations. It requires deep understanding of EVE Online mechanics and mathematical formulas. The 10 subtasks appropriately break down this complex system into manageable components."
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Create Fitting Display and Editor UI",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down the fitting display and editor UI into detailed steps including: creating the main editor component, implementing drag-and-drop functionality for modules, building a module browser component, implementing real-time stats calculation, displaying the stats panel, adding context menus for actions, showing CPU/PG indicators, implementing a tooltips system, and creating a charge/script selection UI.",
+      "reasoning": "This UI component is highly interactive with drag-and-drop, real-time updates, and complex visualizations. It requires integration with the calculation engine and careful UX design. The 9 subtasks cover the necessary components for a comprehensive fitting editor."
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Implement Multi-Objective Optimization Algorithm",
+      "complexityScore": 10,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Divide the multi-objective optimization algorithm implementation into detailed steps including: implementing the NSGA-II core structure, creating multi-objective fitness functions, generating the initial population, implementing crossover operators, adding mutation operators, handling constraints for CPU/PG and skills, implementing Pareto selection, configuring algorithm parameters, adding early stopping criteria, and generating representative fittings from the Pareto frontier.",
+      "reasoning": "This is the most complex task, involving advanced genetic algorithms and multi-objective optimization. It requires deep understanding of optimization techniques, genetic algorithms, and EVE Online mechanics. The 10 subtasks break down this highly complex algorithm into manageable components."
+    },
+    {
+      "taskId": 13,
+      "taskTitle": "Build Optimization Results Display",
+      "complexityScore": 6,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down the optimization results display into detailed steps including: creating the main results component, implementing a scatter plot for DPS vs Tank visualization, building a comparison table for key stats, adding a radar chart for multi-dimensional comparison, creating fitting cards with previews, implementing an 'Apply Fitting' button, adding export options for different formats, and showing the optimization parameters used.",
+      "reasoning": "This task involves data visualization and UI components to display optimization results. It requires integration with charting libraries and careful UX design. The 8 subtasks cover the necessary components for a comprehensive results display."
+    },
+    {
+      "taskId": 14,
+      "taskTitle": "Implement Fitting Import/Export System",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide the fitting import/export system into detailed steps including: implementing an EFT format parser, creating an XML parser for in-game formats, building a format detection system, implementing exporters for all formats, handling specialized data types (cargo, drones, charges), adding clipboard integration, implementing batch import processing, and creating a format validation framework with helpful error messages.",
+      "reasoning": "This task involves parsing and generating multiple file formats with different structures. It requires careful handling of edge cases and robust error handling. The 8 subtasks cover the necessary components for a comprehensive import/export system."
+    },
+    {
+      "taskId": 15,
+      "taskTitle": "Create Character Skills Management Interface",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down the character skills management interface into detailed steps including: creating the main skills view component, implementing search and filtering functionality, displaying SP and queue information, building a skill analyzer component, implementing a skill optimizer, adding tooltips for skill information, creating skill trees visualization, and implementing skill data caching.",
+      "reasoning": "This UI component involves displaying and managing complex skill data with various visualizations and tools. It requires integration with the ESI API and careful UX design. The 8 subtasks cover the necessary components for a comprehensive skills management interface."
+    },
+    {
+      "taskId": 16,
+      "taskTitle": "Implement Activity-Specific Fitting Templates",
+      "complexityScore": 7,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide the activity-specific fitting templates implementation into detailed steps including: defining activity profiles for different gameplay types, creating constraint sets for each activity, implementing a template system with required modules, extending the optimizer with activity constraints, adding an activity selection UI, storing common fits as starting points, implementing activity-specific fitness functions, and creating an explanation system for activity choices.",
+      "reasoning": "This task involves creating a system to generate and recommend fittings based on specific activities. It requires understanding of different gameplay styles and integration with the optimization engine. The 8 subtasks cover the necessary components for a comprehensive template system."
+    },
+    {
+      "taskId": 17,
+      "taskTitle": "Build Educational Guidance System",
+      "complexityScore": 6,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Break down the educational guidance system into detailed steps including: implementing an explanation generator for fitting decisions, creating templates for different explanation types, adding tooltips with reasoning, building a fitting analysis component, implementing concept explanations for game mechanics, creating interactive tutorials for fitting basics, building a glossary system for EVE terms, and adding a beginner mode with extra guidance.",
+      "reasoning": "This task involves creating educational content and explanations for complex game mechanics. It requires clear communication of technical concepts and careful UX design. The 8 subtasks cover the necessary components for a comprehensive guidance system."
+    },
+    {
+      "taskId": 18,
+      "taskTitle": "Implement Market Price Integration",
+      "complexityScore": 6,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide the market price integration into detailed steps including: extending the ESI client for market endpoints, implementing a MarketService with price caching, adding regional market selection, calculating total fitting costs, building price history charts, implementing budget constraints for the optimizer, and caching market data for offline access.",
+      "reasoning": "This task involves integrating with market data APIs and implementing price calculations. It requires handling real-time data and caching strategies. The 7 subtasks cover the necessary components for a comprehensive market integration."
+    },
+    {
+      "taskId": 19,
+      "taskTitle": "Create Advanced Fitting Management System",
+      "complexityScore": 7,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down the advanced fitting management system into detailed steps including: implementing folders and tags for organization, creating a versioning system with change history, adding notes and descriptions functionality, building comprehensive search capabilities, creating a comparison tool for side-by-side analysis, implementing sharing and collaboration features, adding templates and favorites, building bulk operations functionality, and implementing auto-save with undo/redo.",
+      "reasoning": "This task involves creating a sophisticated management system with organization, versioning, and collaboration features. It requires careful data modeling and UX design. The 9 subtasks cover the necessary components for a comprehensive management system."
+    },
+    {
+      "taskId": 20,
+      "taskTitle": "Implement Performance Monitoring and Analytics",
+      "complexityScore": 5,
+      "recommendedSubtasks": 7,
+      "expansionPrompt": "Divide the performance monitoring and analytics implementation into detailed steps including: implementing metrics tracking for app performance, adding anonymous usage analytics, monitoring API response times, creating a performance dashboard, implementing error tracking with Sentry, adding A/B testing capabilities, and creating a user feedback system.",
+      "reasoning": "This task involves adding monitoring and analytics to track application performance and usage. While technically involved, it's more straightforward than some of the core gameplay features. The 7 subtasks cover the necessary components for a comprehensive monitoring system."
+    },
+    {
+      "taskId": 21,
+      "taskTitle": "Build Intelligent Caching System",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Break down the intelligent caching system into detailed steps including: designing and implementing the CacheManager, integrating memory and disk cache layers, implementing TTL management for different data types, developing cache warming mechanisms, implementing cache invalidation strategies, adding offline detection and handling, implementing cache size management with eviction policies, enabling differential cache updates, and adding cache statistics and monitoring.",
+      "reasoning": "This task involves creating a sophisticated multi-layer caching system with various strategies for different data types. It requires careful performance optimization and edge case handling. The 9 subtasks cover the necessary components for a comprehensive caching system."
+    },
+    {
+      "taskId": 22,
+      "taskTitle": "Implement Advanced Skill Planning Optimizer",
+      "complexityScore": 8,
+      "recommendedSubtasks": 9,
+      "expansionPrompt": "Divide the advanced skill planning optimizer into detailed steps including: implementing the core skill optimizer using graph algorithms, calculating training times with attribute modifiers, adding multi-goal optimization for multiple ships/fittings, implementing priority weighting for skills, creating timeline visualizations, adding a remap optimizer for attributes, building a comparison tool for different plans, implementing export functionality, and handling clone considerations (Alpha/Omega).",
+      "reasoning": "This task involves creating a sophisticated optimization system for skill training plans. It requires graph algorithms, training time calculations, and visualization components. The 9 subtasks cover the necessary components for a comprehensive skill planning system."
+    },
+    {
+      "taskId": 23,
+      "taskTitle": "Create Comprehensive Testing Suite",
+      "complexityScore": 7,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Break down the testing suite implementation into detailed steps including: setting up Jest for unit tests, configuring React Testing Library for component tests, implementing Playwright for E2E tests, creating test data factories, mocking APIs for testing, achieving code coverage targets, setting up CI/CD integration, adding performance benchmarks, implementing visual regression testing, and adding security tests for authentication flows.",
+      "reasoning": "This task involves creating a comprehensive testing infrastructure across multiple testing types. It requires knowledge of different testing frameworks and methodologies. The 10 subtasks cover the necessary components for a robust testing suite."
+    },
+    {
+      "taskId": 24,
+      "taskTitle": "Implement Auto-Update System",
+      "complexityScore": 6,
+      "recommendedSubtasks": 8,
+      "expansionPrompt": "Divide the auto-update system implementation into detailed steps including: implementing the core updater component, setting up a secure update server, creating a user-friendly update interface, implementing differential updates to minimize download size, adding multiple update channels (stable, beta), creating a rollback mechanism for failed updates, implementing a notification system for updates, and configuring code signing and security verification.",
+      "reasoning": "This task involves creating a secure auto-update system with various features like differential updates and rollback mechanisms. It requires careful security considerations and user experience design. The 8 subtasks cover the necessary components for a comprehensive update system."
+    },
+    {
+      "taskId": 25,
+      "taskTitle": "Production Build and Distribution Setup",
+      "complexityScore": 7,
+      "recommendedSubtasks": 10,
+      "expansionPrompt": "Break down the production build and distribution setup into detailed steps including: configuring Electron Forge for production builds, setting up code signing for all platforms, creating platform-specific installers, implementing build optimizations, setting up CI/CD pipelines, creating distribution channels, implementing license validation, adding crash reporting with symbol uploads, creating a portable version option, and configuring telemetry for installation events.",
+      "reasoning": "This task involves setting up the final production build and distribution pipeline across multiple platforms. It requires knowledge of different operating systems, code signing, and distribution channels. The 10 subtasks cover the necessary components for a comprehensive build and distribution system."
+    }
+  ]
+}

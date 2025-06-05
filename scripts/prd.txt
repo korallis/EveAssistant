@@ -1,0 +1,82 @@
+# Overview
+EveHelper is an intelligent cross-platform desktop companion application for EVE Online that revolutionizes ship fitting for new and intermediate players. Built on Electron + TypeScript, it creates a completely self-contained experience that analyzes a player's skills and automatically generates optimized ship fittings without requiring external dependencies.
+
+It solves the problem of EVE Online's overwhelming ship fitting complexity, tool fragmentation, and steep learning curve for new players. It is for new and intermediate EVE Online players who want a guided and accessible experience for ship fitting. Its value lies in transforming a complex part of the game into an accessible, guided learning experience through skill-aware optimization, educational guidance, and activity-specific recommendations.
+
+# Core Features
+1.  **Intelligent Ship Discovery & Analysis Engine**: Advanced ship browsing with skill-aware filtering, compatibility analysis, and automated recommendations based on player capabilities and goals.
+2.  **Advanced Multi-Objective Fitting Optimization**: Automatically generates 5 optimized fittings across the DPS-to-Tank spectrum using sophisticated algorithms that respect skill constraints and activity requirements.
+3.  **Comprehensive Fitting Statistics Engine**: Real-time calculation and visualization of all fitting metrics with immediate feedback on changes.
+4.  **Educational Guidance System**: Transforms the app from a tool into a teacher by providing comprehensive explanations and learning paths.
+5.  **Activity-Specific Optimization**: Tailors fitting recommendations based on specific gameplay activities and scenarios.
+6.  **Advanced Skill Planning & Optimization**: Creates intelligent skill training plans that maximize fitting effectiveness and minimize training time.
+7.  **Comprehensive Market Intelligence**: Provides real-time market data and cost analysis to help players make informed fitting decisions.
+8.  **Advanced Fitting Management**: Professional-grade fitting organization and sharing capabilities.
+9.  **Secure EVE Online Integration**: Seamless integration with EVE Online's official APIs while maintaining user privacy and security.
+10. **Intelligent Caching & Performance**: Ensures optimal performance and reliability through sophisticated caching and data management.
+
+# User Experience
+The user journey is designed to be simple and educational.
+
+-   **User Personas**: New and intermediate EVE Online players overwhelmed by the complexity of ship fitting.
+-   **Key User Flows**:
+    -   **New User Onboarding**: Welcome -> Character Authentication -> Skill Analysis -> First Ship Selection -> Automated Fitting -> Explanation -> Activity Selection -> Customized Recommendations.
+    -   **Fitting Generation**: Ship Selection -> Activity Choice -> Optimization -> Results Display -> Comparison -> Customization -> Export/Save -> Skill Planning.
+-   **UI/UX Considerations**: The design philosophy is "Simplicity First," with a clean, uncluttered interface using progressive disclosure. The UI will be built with Material-UI, featuring a main navigation bar, a content area with a sidebar (for ships, fittings, skills, market) and a primary content display for the selected item.
+
+# Technical Architecture
+-   **System Components**: The application will be built with Electron, TypeScript, and React. The main process will handle ESI API integration, SQLite database management, and business logic services (Fitting, Skills). The renderer process will handle the UI, built with React, Material-UI, and Recharts for data visualization. State management will be handled by Zustand and React Query.
+-   **Data Models**:
+    -   `Ship`: Contains ID, name, attributes, slots, bonuses, and skill requirements.
+    -   `Fitting`: Contains ship ID, name, fitted modules, drones, charges, implants, and calculated statistics.
+    -   `OptimizationResult`: Contains a list of optimized fittings, analysis, recommendations, and skill gaps.
+-   **APIs and Integrations**: The application will integrate with the official EVE Online ESI API for character data, market data, etc., using OAuth 2.0 PKCE for secure authentication.
+-   **Infrastructure Requirements**: The application is a self-contained desktop app using a local SQLite database, so no major server infrastructure is required. Data from EVE's SDE (Static Data Export) will be cached locally.
+
+# Development Roadmap
+The development is broken into phases to deliver value iteratively.
+
+-   **Phase 1: Foundation & Core Infrastructure (MVP)**
+    -   Project Setup: Electron + TypeScript project, basic UI shell.
+    -   Data Layer: SQLite setup, SDE data import/caching.
+    -   ESI Integration: OAuth 2.0 PKCE for character authentication and skill fetching.
+    -   Basic Ship Browser: Display ship data, filter by skills.
+    -   Fitting Foundation: Basic data structures, module compatibility, simple fitting display, import/export.
+
+-   **Phase 2: Fitting Engine & Calculations**
+    -   Statistics Engine: Core fitting calculations (DPS, EHP), stacking penalties, skill bonuses.
+    -   Optimization Algorithms: Implement multi-objective optimization (e.g., genetic algorithm) to generate basic fittings.
+    -   Advanced Statistics & Visualization: More metrics and chart integration.
+
+-   **Phase 3: User Interface & Experience**
+    -   Develop the full UI component library.
+    -   Create the fitting display, editor, and statistics dashboard.
+    -   Implement drag-and-drop, tooltips, and responsive design.
+
+-   **Phase 4: Educational & Advanced Features**
+    -   Educational System: Generate explanations for fittings, analyze skill gaps, and create training plans.
+    -   Activity-Specific Optimization: Tailor fittings for PvP, PvE, and industrial activities.
+    -   Advanced Features: Market data integration, advanced skill planning.
+
+-   **Phase 5: Polish & Release**
+    -   Performance optimization, comprehensive testing, and bug fixing.
+
+# Logical Dependency Chain
+1.  **Foundation**: The absolute first step is setting up the Electron project, the database for SDE data, and ESI authentication. Without character skills and ship data, no other feature can work.
+2.  **Visible Front-End**: The first usable feature will be the **Basic Ship Browser**. This will allow an authenticated user to see their skills and browse ships they can fly. This provides immediate value and a framework to build upon.
+3.  **Core Logic**: The next step is the **Fitting Engine**. This builds on the foundation by adding the logic to calculate fitting statistics. This is a prerequisite for optimization.
+4.  **Automation/Intelligence**: With the core logic in place, the **Optimization Algorithms** can be built to automatically generate fittings. This is the app's key differentiator.
+5.  **Enrichment**: Finally, features like the **Educational System**, **Market Intelligence**, and **Advanced Skill Planning** can be added. These features enrich the core experience but depend on the fitting engine being functional.
+
+# Risks and Mitigations
+-   **Technical Risks**:
+    -   **ESI API Changes**: Mitigated by using versioned endpoints, monitoring changes, and having an adaptable API layer.
+    -   **Algorithm Performance**: Mitigated by starting with simpler algorithms, using background processing for calculations, and implementing caching.
+-   **Business Risks**:
+    -   **Low Community Adoption**: Mitigated by focusing on the clear value proposition (automatic, skill-aware fittings), providing import tools for existing formats, and engaging with the community early.
+-   **MVP Scope**:
+    -   The biggest risk is defining an MVP that is too large. The phased roadmap is designed to mitigate this. The initial MVP is a ship browser with basic fitting display. This is achievable and a solid base.
+
+# Appendix
+-   **Community Integration**: The plan includes engaging with the EVE Online developer community on Discord, registering the app with CCP, and collaborating with content creators and communities like EVE University.
+-   **Success Metrics**: Success will be measured by user engagement (active users, retention), technical performance (speed, low memory usage), and community impact (becoming an essential tool for new players). 
