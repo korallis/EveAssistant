@@ -61,7 +61,11 @@ export class FittingOptimizer {
   }
 
   private mutationFunction(phenotype) {
-    // TODO: Implement mutation logic
+    const mutationPoint = Math.floor(Math.random() * phenotype.modules.length);
+    window.dogma.getModules().then(modules => {
+      const randomModule = modules[Math.floor(Math.random() * modules.length)];
+      phenotype.modules[mutationPoint] = randomModule;
+    });
     return phenotype;
   }
 
