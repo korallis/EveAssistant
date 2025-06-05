@@ -59,6 +59,7 @@
     "electron-store": "^10.0.1",
     "express": "^5.1.0",
     "fs-extra": "^11.3.0",
+    "geneticalgorithm": "^1.0.2",
     "js-yaml": "^4.1.0",
     "node-cache": "^5.1.2",
     "p-limit": "^5.0.0",
