@@ -24,19 +24,31 @@ export class FittingOptimizer {
 
   public evolve() {
     const population = this.options.population;
-    const fronts = this.nonDominatedSort(population);
-    for (const front of fronts) {
-      this.crowdingDistance(front);
-    }
-
-    const newPopulation = [];
-    while (newPopulation.length < population.length) {
+    const offspring = [];
+    while (offspring.length < population.length) {
       const p1 = this.selection(population);
       const p2 = this.selection(population);
       const [c1, c2] = this.crossoverFunction(p1, p2);
-      newPopulation.push(this.mutationFunction(c1));
-      newPopulation.push(this.mutationFunction(c2));
+      offspring.push(this.mutationFunction(c1));
+      offspring.push(this.mutationFunction(c2));
     }
+
+    const combinedPopulation = [...population, ...offspring];
+    const fronts = this.nonDominatedSort(combinedPopulation);
+
+    const newPopulation = [];
+    let frontIndex = 0;
+    while (newPopulation.length + fronts[frontIndex].length <= population.length) {
+      newPopulation.push(...fronts[frontIndex]);
+      frontIndex++;
+    }
+
+    const lastFront = fronts[frontIndex];
+    this.crowdingDistance(lastFront);
+    lastFront.sort((a, b) => b.crowdingDistance - a.crowdingDistance);
+
+    const remaining = population.length - newPopulation.length;
+    newPopulation.push(...lastFront.slice(0, remaining));
 
     this.options.population = newPopulation;
   }
