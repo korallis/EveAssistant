@@ -80,6 +80,23 @@ export class FittingCalculator {
     return result;
   }
 
+  public calculateDps(damageProfile: DamageProfile = new DamageProfile(0.25, 0.25, 0.25, 0.25)): number {
+    const cacheKey = `dps-${JSON.stringify(damageProfile)}`;
+    if (this.cache.has(cacheKey)) {
+      return this.cache.get(cacheKey);
+    }
+
+    const { ship, modules } = this.fitting;
+
+    let totalDps = 0;
+
+    // TODO: Implement turret, missile, and drone DPS calculations
+
+    const result = totalDps;
+    this.cache.set(cacheKey, result);
+    return result;
+  }
+
   public calculateSpeedAndAgility(): { maxVelocity: number, alignTime: number } {
     const cacheKey = 'speedAndAgility';
     if (this.cache.has(cacheKey)) {
