@@ -5,6 +5,9 @@ import dotenv from 'dotenv';
 import { AuthService } from './auth.service';
 import { DatabaseService } from './db/DatabaseService';
 import { SdeService } from './sde/SdeService';
+import { FittingDataService } from './services/FittingDataService';
+import { attributeNames } from '../shared/attributes';
+import { Attributes } from '../shared/Attributes';
 
 dotenv.config();
 
@@ -65,6 +68,18 @@ app.on('ready', async () => {
   try {
     await DatabaseService.getInstance().initialize();
     console.log('Database service initialized successfully.');
+
+    const fittingDataService = FittingDataService.getInstance();
+    const attributeMap = new Map<string, number>();
+    for (const name of attributeNames) {
+      const id = await fittingDataService.getAttributeId(name);
+      if (id) {
+        attributeMap.set(name, id);
+      }
+    }
+    Attributes.getInstance().setAttributes(attributeMap);
+    console.log('Attributes initialized.');
+
   } catch (error) {
     console.error('Failed to initialize database service:', error);
   }

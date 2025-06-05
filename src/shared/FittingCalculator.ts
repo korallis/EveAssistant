@@ -1,9 +1,11 @@
 import { Fitting } from './domain';
 import { ResistanceProfile, DamageProfile } from './types/value-objects';
+import { Attributes } from './Attributes';
 
 export class FittingCalculator {
   private fitting: Fitting;
   private cache: Map<string, any> = new Map();
+  private attributes = Attributes.getInstance();
 
   constructor(fitting: Fitting) {
     this.fitting = fitting;
@@ -18,44 +20,44 @@ export class FittingCalculator {
     const { ship, modules } = this.fitting;
 
     // Base HP
-    const shieldHp = ship.attributes[265] || 0; // shieldCapacity
-    const armorHp = ship.attributes[263] || 0; // armorHP
-    const hullHp = ship.attributes[9] || 0; // hp
+    const shieldHp = ship.attributes[this.attributes.get('shieldCapacity')] || 0;
+    const armorHp = ship.attributes[this.attributes.get('armorHP')] || 0;
+    const hullHp = ship.attributes[this.attributes.get('hp')] || 0;
 
     // Base resistances
     const shieldRes = new ResistanceProfile(
-      ship.attributes[267] || 0, // shieldEmDamageResonance
-      ship.attributes[268] || 0, // shieldThermalDamageResonance
-      ship.attributes[269] || 0, // shieldKineticDamageResonance
-      ship.attributes[270] || 0 // shieldExplosiveDamageResonance
+      ship.attributes[this.attributes.get('shieldEmDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('shieldThermalDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('shieldKineticDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('shieldExplosiveDamageResonance')] || 0
     );
 
     const armorRes = new ResistanceProfile(
-      ship.attributes[264] || 0, // armorEmDamageResonance
-      ship.attributes[265] || 0, // armorThermalDamageResonance
-      ship.attributes[266] || 0, // armorKineticDamageResonance
-      ship.attributes[267] || 0 // armorExplosiveDamageResonance
+      ship.attributes[this.attributes.get('armorEmDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('armorThermalDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('armorKineticDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('armorExplosiveDamageResonance')] || 0
     );
 
     const hullRes = new ResistanceProfile(
-      ship.attributes[9] || 0, // hullEmDamageResonance
-      ship.attributes[9] || 0, // hullThermalDamageResonance
-      ship.attributes[9] || 0, // hullKineticDamageResonance
-      ship.attributes[9] || 0 // hullExplosiveDamageResonance
+      ship.attributes[this.attributes.get('hullEmDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('hullThermalDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('hullKineticDamageResonance')] || 0,
+      ship.attributes[this.attributes.get('hullExplosiveDamageResonance')] || 0
     );
 
     // Apply module and skill effects to resistances
     modules.forEach(module => {
       // TODO: Replace with actual attribute IDs for module resistance bonuses
-      shieldRes.em += module.attributes[110] || 0; // Shield EM Hardener
-      shieldRes.thermal += module.attributes[111] || 0; // Shield Thermal Hardener
-      shieldRes.kinetic += module.attributes[112] || 0; // Shield Kinetic Hardener
-      shieldRes.explosive += module.attributes[113] || 0; // Shield Explosive Hardener
+      shieldRes.em += module.attributes[this.attributes.get('shieldEmHardener')] || 0; // Shield EM Hardener
+      shieldRes.thermal += module.attributes[this.attributes.get('shieldThermalHardener')] || 0; // Shield Thermal Hardener
+      shieldRes.kinetic += module.attributes[this.attributes.get('shieldKineticHardener')] || 0; // Shield Kinetic Hardener
+      shieldRes.explosive += module.attributes[this.attributes.get('shieldExplosiveHardener')] || 0; // Shield Explosive Hardener
 
-      armorRes.em += module.attributes[120] || 0; // Armor EM Hardener
-      armorRes.thermal += module.attributes[121] || 0; // Armor Thermal Hardener
-      armorRes.kinetic += module.attributes[122] || 0; // Armor Kinetic Hardener
-      armorRes.explosive += module.attributes[123] || 0; // Armor Explosive Hardener
+      armorRes.em += module.attributes[this.attributes.get('armorEmHardener')] || 0; // Armor EM Hardener
+      armorRes.thermal += module.attributes[this.attributes.get('armorThermalHardener')] || 0; // Armor Thermal Hardener
+      armorRes.kinetic += module.attributes[this.attributes.get('armorKineticHardener')] || 0; // Armor Kinetic Hardener
+      armorRes.explosive += module.attributes[this.attributes.get('armorExplosiveHardener')] || 0; // Armor Explosive Hardener
     });
 
     // TODO: Apply skill effects to resistances
@@ -77,18 +79,18 @@ export class FittingCalculator {
 
     const { ship, modules } = this.fitting;
 
-    const capCapacity = ship.attributes[50] || 0; // capacitorCapacity
-    const capRechargeTime = ship.attributes[55] || 0; // rechargeRate
+    const capCapacity = ship.attributes[this.attributes.get('capacitorCapacity')] || 0;
+    const capRechargeTime = ship.attributes[this.attributes.get('rechargeRate')] || 0;
 
     // Apply module and skill effects to capacitor
     let totalCapUsage = 0;
     modules.forEach(module => {
       // TODO: Replace with actual attribute IDs for module capacitor bonuses
       // Note: These are just examples, actual attributes will differ
-      // capCapacity += module.attributes[60] || 0; 
-      // capRechargeTime *= (1 - (module.attributes[61] || 0)); 
+      // capCapacity += module.attributes[this.attributes.get('capacitorBonus')] || 0;
+      // capRechargeTime *= (1 - (module.attributes[this.attributes.get('rechargeRateBonus')] || 0));
 
-      totalCapUsage += module.attributes[6] || 0; // capacitorNeed
+      totalCapUsage += module.attributes[this.attributes.get('capacitorNeed')] || 0;
     });
 
     // TODO: Apply skill effects to capacitor
@@ -127,16 +129,16 @@ export class FittingCalculator {
 
     const { ship, modules } = this.fitting;
 
-    let mass = ship.attributes[28] || 0; // mass
-    let agility = ship.attributes[70] || 0; // agility
-    let maxVelocity = ship.attributes[37] || 0; // maxVelocity
+    let mass = ship.attributes[this.attributes.get('mass')] || 0;
+    let agility = ship.attributes[this.attributes.get('agility')] || 0;
+    let maxVelocity = ship.attributes[this.attributes.get('maxVelocity')] || 0;
 
     // Apply module and skill effects to mass, agility, and maxVelocity
     modules.forEach(module => {
       // TODO: Replace with actual attribute IDs for module speed/agility bonuses
-      // mass *= (1 + (module.attributes[80] || 0)); 
-      // agility *= (1 - (module.attributes[81] || 0)); 
-      // maxVelocity *= (1 + (module.attributes[82] || 0));
+      // mass *= (1 + (module.attributes[this.attributes.get('massMultiplier')] || 0));
+      // agility *= (1 - (module.attributes[this.attributes.get('agilityMultiplier')] || 0));
+      // maxVelocity *= (1 + (module.attributes[this.attributes.get('velocityMultiplier')] || 0));
     });
 
     // TODO: Apply skill effects to mass, agility, and maxVelocity
@@ -175,15 +177,15 @@ export class FittingCalculator {
 
     const { ship, modules } = this.fitting;
 
-    const shipCpu = ship.attributes[48] || 0; // cpuOutput
-    const shipPg = ship.attributes[11] || 0; // powergridOutput
+    const shipCpu = ship.attributes[this.attributes.get('cpuOutput')] || 0;
+    const shipPg = ship.attributes[this.attributes.get('powergridOutput')] || 0;
 
     let totalCpuUsage = 0;
     let totalPgUsage = 0;
 
     modules.forEach(module => {
-      totalCpuUsage += module.attributes[50] || 0; // cpuUsage
-      totalPgUsage += module.attributes[30] || 0; // powergridUsage
+      totalCpuUsage += module.attributes[this.attributes.get('cpuUsage')] || 0;
+      totalPgUsage += module.attributes[this.attributes.get('powergridUsage')] || 0;
     });
 
     // TODO: Apply module and skill effects to CPU and PG

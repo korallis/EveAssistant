@@ -1,8 +1,12 @@
+import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Ship } from './entities/Ship.entity';
 import { Module } from './entities/Module.entity';
 import { Skill } from './entities/Skill.entity';
 import { MarketGroup } from './entities/MarketGroup.entity';
+import { DogmaAttribute } from './entities/DogmaAttribute.entity';
+import { InitialMigration } from './migrations/1749157364409-InitialMigration';
+import { AddShipGroupIndex } from './migrations/1749157398870-AddShipGroupIndex';
 import path from 'path';
 
 // This function dynamically imports electron.app
@@ -22,7 +26,7 @@ export const AppDataSource = new DataSource({
   database: getDbPath(),
   synchronize: false,
   logging: false, // Disable logging for CLI
-  entities: [Ship, Module, Skill, MarketGroup],
-  migrations: [path.join(__dirname, 'migrations', '**', '*.ts')],
+  entities: [Ship, Module, Skill, MarketGroup, DogmaAttribute],
+  migrations: [InitialMigration, AddShipGroupIndex],
   subscribers: [],
 }); 

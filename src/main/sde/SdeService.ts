@@ -76,6 +76,7 @@ export class SdeService {
       await fs.remove(this.zipPath);
 
       await this.importTypeIDs();
+      await this.importDogmaAttributes();
 
     } catch (error) {
       console.error('Error downloading or extracting SDE:', error);
@@ -154,6 +155,53 @@ export class SdeService {
 
     } catch (error) {
       console.error('Error importing typeIDs:', error);
+      throw error;
+    }
+  }
+
+  private async importDogmaAttributes(): Promise<void> {
+    try {
+      this.sendProgress('importing_dogma');
+      console.log('Starting Dogma attribute import...');
+      const dogmaAttributesPath = path.join(this.sdePath, 'sde', 'fsd', 'dogma_attributes.yaml');
+      const dogmaAttributesCachePath = path.join(this.sdePath, 'dogma_attributes.json');
+      let dogmaAttributes: Record<string, any>;
+
+      if (await fs.pathExists(dogmaAttributesCachePath)) {
+        console.log('Loading Dogma attributes from cache...');
+        dogmaAttributes = await fs.readJson(dogmaAttributesCachePath);
+      } else {
+        console.log('Parsing dogma_attributes.yaml...');
+        const fileContents = await fs.readFile(dogmaAttributesPath, 'utf8');
+        dogmaAttributes = yaml.load(fileContents) as Record<string, any>;
+        await fs.writeJson(dogmaAttributesCachePath, dogmaAttributes);
+        console.log('Saved Dogma attributes to cache.');
+      }
+
+      const dbService = DatabaseService.getInstance();
+      const attributesToInsert = [];
+
+      for (const id in dogmaAttributes) {
+        const attributeData = dogmaAttributes[id];
+        attributesToInsert.push({
+          attributeID: attributeData.attributeID,
+          attributeName: attributeData.name,
+          description: attributeData.description,
+          displayName: attributeData.displayName,
+          unitID: attributeData.unitID,
+          stackable: attributeData.stackable,
+          highIsGood: attributeData.highIsGood,
+        });
+      }
+
+      await dbService.getDataSource().transaction(async (transactionalEntityManager) => {
+        await transactionalEntityManager.getRepository('DogmaAttribute').save(attributesToInsert);
+      });
+
+      console.log(`Imported ${attributesToInsert.length} Dogma attributes.`);
+
+    } catch (error) {
+      console.error('Error importing Dogma attributes:', error);
       throw error;
     }
   }

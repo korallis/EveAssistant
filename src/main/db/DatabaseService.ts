@@ -3,6 +3,7 @@ import { Ship } from './entities/Ship.entity';
 import { Module } from './entities/Module.entity';
 import { Skill } from './entities/Skill.entity';
 import { MarketGroup } from './entities/MarketGroup.entity';
+import { DogmaAttribute } from './entities/DogmaAttribute.entity';
 import { AppDataSource } from './dataSource';
 import path from 'path';
 import { app } from 'electron';
@@ -15,6 +16,7 @@ export class DatabaseService {
   public moduleRepository: Repository<Module>;
   public skillRepository: Repository<Skill>;
   public marketGroupRepository: Repository<MarketGroup>;
+  public dogmaAttributeRepository: Repository<DogmaAttribute>;
 
   private constructor() {
     this.dataSource = AppDataSource;
@@ -36,9 +38,14 @@ export class DatabaseService {
     this.moduleRepository = this.dataSource.getRepository(Module);
     this.skillRepository = this.dataSource.getRepository(Skill);
     this.marketGroupRepository = this.dataSource.getRepository(MarketGroup);
+    this.dogmaAttributeRepository = this.dataSource.getRepository(DogmaAttribute);
   }
 
   public getDataSource(): DataSource {
     return this.dataSource;
+  }
+
+  public async findDogmaAttributeByName(name: string): Promise<DogmaAttribute | undefined> {
+    return this.dogmaAttributeRepository.findOne({ where: { attributeName: name } });
   }
 } 
