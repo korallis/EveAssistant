@@ -127,11 +127,19 @@ export class FittingCalculator {
 
     const { ship, modules } = this.fitting;
 
-    const mass = ship.attributes[28] || 0; // mass
-    const agility = ship.attributes[70] || 0; // agility
-    const maxVelocity = ship.attributes[37] || 0; // maxVelocity
+    let mass = ship.attributes[28] || 0; // mass
+    let agility = ship.attributes[70] || 0; // agility
+    let maxVelocity = ship.attributes[37] || 0; // maxVelocity
 
-    // TODO: Apply module and skill effects to mass, agility, and maxVelocity
+    // Apply module and skill effects to mass, agility, and maxVelocity
+    modules.forEach(module => {
+      // TODO: Replace with actual attribute IDs for module speed/agility bonuses
+      // mass *= (1 + (module.attributes[80] || 0)); 
+      // agility *= (1 - (module.attributes[81] || 0)); 
+      // maxVelocity *= (1 + (module.attributes[82] || 0));
+    });
+
+    // TODO: Apply skill effects to mass, agility, and maxVelocity
 
     const alignTime = -Math.log(0.25) * (mass * agility) / 1000000;
 
