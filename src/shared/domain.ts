@@ -15,26 +15,6 @@ const ShipSchema = z.object({
   bonuses: z.array(z.string()),
 });
 
-export function createShipFromSde(sdeData: any): Ship {
-  const shipData: IShip = {
-    typeID: sdeData.typeID,
-    typeName: sdeData.name.en,
-    slots: {
-      high: sdeData.dogmaAttributes.find(a => a.attributeID === 14)?.value || 0,
-      mid: sdeData.dogmaAttributes.find(a => a.attributeID === 13)?.value || 0,
-      low: sdeData.dogmaAttributes.find(a => a.attributeID === 12)?.value || 0,
-      rig: sdeData.dogmaAttributes.find(a => a.attributeID === 1137)?.value || 0,
-      subsystem: sdeData.dogmaAttributes.find(a => a.attributeID === 1367)?.value || 0,
-    },
-    attributes: sdeData.dogmaAttributes.reduce((acc, attr) => {
-      acc[attr.attributeID] = attr.value;
-      return acc;
-    }, {}),
-    bonuses: sdeData.traits?.types?.map(t => t.bonusText?.en) || [],
-  };
-  return new Ship(shipData);
-}
-
 export class Ship implements IShip {
   typeID: number;
   typeName: string;
@@ -45,12 +25,32 @@ export class Ship implements IShip {
     rig: number;
     subsystem: number;
   };
-  attributes: Record<string, number>;
+  attributes: Record<number, number>;
   bonuses: string[];
 
   constructor(ship: IShip) {
     const validatedShip = ShipSchema.parse(ship);
     Object.assign(this, validatedShip);
+  }
+
+  static createFromSde(sdeData: any): Ship {
+    const shipData: IShip = {
+      typeID: sdeData.typeID,
+      typeName: sdeData.name.en,
+      slots: {
+        high: sdeData.dogmaAttributes.find(a => a.attributeID === 14)?.value || 0,
+        mid: sdeData.dogmaAttributes.find(a => a.attributeID === 13)?.value || 0,
+        low: sdeData.dogmaAttributes.find(a => a.attributeID === 12)?.value || 0,
+        rig: sdeData.dogmaAttributes.find(a => a.attributeID === 1137)?.value || 0,
+        subsystem: sdeData.dogmaAttributes.find(a => a.attributeID === 1367)?.value || 0,
+      },
+      attributes: sdeData.dogmaAttributes.reduce((acc, attr) => {
+        acc[attr.attributeID] = attr.value;
+        return acc;
+      }, {}),
+      bonuses: sdeData.traits?.types?.map(t => t.bonusText?.en) || [],
+    };
+    return new Ship(shipData);
   }
 }
 
@@ -87,6 +87,13 @@ export interface IModule {
   effects: Record<number, number>;
   cpu: number;
   powergrid: number;
+}
+
+export interface IShip {
+  typeID: number;
+  typeName: string;
+  groupID: number;
+  attributes: Record<number, number>;
 }
 
 export interface ISkill {

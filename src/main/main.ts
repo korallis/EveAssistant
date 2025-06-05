@@ -9,6 +9,7 @@ import { FittingDataService } from './services/FittingDataService';
 import { attributeNames } from '../shared/attributes';
 import { Attributes } from '../shared/Attributes';
 import { DogmaEngine } from './dogma/DogmaEngine';
+import { EsiService } from './esi/EsiService';
 
 dotenv.config();
 

@@ -1,6 +1,7 @@
 import geneticalgorithm from 'geneticalgorithm';
 import { FittingCalculator } from '../FittingCalculator';
 import { IFitting, IShip } from '../domain';
+import { IModule } from '../types/domain.types';
 
 export class FittingOptimizer {
   private options: any;

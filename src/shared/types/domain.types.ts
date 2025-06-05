@@ -8,15 +8,16 @@ export interface IShip {
     rig: number;
     subsystem: number;
   };
-  attributes: Record<string, number>;
+  attributes: Record<number, number>;
   bonuses: string[];
 }
 
 export interface IModule {
   typeID: number;
-  typeName:string;
-  slot: 'high' | 'mid' | 'low' | 'rig' | 'subsystem';
-  meta: number;
-  attributes: Record<string, number>;
-  requirements: Record<string, number>;
+  typeName: string;
+  groupID: number;
+  attributes: Record<number, number>;
+  effects: Record<number, number>;
+  cpu: number;
+  powergrid: number;
 } 
