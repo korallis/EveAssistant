@@ -80,14 +80,22 @@ export class FittingCalculator {
     const capCapacity = ship.attributes[50] || 0; // capacitorCapacity
     const capRechargeTime = ship.attributes[55] || 0; // rechargeRate
 
-    // TODO: Apply module and skill effects to capacitor
+    // Apply module and skill effects to capacitor
+    let totalCapUsage = 0;
+    modules.forEach(module => {
+      // TODO: Replace with actual attribute IDs for module capacitor bonuses
+      // Note: These are just examples, actual attributes will differ
+      // capCapacity += module.attributes[60] || 0; 
+      // capRechargeTime *= (1 - (module.attributes[61] || 0)); 
+
+      totalCapUsage += module.attributes[6] || 0; // capacitorNeed
+    });
+
+    // TODO: Apply skill effects to capacitor
 
     const peakRecharge = (10 * capCapacity) / capRechargeTime;
 
-    // TODO: Calculate total capacitor usage from modules
-    const capUsage = 0;
-
-    const stable = peakRecharge >= capUsage;
+    const stable = peakRecharge >= totalCapUsage;
 
     const result = { peakRecharge, stable };
     this.cache.set(cacheKey, result);
