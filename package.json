@@ -10,6 +10,7 @@
     "lint": "eslint --ext .ts,.tsx .",
     "typeorm": "ts-node ./node_modules/typeorm/cli.js -d src/main/db/dataSource.ts",
     "test": "jest",
+    "coverage": "jest --coverage",
     "security": "npm audit",
     "pre-e2e": "electron-forge package",
     "e2e": "playwright test"
