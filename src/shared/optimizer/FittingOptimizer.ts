@@ -5,6 +5,7 @@ import { IFitting, IShip } from '../domain';
 export class FittingOptimizer {
   private options: any;
   private ship: IShip;
+  private convergenceCounter: number;
 
   constructor(ship: IShip, options: any = {}) {
     this.ship = ship;
@@ -17,17 +18,26 @@ export class FittingOptimizer {
       mutationProbability: options.mutationProbability || 0.1,
       crossoverProbability: options.crossoverProbability || 0.8,
       maxGenerations: options.maxGenerations || 100,
+      convergenceThreshold: options.convergenceThreshold || 10,
     };
+    this.convergenceCounter = 0;
   }
 
   public optimizeFitting() {
-    this.evolve();
+    for (let i = 0; i < this.options.maxGenerations; i++) {
+      this.evolve();
+      if (this.convergenceCounter >= this.options.convergenceThreshold) {
+        break;
+      }
+    }
     const bestFitting = this.options.population[0];
     return bestFitting;
   }
 
   public evolve() {
     const population = this.options.population;
+    const bestFitness = population[0].fitness;
+
     const offspring = [];
     while (offspring.length < population.length) {
       const p1 = this.selection(population);
@@ -55,6 +65,12 @@ export class FittingOptimizer {
     newPopulation.push(...lastFront.slice(0, remaining));
 
     this.options.population = newPopulation;
+
+    if (bestFitness === newPopulation[0].fitness) {
+      this.convergenceCounter++;
+    } else {
+      this.convergenceCounter = 0;
+    }
   }
 
   private selection(population) {
