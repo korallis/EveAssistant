@@ -1,4 +1,6 @@
 import geneticalgorithm from 'geneticalgorithm';
+import { FittingCalculator } from '../FittingCalculator';
+import { IFitting } from '../domain';
 
 export class FittingOptimizer {
   private options: any;
@@ -66,9 +68,12 @@ export class FittingOptimizer {
     return [phenotypeA, phenotypeB];
   }
 
-  private fitnessFunction(phenotype) {
-    // TODO: Implement fitness function
-    return 0;
+  private fitnessFunction(phenotype: IFitting): number[] {
+    const calculator = new FittingCalculator(phenotype);
+    const dps = calculator.calculateDps();
+    const ehp = calculator.calculateEhp();
+    const cap = calculator.calculateCapacitor();
+    return [dps, ehp, cap.stable ? 1 : 0];
   }
 
   private nonDominatedSort(population) {
