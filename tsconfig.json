@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
+    "target": "ES6",
+    "module": "commonjs",
     "jsx": "react",
     "strict": true,
     "esModuleInterop": true,
@@ -21,8 +21,9 @@
     "resolveJsonModule": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
+    "lib": ["ES6", "DOM"]
   },
   "include": ["src/**/*", "webpack.rules.js", "webpack.main.config.js", "webpack.renderer.config.js", "webpack.plugins.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
 }
