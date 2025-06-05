@@ -44,7 +44,21 @@ export class FittingCalculator {
       ship.attributes[9] || 0 // hullExplosiveDamageResonance
     );
 
-    // TODO: Apply module and skill effects to resistances
+    // Apply module and skill effects to resistances
+    modules.forEach(module => {
+      // TODO: Replace with actual attribute IDs for module resistance bonuses
+      shieldRes.em += module.attributes[110] || 0; // Shield EM Hardener
+      shieldRes.thermal += module.attributes[111] || 0; // Shield Thermal Hardener
+      shieldRes.kinetic += module.attributes[112] || 0; // Shield Kinetic Hardener
+      shieldRes.explosive += module.attributes[113] || 0; // Shield Explosive Hardener
+
+      armorRes.em += module.attributes[120] || 0; // Armor EM Hardener
+      armorRes.thermal += module.attributes[121] || 0; // Armor Thermal Hardener
+      armorRes.kinetic += module.attributes[122] || 0; // Armor Kinetic Hardener
+      armorRes.explosive += module.attributes[123] || 0; // Armor Explosive Hardener
+    });
+
+    // TODO: Apply skill effects to resistances
 
     const shieldEffectiveHp = shieldHp / (1 - (shieldRes.em * damageProfile.em + shieldRes.thermal * damageProfile.thermal + shieldRes.kinetic * damageProfile.kinetic + shieldRes.explosive * damageProfile.explosive));
     const armorEffectiveHp = armorHp / (1 - (armorRes.em * damageProfile.em + armorRes.thermal * damageProfile.thermal + armorRes.kinetic * damageProfile.kinetic + armorRes.explosive * damageProfile.explosive));
