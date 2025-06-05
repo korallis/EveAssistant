@@ -1,0 +1,46 @@
+/* Hide dynamic content that changes between test runs */
+[data-timestamp],
+.timestamp,
+time,
+.time {
+  visibility: hidden !important;
+}
+
+/* Hide elements with animations or transitions */
+*[class*="animation"],
+*[class*="animate"],
+*[class*="transition"],
+*[style*="animation"],
+*[style*="transition"] {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* Hide any content that might be randomly generated */
+[data-random],
+.random-content {
+  visibility: hidden !important;
+}
+
+/* Hide video elements to prevent moving content */
+video {
+  visibility: hidden !important;
+}
+
+/* Hide loaders or spinners */
+*[class*="loader"],
+*[class*="loading"],
+*[class*="spinner"] {
+  visibility: hidden !important;
+}
+
+/* Hide cursor blink in input elements */
+input {
+  caret-color: transparent !important;
+}
+
+/* Hide tooltips */
+[role="tooltip"],
+.tooltip {
+  display: none !important;
+} 

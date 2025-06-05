@@ -8,6 +8,10 @@ export default defineConfig({
   timeout: 60000,
   expect: {
     timeout: 10000,
+    toHaveScreenshot: {
+      stylePath: './e2e/screenshot.css',
+      maxDiffPixels: 100,
+    }
   },
   use: {
     trace: 'on-first-retry',
@@ -16,7 +20,7 @@ export default defineConfig({
   projects: [
     {
       name: 'electron',
-      testMatch: /.*\.e2e-spec\.ts$/,
+      testMatch: /.*\.e2e-spec\.ts$|.*\.test\.ts$/,
     },
   ],
 }); 
