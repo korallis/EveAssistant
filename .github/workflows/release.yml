@@ -9,6 +9,11 @@ jobs:
   release:
     runs-on: ${{ matrix.os }}
     
+    # Set default working directory
+    defaults:
+      run:
+        working-directory: EveAssistant
+    
     strategy:
       fail-fast: false
       matrix:
@@ -29,7 +34,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'npm'
           cache-dependency-path: EveAssistant/package-lock.json
 
@@ -43,52 +48,39 @@ jobs:
       - name: Install system dependencies (macOS)
         if: matrix.platform == 'darwin'
         run: |
-          # Install python3 if needed for native compilation
-          which python3 || brew install python3
+          # Ensure Python3 is available
+          which python3 || echo "Python3 not found"
 
       - name: Install dependencies
-        working-directory: EveAssistant
-        run: |
-          npm ci
-          npm ls --depth=0 || true
+        run: npm ci
 
-      - name: Build and publish to GitHub Releases
-        working-directory: EveAssistant
+      - name: Fix webpack-asset-relocator-loader compatibility
         run: |
-          echo "Current directory: $(pwd)"
-          echo "Node version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          echo "Listing source files:"
-          ls -la src/ || echo "src/ directory not found"
-          echo "Listing forge config:"
-          ls -la forge.config.* || echo "forge config not found"
-          echo "Running npm run publish..."
-          npm run publish
+          npm uninstall @vercel/webpack-asset-relocator-loader
+          npm install @vercel/webpack-asset-relocator-loader@1.7.3
+
+      - name: Build and publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: electron-forge:*
+        run: npm run publish
 
       - name: Build artifacts only (fallback)
         if: failure()
-        working-directory: EveAssistant
         run: |
           echo "Publish failed, trying make only..."
           npm run make
-        continue-on-error: true
 
-      - name: List build outputs
-        if: always()
-        working-directory: EveAssistant
-        run: |
-          echo "Contents of out directory:"
-          find out/ -type f -name "*.exe" -o -name "*.dmg" -o -name "*.deb" -o -name "*.rpm" -o -name "*.zip" || echo "No build outputs found"
-
-      - name: Upload build artifacts (fallback)
+      - name: Upload artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifacts-${{ matrix.platform }}
-          path: |
-            EveAssistant/out/make/**/*
-            !EveAssistant/out/make/**/*.map
-        continue-on-error: true 
+          name: ${{ matrix.platform }}-installers
+          path: EveAssistant/out/make/
+
+      - name: List build outputs
+        if: always()
+        run: |
+          echo "Contents of out directory:"
+          ls -la out/ || echo "out directory not found"
+          echo "Contents of out/make directory:"
+          ls -la out/make/ || echo "out/make directory not found" 

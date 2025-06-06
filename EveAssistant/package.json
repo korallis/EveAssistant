@@ -32,7 +32,6 @@
     "@electron/rebuild": "^3.7.2",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "css-loader": "^6.11.0",
     "electron": "36.4.0",
     "eslint": "^8.57.1",
@@ -45,6 +44,7 @@
     "typescript": "~4.5.4"
   },
   "dependencies": {
+    "@vercel/webpack-asset-relocator-loader": "^1.7.3",
     "electron-squirrel-startup": "^1.0.1",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
