@@ -10,6 +10,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: windows-latest
@@ -34,18 +35,38 @@ jobs:
           cd EveAssistant
           npm ci
 
+      - name: Verify Electron Forge configuration
+        run: |
+          cd EveAssistant
+          npm run make --dry-run || echo "Dry run failed, proceeding anyway"
+
       - name: Build and publish to GitHub Releases
         run: |
           cd EveAssistant
+          echo "Current directory: $(pwd)"
+          echo "Node version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          ls -la
+          echo "Running npm run publish..."
           npm run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: electron-forge:*
+
+      - name: Build artifacts only (fallback)
+        if: failure()
+        run: |
+          cd EveAssistant
+          echo "Publish failed, trying make only..."
+          npm run make
+        continue-on-error: true
 
       - name: Upload build artifacts (fallback)
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts-${{ matrix.platform }}
           path: |
             EveAssistant/out/make/**/*
-            !EveAssistant/out/make/**/*.map 
+            !EveAssistant/out/make/**/*.map
+        continue-on-error: true 
