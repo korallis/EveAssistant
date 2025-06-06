@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - 'v*'
+    branches:
+      - main
 
 jobs:
   release:
@@ -28,6 +30,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -55,7 +59,7 @@ jobs:
       - name: Rebuild native dependencies
         run: |
           npm rebuild
-          npx electron-rebuild
+          npx @electron/rebuild
 
       - name: Build and publish to GitHub Releases
         run: |
