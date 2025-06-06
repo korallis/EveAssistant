@@ -4,17 +4,10 @@ on:
   push:
     tags:
       - 'v*'
-    branches:
-      - main
 
 jobs:
   release:
     runs-on: ${{ matrix.os }}
-    
-    # Set default working directory
-    defaults:
-      run:
-        working-directory: EveAssistant
     
     strategy:
       fail-fast: false
@@ -36,7 +29,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'npm'
           cache-dependency-path: EveAssistant/package-lock.json
 
@@ -50,24 +43,25 @@ jobs:
       - name: Install system dependencies (macOS)
         if: matrix.platform == 'darwin'
         run: |
-          # Install python3 if needed
+          # Install python3 if needed for native compilation
           which python3 || brew install python3
 
       - name: Install dependencies
-        run: npm ci
-
-      - name: Rebuild native dependencies
+        working-directory: EveAssistant
         run: |
-          npm rebuild
-          npx @electron/rebuild
+          npm ci
+          npm ls --depth=0 || true
 
       - name: Build and publish to GitHub Releases
+        working-directory: EveAssistant
         run: |
           echo "Current directory: $(pwd)"
           echo "Node version: $(node --version)"
           echo "NPM version: $(npm --version)"
-          echo "Contents of out directory before build:"
-          ls -la out/ || echo "out/ directory does not exist"
+          echo "Listing source files:"
+          ls -la src/ || echo "src/ directory not found"
+          echo "Listing forge config:"
+          ls -la forge.config.* || echo "forge config not found"
           echo "Running npm run publish..."
           npm run publish
         env:
@@ -76,6 +70,7 @@ jobs:
 
       - name: Build artifacts only (fallback)
         if: failure()
+        working-directory: EveAssistant
         run: |
           echo "Publish failed, trying make only..."
           npm run make
@@ -83,6 +78,7 @@ jobs:
 
       - name: List build outputs
         if: always()
+        working-directory: EveAssistant
         run: |
           echo "Contents of out directory:"
           find out/ -type f -name "*.exe" -o -name "*.dmg" -o -name "*.deb" -o -name "*.rpm" -o -name "*.zip" || echo "No build outputs found"
