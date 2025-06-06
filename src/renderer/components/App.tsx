@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 import { Home, Ships, Fittings, Skills, Market, NotFound } from '../routes';
+import { Layout } from './layout';
+import { darkTheme } from '../theme';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,24 +51,10 @@ const App = () => {
   };
 
   return (
-    <Router>
-      <div className="app">
-        <header className="app-header">
-          <h1>EveAssistant</h1>
-          <nav className="main-nav">
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/ships">Ships</Link></li>
-              <li><Link to="/fittings">Fittings</Link></li>
-              <li><Link to="/skills">Skills</Link></li>
-              <li><Link to="/market">Market</Link></li>
-            </ul>
-          </nav>
-          {!isLoggedIn && (
-            <button onClick={handleLogin}>Login with EVE Online</button>
-          )}
-        </header>
-        <main className="app-main">
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <Router>
+        <Layout isLoggedIn={isLoggedIn} onLogin={handleLogin}>
           {isLoggedIn ? (
             <>
               <div className="sde-controls">
@@ -87,9 +77,9 @@ const App = () => {
           ) : (
             <p>Please log in to see the EVE Online data.</p>
           )}
-        </main>
-      </div>
-    </Router>
+        </Layout>
+      </Router>
+    </ThemeProvider>
   );
 };
 
