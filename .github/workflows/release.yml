@@ -34,26 +34,12 @@ jobs:
           cd EveAssistant
           npm ci
 
-      - name: Import Code-Signing Certificates (macOS)
-        if: matrix.os == 'macos-latest'
-        uses: Apple-Actions/import-codesign-certs@v2
-        with:
-          p12-file-base64: ${{ secrets.APPLE_CERTIFICATE }}
-          p12-password: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-
       - name: Build and publish to GitHub Releases
         run: |
           cd EveAssistant
           npm run publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # macOS code signing
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          # Windows code signing
-          CSC_LINK: ${{ secrets.WINDOWS_CERTIFICATE }}
-          CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
 
       - name: Upload build artifacts (fallback)
         if: failure()
@@ -61,5 +47,5 @@ jobs:
         with:
           name: build-artifacts-${{ matrix.platform }}
           path: |
-            out/make/**/*
-            !out/make/**/*.map 
+            EveAssistant/out/make/**/*
+            !EveAssistant/out/make/**/*.map 
