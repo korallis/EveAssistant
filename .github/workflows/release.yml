@@ -83,6 +83,7 @@ jobs:
 
       - name: List build outputs
         if: always()
+        shell: bash
         run: |
           echo "Contents of out directory:"
           ls -la out/ || echo "out directory not found"
