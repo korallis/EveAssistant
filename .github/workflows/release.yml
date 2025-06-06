@@ -36,18 +36,34 @@ jobs:
           cache: 'npm'
           cache-dependency-path: EveAssistant/package-lock.json
 
+      - name: Install system dependencies (Linux)
+        if: matrix.platform == 'linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libnss3-dev libatk-bridge2.0-dev libdrm2-dev libxcomposite-dev libxdamage-dev libxrandr-dev libgbm-dev libxss-dev libasound2-dev
+          sudo apt-get install -y build-essential
+
+      - name: Install system dependencies (macOS)
+        if: matrix.platform == 'darwin'
+        run: |
+          # Install python3 if needed
+          which python3 || brew install python3
+
       - name: Install dependencies
         run: npm ci
 
-      - name: Verify Electron Forge configuration
-        run: npm run make --dry-run || echo "Dry run failed, proceeding anyway"
+      - name: Rebuild native dependencies
+        run: |
+          npm rebuild
+          npx electron-rebuild
 
       - name: Build and publish to GitHub Releases
         run: |
           echo "Current directory: $(pwd)"
           echo "Node version: $(node --version)"
           echo "NPM version: $(npm --version)"
-          ls -la
+          echo "Contents of out directory before build:"
+          ls -la out/ || echo "out/ directory does not exist"
           echo "Running npm run publish..."
           npm run publish
         env:
@@ -60,6 +76,12 @@ jobs:
           echo "Publish failed, trying make only..."
           npm run make
         continue-on-error: true
+
+      - name: List build outputs
+        if: always()
+        run: |
+          echo "Contents of out directory:"
+          find out/ -type f -name "*.exe" -o -name "*.dmg" -o -name "*.deb" -o -name "*.rpm" -o -name "*.zip" || echo "No build outputs found"
 
       - name: Upload build artifacts (fallback)
         if: always()
