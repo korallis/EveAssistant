@@ -25,7 +25,8 @@ const config: ForgeConfig = {
         name: 'EveAssistant'
       },
       prerelease: false,
-      draft: false
+      draft: true,
+      generateReleaseNotes: true
     })
   ],
   plugins: [

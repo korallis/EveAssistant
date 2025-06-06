@@ -5,6 +5,9 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ${{ matrix.os }}
@@ -59,10 +62,11 @@ jobs:
           npm uninstall @vercel/webpack-asset-relocator-loader
           npm install @vercel/webpack-asset-relocator-loader@1.7.3
 
-      - name: Build and publish
+      - name: Build and publish (create draft release)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run publish
+        continue-on-error: true
 
       - name: Build artifacts only (fallback)
         if: failure()
