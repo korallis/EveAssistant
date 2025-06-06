@@ -13,4 +13,10 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css', '.json'],
   },
+  // Add node.js-like environment for ESM modules during testing
+  target: 'electron-main',
+  // Tell Webpack to handle ESM modules
+  experiments: {
+    outputModule: true,
+  },
 }; 

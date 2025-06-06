@@ -1,6 +1,6 @@
 import { SdeService } from './SdeService';
 import { server } from '../../mocks';
-import { app, BrowserWindow } from 'electron';
+import { BrowserWindow } from 'electron';
 import { DatabaseService } from '../db/DatabaseService';
 
 // Mock Electron modules
@@ -19,7 +19,7 @@ jest.mock('electron', () => ({
 jest.mock('fs-extra', () => ({
   ensureDir: jest.fn().mockResolvedValue(undefined),
   createWriteStream: jest.fn().mockReturnValue({
-    on: jest.fn().mockImplementation(function(event, cb) {
+    on: jest.fn().mockImplementation((event, cb) => {
       if (event === 'finish') setTimeout(cb, 10);
       return this;
     }),

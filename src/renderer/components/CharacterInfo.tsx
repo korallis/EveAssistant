@@ -36,7 +36,8 @@ export const CharacterInfo: React.FC<CharacterInfoProps> = ({ characterId }) => 
         const data = await response.json();
         setSkills(data);
       } catch (err) {
-        setError(err.message || 'Failed to fetch character skills');
+        const errorMessage = err instanceof Error ? err.message : 'Failed to fetch character skills';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }

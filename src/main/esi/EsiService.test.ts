@@ -1,7 +1,6 @@
 import { EsiService } from './EsiService';
 import { server } from '../../mocks';
 import { http, HttpResponse } from 'msw';
-import { AuthService } from '../auth.service';
 
 // Mock the AuthService
 jest.mock('../auth.service', () => {

@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import { CharacterInfo } from '../CharacterInfo';
-import { server } from '../../../mocks';
+import { CharacterInfo } from './CharacterInfo';
+import { server } from '../../mocks';
 import { http, HttpResponse } from 'msw';
 
 // Setup MSW server before all tests

@@ -19,7 +19,11 @@ module.exports = {
   ],
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+    '^p-limit$': '<rootDir>/node_modules/p-limit/dist/index.js',
   },
+  transformIgnorePatterns: [
+    "node_modules/(?!(p-limit|yocto-queue)/)"
+  ],
   coverageThreshold: {
     global: {
       statements: 70,
