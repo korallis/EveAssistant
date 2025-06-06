@@ -6,6 +6,7 @@ import './App.css';
 import { Home, Ships, Fittings, Skills, Market, NotFound } from '../routes';
 import { Layout } from './layout';
 import { darkTheme } from '../theme';
+import { ErrorBoundary } from './common';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,35 +52,37 @@ const App = () => {
   };
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
-      <Router>
-        <Layout isLoggedIn={isLoggedIn} onLogin={handleLogin}>
-          {isLoggedIn ? (
-            <>
-              <div className="sde-controls">
-                <button onClick={handleSdeDownload} disabled={sdeStatus !== 'idle' && sdeStatus !== 'complete' && sdeStatus !== 'error'}>
-                  {sdeStatus === 'idle' || sdeStatus === 'complete' || sdeStatus === 'error' ? 'Download SDE' : `SDE: ${sdeStatus}...`}
-                </button>
-                {sdeStatus === 'downloading' && <progress value={sdeProgress} max="100" />}
-                {sdeStatus === 'complete' && <p>SDE Download Complete!</p>}
-                {sdeStatus === 'error' && <p>SDE Download Failed. Check console.</p>}
-              </div>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/ships" element={<Ships />} />
-                <Route path="/fittings" element={<Fittings />} />
-                <Route path="/skills" element={<Skills />} />
-                <Route path="/market" element={<Market />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </>
-          ) : (
-            <p>Please log in to see the EVE Online data.</p>
-          )}
-        </Layout>
-      </Router>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Router>
+          <Layout isLoggedIn={isLoggedIn} onLogin={handleLogin}>
+            {isLoggedIn ? (
+              <>
+                <div className="sde-controls">
+                  <button onClick={handleSdeDownload} disabled={sdeStatus !== 'idle' && sdeStatus !== 'complete' && sdeStatus !== 'error'}>
+                    {sdeStatus === 'idle' || sdeStatus === 'complete' || sdeStatus === 'error' ? 'Download SDE' : `SDE: ${sdeStatus}...`}
+                  </button>
+                  {sdeStatus === 'downloading' && <progress value={sdeProgress} max="100" />}
+                  {sdeStatus === 'complete' && <p>SDE Download Complete!</p>}
+                  {sdeStatus === 'error' && <p>SDE Download Failed. Check console.</p>}
+                </div>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/ships" element={<Ships />} />
+                  <Route path="/fittings" element={<Fittings />} />
+                  <Route path="/skills" element={<Skills />} />
+                  <Route path="/market" element={<Market />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </>
+            ) : (
+              <p>Please log in to see the EVE Online data.</p>
+            )}
+          </Layout>
+        </Router>
+      </ThemeProvider>
+    </ErrorBoundary>
   );
 };
 
