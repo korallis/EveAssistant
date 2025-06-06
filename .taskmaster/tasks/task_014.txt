@@ -1,0 +1,61 @@
+# Task ID: 14
+# Title: Implement Fitting Import/Export System
+# Status: done
+# Dependencies: 11
+# Priority: medium
+# Description: Build comprehensive fitting format parser and exporter supporting multiple formats
+# Details:
+Create FittingParser class supporting formats: EFT (EVE Fitting Tool), XML (in-game), PYFA. Implement regex-based EFT parser handling all edge cases. Create XML parser using fast-xml-parser@4.3.3. Build format detection from clipboard/file content. Implement exporters for each format with proper formatting. Handle cargo, drones, charges in all formats. Create clipboard integration using Electron clipboard API. Add batch import capability. Implement format validation with helpful error messages. Support URL-based fitting links.
+
+# Test Strategy:
+Test parsing of complex fittings in all formats, verify round-trip import/export, test error handling for malformed inputs
+
+# Subtasks:
+## 1. Implement EFT Parser [done]
+### Dependencies: None
+### Description: Develop a parser for Electronic File Transfer (EFT) format that can accurately read and interpret EFT data structures.
+### Details:
+Create a robust parser that handles EFT format specifications, including header validation, record parsing, and error handling for malformed EFT files. Ensure compatibility with industry-standard EFT formats and implement proper exception handling for corrupted files.
+
+## 2. Create XML Parser [done]
+### Dependencies: None
+### Description: Build a comprehensive XML parser to import and export data in XML format.
+### Details:
+Develop an XML parser that can read XML definition files, validate against schemas, and properly handle namespaces. Implement DOM or SAX parsing depending on file sizes, and ensure proper entity handling and character encoding support.
+
+## 3. Build Format Detection System [done]
+### Dependencies: 14.1, 14.2
+### Description: Create an intelligent system that can automatically detect and identify file formats for processing.
+### Details:
+Implement format detection algorithms that analyze file headers, content patterns, and extensions to automatically determine the appropriate parser to use. Support detection of EFT, XML, CSV, and other common formats without requiring user specification.
+
+## 4. Implement Data Exporters [done]
+### Dependencies: 14.1, 14.2
+### Description: Develop export functionality for all supported formats to enable data extraction.
+### Details:
+Create export modules that can transform internal data structures into EFT, XML, CSV and other formats. Implement configurable export parameters, field mapping capabilities, and support for partial exports of selected data subsets.
+
+## 5. Handle Specialized Data Types [done]
+### Dependencies: 14.3, 14.4
+### Description: Extend the import/export system to properly handle cargo, drones, and charges data types.
+### Details:
+Implement specialized parsers and formatters for cargo manifests, drone specifications, and financial charges data. Create data validation rules specific to each type and ensure proper relationship mapping between these specialized entities.
+
+## 6. Add Clipboard Integration [done]
+### Dependencies: 14.4
+### Description: Implement clipboard functionality to allow copy/paste operations with the import/export system.
+### Details:
+Develop clipboard handlers that can detect and process formatted data from the clipboard. Support copying exported data to clipboard in various formats and pasting data directly into the application for quick imports without requiring file operations.
+
+## 7. Implement Batch Import Processing [done]
+### Dependencies: 14.3, 14.5
+### Description: Create a system for handling multiple file imports as a single batch operation.
+### Details:
+Build a batch processing framework that can queue multiple import files, process them sequentially or in parallel, maintain transaction integrity across files, and provide consolidated reporting on batch results. Implement recovery mechanisms for partial batch failures.
+
+## 8. Add Format Validation Framework [done]
+### Dependencies: 14.3, 14.7
+### Description: Develop a comprehensive validation system to verify data integrity and format compliance.
+### Details:
+Create a validation framework with configurable rules for different data formats and types. Implement multi-level validation including syntax checking, semantic validation, business rule validation, and relationship verification. Provide detailed validation reports and error correction suggestions.
+

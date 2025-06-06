@@ -1,0 +1,67 @@
+# Task ID: 22
+# Title: Implement Advanced Skill Planning Optimizer
+# Status: done
+# Dependencies: 15, 10
+# Priority: low
+# Description: Build intelligent skill training plan generator for optimal fitting paths
+# Details:
+Create SkillPlanOptimizer using graph algorithms for shortest training paths. Calculate skill training times with attribute modifiers. Implement multi-goal optimization (fly multiple ships/fittings). Add skill priority weighting system. Create visual skill plan timeline using Gantt charts. Implement 'remap optimizer' for attribute optimization. Add skill plan comparison tool. Export to EVEMon format. Calculate plan with/without implants. Show intermediate milestone ships. Implement skill book cost calculation. Add Alpha/Omega clone considerations.
+
+# Test Strategy:
+Verify training time calculations, test path optimization, validate against EVE skill planner, test export formats
+
+# Subtasks:
+## 1. Implement Core Skill Optimizer [done]
+### Dependencies: None
+### Description: Develop the foundational optimization engine that identifies essential competencies and maps current workforce skills against requirements
+### Details:
+Create algorithms to define core competencies, assess current workforce skills, and identify gaps. Implement functionality to forecast future skill needs based on organizational objectives and industry trends. Include methods for prioritizing skill development based on business impact.
+
+## 2. Calculate Training Times [done]
+### Dependencies: 22.1
+### Description: Build a module to estimate time required for skill acquisition and development
+### Details:
+Develop algorithms to calculate realistic training timelines based on skill complexity, employee learning curves, and available learning resources. Include functionality to adjust estimates based on historical training data and individual employee performance metrics.
+
+## 3. Add Multi-Goal Optimization [done]
+### Dependencies: 22.1
+### Description: Enhance the optimizer to balance multiple competing objectives simultaneously
+### Details:
+Implement advanced algorithms to handle multiple optimization goals such as minimizing training costs, maximizing skill coverage, and optimizing workforce utilization. Create weighting mechanisms to balance short-term operational needs with long-term strategic skill development.
+
+## 4. Implement Priority Weighting [done]
+### Dependencies: 22.3
+### Description: Create a system for assigning different weights to skills based on organizational priorities
+### Details:
+Develop a flexible weighting system that allows organizations to prioritize skills based on business impact, strategic importance, and market demand. Include functionality to adjust weights dynamically based on changing business conditions and emerging skill requirements.
+
+## 5. Create Timeline Visualization [done]
+### Dependencies: 22.2
+### Description: Design and implement visual representations of skill development timelines
+### Details:
+Build interactive visualizations showing skill acquisition paths, training milestones, and projected competency levels over time. Include features to highlight critical skill gaps, training bottlenecks, and optimization opportunities. Ensure visualizations are accessible and intuitive for different stakeholders.
+
+## 6. Add Remap Optimizer [done]
+### Dependencies: 22.1, 22.4
+### Description: Develop functionality to reassign and redistribute skills across the workforce
+### Details:
+Create algorithms to optimize the distribution of skills across teams and departments. Implement functionality to identify opportunities for cross-training, skill sharing, and resource reallocation. Include mechanisms to balance workload and ensure critical skill coverage.
+
+## 7. Build Comparison Tool [done]
+### Dependencies: 22.3, 22.5
+### Description: Create functionality to compare different skill development scenarios and strategies
+### Details:
+Develop tools to generate and compare multiple skill development scenarios based on different assumptions, constraints, and optimization goals. Include metrics for evaluating scenarios based on cost, time, risk, and strategic alignment. Provide clear visualizations of trade-offs between different approaches.
+
+## 8. Implement Export Functionality [done]
+### Dependencies: 22.5, 22.7
+### Description: Create mechanisms to export optimization results in various formats
+### Details:
+Develop export capabilities for skill matrices, development plans, and optimization reports in multiple formats (CSV, PDF, interactive dashboards). Ensure exports include appropriate metadata, timestamps, and version information. Create templates for different stakeholder needs (executives, managers, L&D teams).
+
+## 9. Handle Clone Considerations [done]
+### Dependencies: 22.6
+### Description: Implement functionality to manage duplicate skills and create skill hierarchies
+### Details:
+Develop mechanisms to identify and manage duplicate or overlapping skills. Create functionality to establish skill hierarchies, prerequisites, and dependencies. Implement tools to consolidate similar skills and standardize skill definitions across the organization.
+

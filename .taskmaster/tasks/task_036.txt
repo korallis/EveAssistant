@@ -1,0 +1,118 @@
+# Task ID: 36
+# Title: Implement Self-Contained EVE Online OAuth Login Flow
+# Status: done
+# Dependencies: 4, 5
+# Priority: medium
+# Description: Create a secure, user-friendly OAuth login system that handles the entire EVE Online authentication flow through a single button click, managing token exchange and refresh token storage without requiring users to create their own EVE application.
+# Details:
+Implement a complete OAuth flow using a proxy service approach to protect client credentials. Create an AuthService class that manages the entire authentication lifecycle. Setup a secure backend proxy (either self-hosted or cloud function) that holds the EVE application credentials and handles the OAuth token exchange. The proxy should accept authorization codes from the client and return access/refresh tokens.
+
+Frontend implementation:
+- Create a "Login with EVE Online" button component that opens the OAuth authorization URL in the default browser
+- Implement a local HTTP server (using express) on a random port to receive the OAuth callback
+- Generate and verify state parameter for CSRF protection
+- Handle the authorization code reception and forward to proxy service
+
+Backend proxy requirements:
+- Store EVE application client_id and client_secret securely
+- Implement /token endpoint that accepts authorization codes and returns tokens
+- Add rate limiting and request validation
+- Use HTTPS with proper CORS configuration
+
+Token management:
+- Store refresh tokens encrypted in Electron's safeStorage API
+- Implement automatic token refresh when access token expires
+- Create TokenManager class with methods: getAccessToken(), refreshToken(), clearTokens()
+- Add token expiry tracking and preemptive refresh (5 minutes before expiry)
+
+Security considerations:
+- Use crypto.randomBytes() for state generation
+- Implement PKCE if supported by EVE SSO
+- Clear sensitive data from memory after use
+- Add timeout for OAuth flow (5 minutes)
+- Validate all redirect URIs
+
+Error handling:
+- User cancellation of OAuth flow
+- Network failures during token exchange
+- Invalid or expired refresh tokens
+- Proxy service unavailability
+
+Integration with existing ESIClient:
+- Update ESIClient to use AuthService for token management
+- Add interceptor to automatically refresh tokens on 401 responses
+- Implement logout functionality that revokes tokens
+
+# Test Strategy:
+1. Test OAuth flow initiation:
+   - Verify clicking login button opens correct EVE SSO URL with proper parameters
+   - Confirm state parameter is randomly generated and stored
+   - Check local callback server starts on available port
+
+2. Test callback handling:
+   - Simulate successful callback with authorization code
+   - Verify state parameter validation
+   - Confirm authorization code is sent to proxy service
+   - Test error callbacks (user denial, invalid state)
+
+3. Test token storage:
+   - Verify refresh tokens are encrypted using safeStorage
+   - Confirm tokens persist across app restarts
+   - Test token retrieval and decryption
+   - Verify secure deletion on logout
+
+4. Test token refresh:
+   - Mock expired access token scenario
+   - Verify automatic refresh using stored refresh token
+   - Test preemptive refresh before expiry
+   - Confirm new tokens are properly stored
+
+5. Test error scenarios:
+   - Proxy service unavailable
+   - Invalid refresh token
+   - Network timeout during token exchange
+   - Corrupted stored tokens
+
+6. Test security measures:
+   - Verify CSRF protection with state parameter
+   - Confirm no credentials exposed in client code
+   - Test timeout of incomplete OAuth flows
+   - Verify proper cleanup of sensitive data
+
+7. Integration testing:
+   - Test full flow from login button to authenticated ESI request
+   - Verify ESIClient uses new auth tokens
+   - Test logout clears all stored credentials
+   - Confirm multiple login/logout cycles work correctly
+
+# Subtasks:
+## 1. Research EVE Online OAuth for Desktop Apps [done]
+### Dependencies: None
+### Description: Research and determine the best-practice EVE Online OAuth flow for a distributed Electron application. Investigate options like the Authorization Code Flow with PKCE to avoid exposing a client secret. The output should be a clear recommendation on the flow to implement.
+### Details:
+
+
+## 2. Implement Core OAuth Flow [done]
+### Dependencies: None
+### Description: Implement the recommended OAuth flow from the research task. This will involve opening the EVE login page, handling the redirect with a custom protocol handler (e.g., eve-assistant://callback), and securely exchanging the authorization code for an access token.
+### Details:
+
+
+## 3. Implement Secure Token Storage [done]
+### Dependencies: None
+### Description: Implement secure storage for the OAuth refresh token using electron-store or a more secure alternative like electron-keytar if available. This will allow the application to refresh access tokens without requiring the user to log in repeatedly.
+### Details:
+
+
+## 4. Refactor UI for Simple Login [done]
+### Dependencies: None
+### Description: Update the user interface to remove all fields related to manual Client ID/Secret entry. Replace them with a single, prominent 'Login with EVE Online' button that initiates the new OAuth flow. Ensure the UI provides clear feedback during the login process.
+### Details:
+
+
+## 5. Update Documentation for New Login Flow [done]
+### Dependencies: None
+### Description: Update the README.md and any other relevant documentation to reflect the new, simplified login process. Remove all instructions related to creating an EVE application and setting environment variables. Add a section for end-users explaining how to install and log in.
+### Details:
+
+

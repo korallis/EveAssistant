@@ -1,0 +1,61 @@
+# Task ID: 3
+# Title: Create EVE SDE Data Import System
+# Status: done
+# Dependencies: 2
+# Priority: high
+# Description: Build system to download, parse, and import EVE Online Static Data Export into local SQLite database
+# Details:
+Create SDE downloader using axios@1.6.5 to fetch from https://eve-static-data-export.s3-eu-west-1.amazonaws.com/. Parse YAML files using js-yaml@4.1.0. Implement incremental import with progress tracking. Create data transformers for typeIDs.yaml, invTypes.yaml, dgmTypeAttributes.yaml, dgmTypeEffects.yaml. Implement checksum verification. Add data validation layer. Create background import process with IPC communication to renderer for progress updates. Cache parsed data with version tracking.
+
+# Test Strategy:
+Test import of full SDE dataset, verify data integrity, test incremental updates, measure import performance, validate all ship/module relationships
+
+# Subtasks:
+## 1. Implement Downloader [done]
+### Dependencies: None
+### Description: Develop a module to download SDE data files from remote sources, supporting retries and error handling.
+### Details:
+This component should handle network operations, manage download progress, and ensure files are saved to the correct location.
+
+## 2. Parse YAML Files [done]
+### Dependencies: 3.1
+### Description: Create a parser to read and interpret YAML files from the downloaded SDE data.
+### Details:
+The parser should efficiently handle large YAML files and convert them into in-memory data structures for further processing.
+
+## 4. Handle Incremental Imports [done]
+### Dependencies: 3.1, 3.2
+### Description: Design a mechanism to detect and process only new or changed data during subsequent imports.
+### Details:
+This should minimize processing time and resource usage by avoiding redundant imports.
+
+## 5. Add Progress Tracking [done]
+### Dependencies: 3.1, 3.2, 3.4
+### Description: Integrate progress tracking throughout the import process to provide real-time feedback.
+### Details:
+Progress indicators should cover downloading, parsing, transforming, and importing steps.
+
+## 6. Implement Checksum Verification [done]
+### Dependencies: 3.1, 3.2
+### Description: Add checksum verification to ensure the integrity of downloaded and parsed data files.
+### Details:
+Checksums should be validated before processing files to prevent corrupted data from entering the system.
+
+## 7. Validate Data [done]
+### Dependencies: 3.6
+### Description: Develop validation routines to check the correctness and completeness of transformed data before import.
+### Details:
+Validation should include schema checks, required fields, and logical consistency.
+
+## 8. Set Up Background Import with IPC [done]
+### Dependencies: 3.4, 3.5, 3.7
+### Description: Implement background import functionality using inter-process communication (IPC) for coordination.
+### Details:
+This allows imports to run asynchronously and enables communication between the main application and import workers.
+
+## 9. Cache Parsed Data [done]
+### Dependencies: 3.2, 3.7
+### Description: Introduce a caching layer for parsed and transformed data to speed up repeated imports and reduce redundant processing.
+### Details:
+The cache should be invalidated appropriately when source data changes or fails validation.
+

@@ -1,0 +1,73 @@
+# Task ID: 23
+# Title: Create Comprehensive Testing Suite
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Build full testing infrastructure for unit, integration, and E2E tests
+# Details:
+Setup Jest for unit tests with ts-jest@29.1.1. Configure React Testing Library for component tests. Implement Playwright@1.41.0 for E2E tests. Create test data factories using Fishery. Mock ESI API responses with MSW@2.1.0. Achieve 80% code coverage minimum. Setup GitHub Actions for CI/CD. Create performance benchmarks with Jest. Add visual regression tests with Percy. Implement database tests with in-memory SQLite. Create fitting calculation test suite against known values. Add security tests for auth flow.
+
+# Test Strategy:
+Run tests in CI pipeline, monitor coverage trends, test on Windows/Mac/Linux, run E2E tests nightly, benchmark performance
+
+# Subtasks:
+## 1. Set Up Jest [done]
+### Dependencies: None
+### Description: Install and configure Jest as the primary test runner for the project.
+### Details:
+Install Jest via npm or yarn, create a basic jest.config.js file, and ensure it is recognized by the project.
+
+## 2. Configure React Testing Library [done]
+### Dependencies: 23.1
+### Description: Integrate React Testing Library with Jest for component testing.
+### Details:
+Install @testing-library/react and @testing-library/jest-dom, update jest.config.js to include setupFilesAfterEnv, and create a jest.setup.js file to import necessary matchers.
+
+## 3. Implement Playwright E2E Tests [done]
+### Dependencies: 23.1
+### Description: Set up Playwright for end-to-end (E2E) browser-based testing.
+### Details:
+Install Playwright, configure test scripts, and create initial E2E test cases for critical user flows.
+
+## 4. Create Test Data Factories [done]
+### Dependencies: 23.1
+### Description: Develop factories or utilities to generate consistent and reusable test data.
+### Details:
+Implement functions or libraries (e.g., factory-girl, faker) to produce mock data for unit, integration, and E2E tests.
+
+## 5. Mock APIs [done]
+### Dependencies: 23.2, 23.3, 23.4
+### Description: Set up API mocking for both unit/integration and E2E tests.
+### Details:
+Use tools like MSW (Mock Service Worker) or Jest mocks to simulate backend responses and control test environments.
+
+## 6. Achieve Code Coverage [done]
+### Dependencies: 23.2
+### Description: Configure Jest to collect and report code coverage metrics.
+### Details:
+Enable collectCoverage and collectCoverageFrom in jest.config.js, and ensure coverage reports are generated after test runs.
+
+## 7. Set Up CI/CD Integration [done]
+### Dependencies: None
+### Description: Integrate the test suite into the project's CI/CD pipeline.
+### Details:
+Configure CI/CD tools (e.g., GitHub Actions, GitLab CI) to run tests, enforce coverage thresholds, and report results on pull requests.
+
+## 8. Add Performance Benchmarks [done]
+### Dependencies: None
+### Description: Implement performance testing and benchmarking for critical flows.
+### Details:
+Use tools like Lighthouse, WebPageTest, or Playwright's performance APIs to measure and track performance metrics.
+
+## 9. Implement Visual Regression Testing [done]
+### Dependencies: 23.3, 23.7
+### Description: Set up visual regression tests to catch unintended UI changes.
+### Details:
+Integrate tools like Percy, Chromatic, or Playwright's screenshot comparison to automate visual checks.
+
+## 10. Add Security Tests [done]
+### Dependencies: None
+### Description: Incorporate automated security testing into the suite.
+### Details:
+Use tools such as Snyk, npm audit, or OWASP ZAP to scan for vulnerabilities and enforce secure coding practices.
+

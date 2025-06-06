@@ -1,0 +1,20 @@
+[
+  {
+    "id": "2403",
+    "name": "Gunnery",
+    "level": 5,
+    "sp": 256000,
+    "maxSp": 256000,
+    "description": "Increases damage of all turrets.",
+    "children": [
+      {
+        "id": "3300",
+        "name": "Small Projectile Turret",
+        "level": 4,
+        "sp": 45255,
+        "maxSp": 256000,
+        "description": "Allows the use of small projectile turrets."
+      }
+    ]
+  }
+] 

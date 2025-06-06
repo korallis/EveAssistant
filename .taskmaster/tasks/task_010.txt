@@ -1,0 +1,97 @@
+# Task ID: 10
+# Title: Implement Fitting Statistics Calculation Engine
+# Status: done
+# Dependencies: 6
+# Priority: high
+# Description: Build comprehensive fitting statistics calculator with all EVE Online mechanics
+# Details:
+Create FittingCalculator class implementing: DPS calculation (turrets, missiles, drones), tank calculation (shield/armor/hull HP, resistances, regen), capacitor simulation (peak recharge, stability), speed/agility calculations. Implement stacking penalties using formula: effect * 0.5^((n-1)/2.22292081). Handle skill bonuses application. Calculate CPU/PG usage with skills. Implement damage profiles (Uniform, EM/Thermal, etc.). Create calculation cache with dependency tracking. Handle all module effects (damage mods, tank mods, prop mods). Consider implants and boosters.
+
+# Test Strategy:
+Unit test each calculation against known EVE values, test stacking penalties, verify capacitor simulation accuracy, benchmark performance
+
+# Subtasks:
+## 2. Implement Tank Calculation [done]
+### Dependencies: None
+### Description: Create algorithms to compute effective hit points (EHP), shield/armor/hull resistances, and repair rates for the fitting.
+### Details:
+Must support stacking penalties, module effects, and skill bonuses affecting tank modules.
+
+## 3. Implement Capacitor Simulation [done]
+### Dependencies: None
+### Description: Simulate capacitor usage and regeneration over time, including module activation costs, passive recharge, and capacitor boosters.
+### Details:
+Should model capacitor stability and time-to-cap depletion under various module activation scenarios.
+
+## 4. Implement Speed and Agility Calculations [done]
+### Dependencies: None
+### Description: Calculate maximum velocity, acceleration, align time, and agility based on ship stats, modules, rigs, and skills.
+### Details:
+Must account for stacking penalties and all relevant modifiers.
+
+## 5. Implement Stacking Penalties Logic [done]
+### Dependencies: None
+### Description: Develop the system to apply stacking penalties to modules and effects as per game mechanics.
+### Details:
+Should be reusable by other calculation modules (tank, speed, etc.) and handle all stacking groups.
+
+## 6. Implement Skill Bonuses Application [done]
+### Dependencies: None
+### Description: Integrate skill-based bonuses into all relevant calculations (DPS, tank, capacitor, speed, etc.).
+### Details:
+Must support dynamic skill levels and their impact on ship and module performance.
+
+## 7. Implement CPU and Powergrid Usage Calculation [done]
+### Dependencies: None
+### Description: Calculate total CPU and powergrid (PG) usage for the fitting, including all modules, rigs, and their modifiers.
+### Details:
+Should flag overfitting and support skill/module/rig bonuses to fitting resources.
+
+## 8. Implement Damage Profile Handling [done]
+### Dependencies: 10.2
+### Description: Support calculation and display of damage profiles (EM, Thermal, Kinetic, Explosive) for both offense and defense.
+### Details:
+Must integrate with DPS and tank calculations to show effective damage and resistances.
+
+## 9. Implement Calculation Cache System [done]
+### Dependencies: 10.2, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8
+### Description: Design and implement a caching mechanism to store and retrieve calculation results for performance optimization.
+### Details:
+Should invalidate cache on relevant input changes and support partial recalculation.
+
+## 10. Implement Module Effect Handling Engine [done]
+### Dependencies: 10.5, 10.6
+### Description: Develop a flexible system to apply module effects (active/passive, local/remote, conditional) to ship stats and calculations.
+### Details:
+Must support stacking penalties, skill interactions, and be extensible for new module types.
+
+## 11. Implement DPS Calculation [done]
+### Dependencies: None
+### Description: Implement the basic DPS calculation, including placeholders for turrets, missiles, and drones.
+### Details:
+This will involve adding a new `calculateDps` method to the `FittingCalculator` class. The initial implementation will focus on the core damage formula and will include placeholders for applying skill and module effects.
+
+## 12. Enhance EHP Calculation with Module and Skill Effects [done]
+### Dependencies: None
+### Description: Flesh out the EHP calculation by applying module and skill effects to resistances.
+### Details:
+This will involve adding logic to the `calculateEhp` method to iterate through the fitted modules, identify resistance-modifying effects, and apply them to the base ship resistances before calculating the final EHP. It will also include placeholders for skill effects.
+
+## 13. Enhance Capacitor Calculation [done]
+### Dependencies: None
+### Description: Enhance the capacitor calculation by applying module and skill effects and calculating total capacitor usage from modules.
+### Details:
+This will involve adding logic to the `calculateCapacitor` method to iterate through the fitted modules, identify capacitor-related effects, and apply them to the ship's base capacitor stats. It will also calculate the total capacitor usage from all active modules.
+
+## 14. Enhance Speed and Agility Calculation [done]
+### Dependencies: None
+### Description: Enhance the speed and agility calculation by applying module and skill effects.
+### Details:
+This will involve adding logic to the `calculateSpeedAndAgility` method to iterate through the fitted modules, identify speed and agility-related effects, and apply them to the ship's base stats. It will also include placeholders for skill effects.
+
+## 15. Map SDE Attribute IDs for Fitting Calculator [done]
+### Dependencies: None
+### Description: Replace placeholder attribute IDs in the FittingCalculator with the correct IDs from the SDE.
+### Details:
+This task involves researching the correct attribute IDs for all relevant fitting statistics (resistances, capacitor, speed, etc.) by querying the SDE data in the local database. Once the correct IDs are identified, the FittingCalculator will be updated to use them, removing the placeholder values. This will also involve updating the module effect application logic to use the correct attributes.
+

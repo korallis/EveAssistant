@@ -1,0 +1,55 @@
+# Task ID: 2
+# Title: Implement SQLite Database Layer
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Setup SQLite database with TypeORM for managing EVE SDE data and user configurations
+# Details:
+Install better-sqlite3@9.3.0 and typeorm@0.3.19. Create database service in main process with entities for Ships, Modules, Skills, MarketGroups. Implement migrations system. Design schema: ships table (typeID, typeName, groupID, attributes JSON), modules table (typeID, typeName, effects JSON, requirements JSON), skills table. Create DatabaseService class with connection pooling. Implement data access layer with repositories pattern. Add indexes on frequently queried columns (typeID, groupID).
+
+# Test Strategy:
+Unit test all database operations, verify connection handling, test migration execution, benchmark query performance with large datasets
+
+# Subtasks:
+## 1. Install Dependencies [done]
+### Dependencies: None
+### Description: Install all required database and ORM dependencies for the project.
+### Details:
+Install packages such as database drivers, ORM libraries (e.g., Entity Framework Core, Hibernate), and any supporting tools.
+
+## 3. Create Entity Classes [done]
+### Dependencies: None
+### Description: Implement entity classes that map to the database schema.
+### Details:
+Write classes in the application codebase that represent database tables and relationships.
+
+## 4. Set Up Migrations [done]
+### Dependencies: 2.1, 2.3
+### Description: Configure and initialize database migrations.
+### Details:
+Set up migration tools (e.g., EF Core Migrations) to manage schema changes and versioning[5].
+
+## 5. Implement DatabaseService [done]
+### Dependencies: 2.3
+### Description: Create a service layer for database operations.
+### Details:
+Implement a service class to encapsulate CRUD operations and business logic.
+
+## 6. Configure Connection Pooling [done]
+### Dependencies: 2.1
+### Description: Optimize database connections with connection pooling.
+### Details:
+Configure connection pooling settings in the application to improve performance and resource usage.
+
+## 7. Build Data Access Layer [done]
+### Dependencies: 2.3, 2.5
+### Description: Implement the data access layer for robust data retrieval and manipulation.
+### Details:
+Write repository or DAO classes to abstract data access logic from business logic[3][4].
+
+## 8. Add Indexes and Write Unit Tests [done]
+### Dependencies: 2.7
+### Description: Optimize queries with indexes and ensure reliability with unit tests.
+### Details:
+Add appropriate database indexes for performance and write unit tests for data access and service layers.
+

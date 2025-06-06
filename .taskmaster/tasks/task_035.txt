@@ -1,0 +1,27 @@
+# Task ID: 35
+# Title: Implement Fitting Recommendation System with Strategy Selection
+# Status: done
+# Dependencies: 11, 12
+# Priority: medium
+# Description: Create a fitting recommendation system that generates 5 optimized ship fittings based on user-selected strategic goals, integrating with the multi-objective optimization algorithm and presenting results through an intuitive UI.
+# Details:
+Create FittingRecommendationService class that interfaces with the existing FittingOptimizer. Define strategy profiles: 'Max Range' (prioritize optimal range, tracking, application range), 'Close Range' (maximize DPS at 0-10km, web/scram range), 'Speed Tanking' (prioritize speed, sig radius, agility), 'All Round' (balanced DPS/tank/cap stability). 
+
+Implement strategy-specific fitness functions:
+- Max Range: weight optimal range 40%, DPS at range 30%, tracking 20%, cap stability 10%
+- Close Range: weight DPS 50%, tank 30%, tackle modules 20%
+- Speed Tanking: weight speed 40%, signature 30%, tank 20%, cap stability 10%
+- All Round: equal weights for DPS, EHP, cap stability, speed
+
+Create RecommendationPanel component using Material-UI Card layout. Display strategy selector as ToggleButtonGroup with icons for each strategy. Show loading state during optimization (use Skeleton components). Display results in expandable AccordionDetails showing: fitting preview, key stats comparison, radar chart visualization using recharts@2.10.0.
+
+Implement caching mechanism using Map<shipId+strategy, results> to avoid redundant calculations. Add "Apply Fitting" button that loads selected fitting into the FittingEditor. Include tooltips explaining each strategy's focus. Handle edge cases: ships with limited fitting options, invalid module combinations. 
+
+Add analytics tracking for strategy selection patterns. Implement export functionality to save recommended fittings as JSON. Consider skill requirements and highlight modules user cannot use. Add comparison view to see all 5 recommendations side-by-side with sortable stats table.
+
+# Test Strategy:
+Verify strategy selector displays all 4 options with appropriate icons and descriptions. Test recommendation generation for different ship types: combat (battleship, cruiser), support (logistics), specialty (stealth bomber). Confirm each strategy produces distinctly different fittings by comparing key metrics. Validate Max Range fittings have longest engagement range, Close Range have highest DPS at 0km, Speed Tanking have highest speed/lowest signature, All Round have balanced stats.
+
+Test caching by generating recommendations twice and verifying second call is instant. Verify loading states appear during optimization and skeleton loaders display correctly. Test "Apply Fitting" button correctly loads fitting into editor with all modules in correct slots. Validate error handling for ships with very limited module options.
+
+Check responsive design on different screen sizes. Verify radar charts render correctly and display meaningful stat comparisons. Test export functionality produces valid JSON that can be reimported. Confirm tooltips provide clear explanations of each strategy. Test with characters of different skill levels to ensure recommendations respect skill requirements. Verify performance with rapid strategy switching doesn't cause UI lag.

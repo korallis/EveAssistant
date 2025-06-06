@@ -1,0 +1,17 @@
+{
+  "title": "Fitting a Ship",
+  "steps": [
+    {
+      "title": "Select a Ship",
+      "content": "First, select a ship from the ship browser."
+    },
+    {
+      "title": "Add Modules",
+      "content": "Next, drag and drop modules from the module browser onto the fitting slots."
+    },
+    {
+      "title": "Analyze Stats",
+      "content": "Finally, analyze the fitting's stats in the stats panel."
+    }
+  ]
+} 

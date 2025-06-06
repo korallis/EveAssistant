@@ -1,0 +1,31 @@
+# Task ID: 33
+# Title: Implement Full Dogma Engine for Fitting Calculator
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Implement the full Dogma engine for the FittingCalculator, including skill and module effects.
+# Details:
+This task involves a deep dive into the EVE Online Dogma engine. The goal is to replace the placeholder effect application logic in the FittingCalculator with a robust system that can traverse the Dogma expression tree and accurately apply all skill and module effects to the fitting statistics. This will require a thorough understanding of the dgmEffects, dgmTypeEffects, and dgmExpressions tables in the SDE, as well as the various operand IDs and their meanings. The implementation should be flexible enough to handle a wide range of effects, including those with filters and multiple modifiers. The final result should be a FittingCalculator that can accurately calculate all relevant fitting statistics, taking into account all skills and module effects.
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Create Dogma Entities [done]
+### Dependencies: None
+### Description: Create TypeORM entities for the Dogma effects and expressions tables.
+### Details:
+This will involve creating new TypeORM entities for the dgmEffects, dgmTypeEffects, and dgmExpressions tables from the EVE Online SDE. These entities will be used to query the Dogma data and implement the full Dogma engine.
+
+## 2. Build Dogma Expression Tree Traversal Engine [done]
+### Dependencies: None
+### Description: Build the core Dogma engine to traverse the expression tree.
+### Details:
+This will involve creating a new service, DogmaEngine, that can take an effectID and traverse the corresponding expression tree in the dgmExpressions table. The engine will need to handle the various operandIDs and their arguments, and it should be able to recursively build a representation of the effect's logic. The initial implementation will focus on correctly traversing the tree and logging the results. Later subtasks will add the logic to apply the effects to the fitting statistics.
+
+## 3. Implement Dogma Expression Interpretation Engine [done]
+### Dependencies: None
+### Description: Interpret and apply Dogma expressions to fitting statistics.
+### Details:
+This task involves enhancing the DogmaEngine to interpret the expressions it traverses and apply them to the fitting statistics. This will require creating a mapping between operandIDs and their corresponding operations, and then implementing the logic to perform those operations. The initial implementation will focus on a small subset of common operands, such as those related to resistance and damage modifications. The goal is to replace the placeholder effect application logic in the FittingCalculator with a system that can accurately apply a wide range of Dogma effects.
+

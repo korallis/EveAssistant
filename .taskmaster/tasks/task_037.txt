@@ -1,0 +1,43 @@
+# Task ID: 37
+# Title: Create Cross-Platform Application Installers
+# Status: done
+# Dependencies: 1, 23
+# Priority: medium
+# Description: Configure and implement distributable installers for Windows and macOS platforms, including build process setup, code signing configuration, and generation of platform-specific installer packages.
+# Details:
+Setup electron-builder@24.9.1 for cross-platform installer generation. Configure build scripts in package.json with platform-specific targets: Windows (NSIS installer, portable exe), macOS (DMG, pkg). Implement auto-update functionality using electron-updater@6.1.7. Configure code signing for Windows using signtool with EV certificate (stored in GitHub secrets). Setup macOS code signing with Developer ID certificate and notarization workflow. Create build configuration in electron-builder.yml with: productName, appId (com.example.eve-fitting-tool), directories structure, file associations for .eft files. Configure NSIS installer with custom graphics, license agreement, and installation options. Setup DMG background image and window positioning for macOS. Implement CI/CD pipeline in GitHub Actions for automated builds on tagged releases. Configure artifact compression and optimization. Add installer customization: custom icons (1024x1024 for macOS, multiple sizes for Windows), installer graphics (header 150x57, wizard 164x314), EULA text. Setup release channels (stable, beta) with different update feeds. Implement delta updates to reduce download sizes. Configure app signing for both platforms to prevent security warnings. Add installer analytics to track successful installations. Create build matrix for multiple architectures (x64, arm64 for macOS). Setup automatic upload to GitHub Releases with checksums.
+
+# Test Strategy:
+Verify electron-builder configuration by running 'npm run dist' locally for each platform. Test Windows installer on Windows 10/11: check silent install, custom directory, shortcuts creation, uninstaller functionality, file associations. Test macOS installer on macOS 12+: verify DMG mounting, drag-to-Applications flow, code signing with 'codesign --verify', notarization status with 'spctl -a -v'. Test auto-updater by creating test releases and verifying update detection and installation. Validate code signing prevents security warnings on fresh systems. Test portable Windows version runs without installation. Verify installer size optimization (should be under 100MB). Test offline installation scenarios. Validate that all application features work in installed version. Check installer localization if implemented. Test upgrade scenarios from older versions. Verify uninstaller removes all files and registry entries. Test installer on systems without admin privileges. Validate GitHub Actions workflow produces signed installers for both platforms.
+
+# Subtasks:
+## 1. Basic electron-builder Setup [done]
+### Dependencies: None
+### Description: Initialize the Electron project and configure electron-builder in the project. Ensure package.json includes required metadata and install electron-builder as a development dependency.
+### Details:
+Set up the project structure, add electron-builder to devDependencies, and verify installation. Configure basic build settings in package.json.
+
+## 2. Windows Installer Configuration [done]
+### Dependencies: 37.1
+### Description: Configure electron-builder to generate Windows installers (e.g., NSIS, Squirrel.Windows). Set Windows-specific options such as installer icon, target architecture, and signing placeholders.
+### Details:
+Update build configuration in package.json or electron-builder config file for Windows targets. Test building a Windows installer locally or via a Windows build environment.
+
+## 3. macOS Installer Configuration [done]
+### Dependencies: 37.1
+### Description: Configure electron-builder to generate macOS installers (e.g., DMG, PKG). Set macOS-specific options such as app category, entitlements, and signing placeholders.
+### Details:
+Update build configuration for macOS targets. Test building a macOS installer on a macOS machine, as code signing and some packaging steps require macOS.
+
+## 4. Code Signing Implementation [done]
+### Dependencies: 37.2, 37.3
+### Description: Implement code signing for both Windows and macOS installers to ensure security and compliance with OS requirements.
+### Details:
+Obtain code signing certificates for both platforms. Integrate signing steps into the build process, updating configuration with certificate paths and credentials.
+
+## 5. Auto-Update Functionality [done]
+### Dependencies: 37.4
+### Description: Integrate auto-update functionality using electron-builder's update server or a custom solution. Configure update URLs and ensure signed updates.
+### Details:
+Set up update server or use a service like GitHub Releases. Update app code to check for and apply updates securely.
+

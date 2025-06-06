@@ -1,0 +1,67 @@
+# Task ID: 11
+# Title: Create Fitting Display and Editor UI
+# Status: done
+# Dependencies: 9, 10
+# Priority: medium
+# Description: Build interactive fitting display with drag-and-drop module management
+# Details:
+Create FittingEditor component with ship hull display showing slot layout. Implement drag-and-drop using react-dnd@16.0.1 for modules between slots. Show real-time stats update on module changes. Display fitting stats panel: DPS (by type), EHP, cap stability, speed, signature. Create module browser with categories, search, and skill filtering. Implement right-click context menus for module actions. Add visual indicators for CPU/PG usage (progress bars). Show module tooltips with stats. Create charge/script selection UI.
+
+# Test Strategy:
+Test drag-and-drop in all browsers, verify stat updates are immediate, test module compatibility validation, test UI responsiveness
+
+# Subtasks:
+## 1. Create Main Editor Component [done]
+### Dependencies: None
+### Description: Develop the core editor interface that will serve as the foundation for the fitting editor UI
+### Details:
+Design and implement the main editor layout with proper containers for modules, stats panel, and other UI elements. Ensure the component has a responsive design and follows UI design patterns for intuitive navigation.
+
+## 2. Implement Drag-and-Drop Functionality [done]
+### Dependencies: 11.1
+### Description: Add the ability to drag and drop modules within the editor interface
+### Details:
+Implement the Inplace Editor pattern to allow users to manipulate modules directly in the interface. Include visual feedback during drag operations, valid drop zones highlighting, and proper event handling for module placement and rearrangement.
+
+## 3. Build Module Browser Component [done]
+### Dependencies: 11.1
+### Description: Create a browsable interface for selecting modules to add to the fitting
+### Details:
+Design a categorized module browser with search functionality, filtering options, and preview capabilities. Implement a consistent UI pattern for module selection and ensure smooth integration with the drag-and-drop system.
+
+## 4. Implement Real-Time Stats Calculation [done]
+### Dependencies: 11.1, 11.2
+### Description: Create the logic to calculate and update fitting statistics as changes are made
+### Details:
+Develop the backend logic to process module changes and calculate relevant statistics in real-time. Ensure efficient computation to maintain UI responsiveness during updates and changes to the fitting configuration.
+
+## 5. Display Stats Panel [done]
+### Dependencies: 11.1, 11.4
+### Description: Create a comprehensive panel to display all relevant fitting statistics
+### Details:
+Design and implement a stats panel that clearly presents all relevant fitting information. Include visual indicators for optimal/suboptimal values and organize information in logical categories for easy scanning and comprehension.
+
+## 6. Add Context Menus [done]
+### Dependencies: 11.1, 11.2, 11.3
+### Description: Implement context-sensitive menus for modules and editor components
+### Details:
+Create context menus that provide relevant actions based on the selected element. Ensure menus follow UI design patterns for consistency and include keyboard shortcuts where appropriate. Implement proper positioning and focus management.
+
+## 7. Show CPU/PG Indicators [done]
+### Dependencies: 11.4, 11.5
+### Description: Implement visual indicators for CPU and power grid usage
+### Details:
+Design and implement clear visual indicators for CPU and power grid usage that update in real-time. Include appropriate color coding for different usage levels and ensure the indicators are prominently displayed for quick reference.
+
+## 8. Implement Tooltips System [done]
+### Dependencies: 11.1, 11.3, 11.5, 11.6, 11.7
+### Description: Create an informative tooltip system for all interactive elements
+### Details:
+Develop a consistent tooltip system that provides helpful information about modules, stats, and UI controls. Ensure tooltips appear with appropriate timing, positioning, and styling. Include detailed information relevant to the context.
+
+## 9. Create Charge/Script Selection UI [done]
+### Dependencies: 11.1, 11.3, 11.6
+### Description: Implement interface for selecting and configuring charges and scripts
+### Details:
+Design and implement UI components for selecting charges and scripts with appropriate configuration options. Include preview functionality and ensure the interface integrates with the overall fitting editor while maintaining consistency with established UI patterns.
+

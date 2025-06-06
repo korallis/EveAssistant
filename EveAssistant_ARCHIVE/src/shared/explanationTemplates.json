@@ -1,0 +1,3 @@
+{
+  "default": "This fitting uses a {ship.name} hull. It has {modules.length} modules fitted."
+} 

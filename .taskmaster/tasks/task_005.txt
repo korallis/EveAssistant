@@ -1,0 +1,55 @@
+# Task ID: 5
+# Title: Build ESI API Integration Layer
+# Status: done
+# Dependencies: 4
+# Priority: high
+# Description: Create comprehensive API client for EVE Online ESI endpoints with caching and rate limiting
+# Details:
+Create ESIClient class using axios with interceptors for auth token injection. Implement rate limiting using p-limit@5.0.0 (20 requests/second). Add response caching with node-cache@5.1.2 (TTL based on ESI headers). Create typed interfaces for all ESI responses. Implement endpoints: /characters/{id}/skills/, /universe/types/{id}/, /markets/prices/, /markets/{region}/orders/. Add retry logic with exponential backoff using axios-retry@4.0.0. Handle ESI error codes properly. Create request queue for batch operations.
+
+# Test Strategy:
+Mock ESI responses for unit tests, test rate limiting behavior, verify cache invalidation, test error handling and retries
+
+# Subtasks:
+## 1. Create API Client [done]
+### Dependencies: None
+### Description: Develop a base API client for ESI that will handle HTTP requests and responses
+### Details:
+Implement a client class that will serve as the foundation for all ESI API interactions. Include configuration for base URLs for both live and staging environments, HTTP client setup, and request/response handling infrastructure.
+
+## 3. Add Rate Limiting [done]
+### Dependencies: 5.1
+### Description: Implement rate limiting to comply with ESI API restrictions
+### Details:
+Create a rate limiting mechanism that tracks request frequency, implements backoff strategies, and queues requests when approaching limits. Include configurable thresholds based on ESI's documented rate limits.
+
+## 4. Implement Response Caching [done]
+### Dependencies: 5.1
+### Description: Add caching layer to store API responses and reduce unnecessary requests
+### Details:
+Develop a caching system that stores responses based on request parameters with configurable TTL. Implement cache invalidation strategies and ensure proper handling of cache headers from ESI responses.
+
+## 5. Define Typed Interfaces [done]
+### Dependencies: 5.1
+### Description: Create strongly-typed interfaces for ESI API requests and responses
+### Details:
+Define comprehensive type definitions for all API endpoints, request parameters, and response objects. Ensure proper validation and type checking to improve developer experience and reduce runtime errors.
+
+## 6. Implement Endpoints [done]
+### Dependencies: 5.1, 5.5
+### Description: Build specific endpoint implementations using the base client
+### Details:
+Create individual endpoint implementations that leverage the base client. Group related endpoints into logical services or modules. Include parameter validation and response transformation as needed.
+
+## 7. Add Retry Logic [done]
+### Dependencies: 5.1, 5.3
+### Description: Implement automatic retry mechanism for failed requests
+### Details:
+Develop a retry system that automatically retries failed requests with exponential backoff. Configure retry policies based on specific error codes and ensure integration with the rate limiting system to prevent excessive retries.
+
+## 8. Handle Error Codes [done]
+### Dependencies: 5.1, 5.6
+### Description: Implement comprehensive error handling for ESI API responses
+### Details:
+Create a standardized error handling system that processes ESI error responses, translates them into application-specific exceptions, and provides meaningful error messages. Include logging and monitoring capabilities for troubleshooting.
+

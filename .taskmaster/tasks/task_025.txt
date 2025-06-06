@@ -1,0 +1,73 @@
+# Task ID: 25
+# Title: Production Build and Distribution Setup
+# Status: done
+# Dependencies: 23, 24
+# Priority: high
+# Description: Configure production builds and distribution for all platforms
+# Details:
+Configure electron-forge for production builds. Setup code signing for Windows (EV certificate) and Mac (Developer ID). Create installers: Windows (NSIS), Mac (DMG), Linux (AppImage, deb, rpm). Implement build optimization: tree shaking, minification, compression. Setup GitHub Actions for automated builds. Create distribution channels: GitHub Releases, website downloads. Implement license validation system. Add crash reporting with symbol upload. Create portable version option. Configure auto-update feed generation. Add telemetry for install/uninstall events.
+
+# Test Strategy:
+Test installers on clean systems, verify code signing, test auto-update from production, validate all distribution formats, security scan
+
+# Subtasks:
+## 1. Configure Electron Forge [done]
+### Dependencies: None
+### Description: Set up and configure Electron Forge as the build system for the application
+### Details:
+Install Electron Forge using npm, create initial project structure with 'npx create-electron-app@latest my-app', and set up the forge configuration in package.json. Define build targets and customize packager options.
+
+## 2. Set Up Code Signing [done]
+### Dependencies: 25.1
+### Description: Implement code signing for all platform builds to ensure security and trust
+### Details:
+Obtain code signing certificates for Windows, macOS, and if applicable, Linux. Configure code signing in the Electron Forge configuration. Test the signing process on each platform to ensure executables are properly signed.
+
+## 3. Create Platform-Specific Installers [done]
+### Dependencies: 25.1, 25.2
+### Description: Configure and build installers for Windows, macOS, and Linux
+### Details:
+Set up maker configurations for each target platform (Windows: NSIS/MSI, macOS: DMG, Linux: deb/rpm). Customize installer appearance, license agreements, and installation options. Test installation process on each platform.
+
+## 4. Implement Build Optimizations [done]
+### Dependencies: 25.1
+### Description: Optimize the application build for performance and size
+### Details:
+Configure minification and tree-shaking for JavaScript code. Optimize asset loading and bundling. Implement code splitting where applicable. Measure and compare build sizes before and after optimizations.
+
+## 5. Set Up CI/CD Pipeline [done]
+### Dependencies: 25.1, 25.2, 25.3
+### Description: Create automated build and deployment workflows
+### Details:
+Configure CI/CD platform (GitHub Actions, Jenkins, etc.) to automate builds for all target platforms. Set up automated testing before builds. Configure deployment to distribution channels upon successful builds.
+
+## 6. Create Distribution Channels [done]
+### Dependencies: 25.3, 25.5
+### Description: Set up channels for distributing the application to users
+### Details:
+Configure Electron Forge publishers for distribution platforms (GitHub Releases, S3, etc.). Set up auto-update server if applicable. Create documentation for manual download and installation procedures.
+
+## 7. Implement License Validation [done]
+### Dependencies: 25.1
+### Description: Add license validation system to the application
+### Details:
+Design and implement license key generation and validation system. Create UI for license activation. Implement secure storage of license information. Test license validation in both online and offline scenarios.
+
+## 8. Add Crash Reporting [done]
+### Dependencies: 25.1
+### Description: Implement crash reporting to track and fix application issues
+### Details:
+Integrate a crash reporting service (Sentry, Bugsnag, etc.). Configure automatic crash report submission. Create a system for users to add context to crash reports. Set up alerts and monitoring for critical issues.
+
+## 9. Create Portable Version [done]
+### Dependencies: 25.1, 25.4
+### Description: Build a portable version of the application that requires no installation
+### Details:
+Configure Electron Forge to create portable builds. Ensure all dependencies are bundled correctly. Test portable version on all target platforms to verify functionality without installation.
+
+## 10. Configure Telemetry [done]
+### Dependencies: 25.1
+### Description: Set up anonymous usage tracking to improve the application
+### Details:
+Select and integrate a telemetry service. Define key metrics to track. Implement opt-in/opt-out functionality for users. Ensure compliance with privacy regulations. Create a dashboard for monitoring collected data.
+

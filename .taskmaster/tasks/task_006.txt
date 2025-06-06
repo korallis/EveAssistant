@@ -1,0 +1,49 @@
+# Task ID: 6
+# Title: Design Core Data Models and Types
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Create comprehensive TypeScript interfaces and classes for all domain entities
+# Details:
+Define interfaces in src/shared/types: IShip (slots: {high, mid, low, rig, subsystem}, attributes, bonuses), IModule (typeID, slot, meta, attributes, requirements), IFitting (ship, modules[], charges[], drones[], implants[]), ICharacterSkills (Map<skillID, level>), IOptimizationResult (fittings[], score, analysis). Create value objects for DamageProfile, ResistanceProfile. Implement domain logic classes: Ship, Fitting, Module with methods for validation. Use zod@3.22.4 for runtime validation. Create factory functions for complex object creation.
+
+# Test Strategy:
+Unit test all model validations, test serialization/deserialization, verify type safety with TypeScript strict mode
+
+# Subtasks:
+## 1. Define Interfaces and Type Structures [done]
+### Dependencies: None
+### Description: Create TypeScript interfaces that clearly define the domain model structure with strict type-checking
+### Details:
+Use TypeScript interfaces to define the domain model structure. Avoid using 'any' type and instead use more specific types or 'unknown' when necessary. Organize related interfaces into modules for better maintainability. Use union types instead of function overloads where appropriate.
+
+## 2. Implement Value Objects [done]
+### Dependencies: 6.1
+### Description: Create immutable value objects that represent domain concepts with proper validation
+### Details:
+Implement value objects as immutable structures using readonly properties or Object.freeze(). Ensure proper validation in constructors. Use utility types for common patterns. Prefer pure functions and avoid side effects. Consider using factory functions for complex object creation.
+
+## 3. Create Domain Logic Classes [done]
+### Dependencies: 6.1, 6.2
+### Description: Develop domain logic classes that implement business rules and operations
+### Details:
+Create classes that encapsulate domain logic and business rules. Follow naming conventions with descriptive names. Keep functions small and focused. Reduce function parameters and use parameter defaults where appropriate. Organize code with proper modularization.
+
+## 4. Add Runtime Validation [done]
+### Dependencies: 6.2, 6.3
+### Description: Implement runtime validation to ensure data integrity beyond compile-time type checking
+### Details:
+Add runtime validation to complement TypeScript's compile-time checks. Implement validation logic for user inputs and external data. Use descriptive error messages. Consider using validation libraries if appropriate. Handle edge cases and invalid inputs gracefully.
+
+## 5. Create Factory Functions [done]
+### Dependencies: 6.3, 6.4
+### Description: Develop factory functions to standardize object creation with proper validation
+### Details:
+Implement factory functions that encapsulate object creation logic. Ensure proper validation is performed during object creation. Use descriptive names for factory functions. Consider implementing builder patterns for complex object creation scenarios.
+
+## 6. Write Unit Tests for Validation [done]
+### Dependencies: 6.4, 6.5
+### Description: Create comprehensive unit tests to verify type constraints and validation logic
+### Details:
+Write unit tests that verify both the type constraints and runtime validation logic. Test edge cases and error conditions. Ensure tests are isolated and repeatable. Use test-driven development approach when appropriate. Verify that factory functions create valid objects.
+

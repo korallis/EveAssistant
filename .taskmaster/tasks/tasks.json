@@ -1,0 +1,3069 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Setup Electron + TypeScript Project Foundation",
+      "description": "Initialize a new Electron project with TypeScript configuration, including proper build tooling and development environment setup",
+      "details": "Use Electron 28.x with TypeScript 5.3+. Setup electron-forge for build management. Configure webpack 5 for optimal bundling. Structure: src/main (main process), src/renderer (React app), src/shared (shared types). Install core dependencies: electron@28.1.0, typescript@5.3.3, @electron-forge/cli@7.2.0. Configure tsconfig.json with strict mode, ES2022 target. Setup nodemon for main process hot reload. Configure CSP headers for security.",
+      "testStrategy": "Verify electron app launches, TypeScript compiles without errors, hot reload works for both main/renderer processes. Test production build generation.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Initialize the Project",
+          "description": "Create a new project directory and initialize it with npm to generate a package.json file.",
+          "dependencies": [],
+          "details": "Run 'npm init' in your project directory to set up the initial package.json. This step lays the foundation for dependency management and project configuration.[1][2]",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Configure TypeScript",
+          "description": "Install TypeScript and set up the TypeScript configuration file (tsconfig.json) with appropriate compiler options.",
+          "dependencies": [
+            1
+          ],
+          "details": "Install TypeScript as a dev dependency. Generate tsconfig.json using 'tsc --init' and configure options such as 'outDir', 'target', 'module', 'strict', and 'esModuleInterop'.[1][4]",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Set Up Electron Forge",
+          "description": "Install Electron Forge and configure it to work with TypeScript.",
+          "dependencies": [
+            2
+          ],
+          "details": "Install Electron Forge and its CLI. Configure Electron Forge to use TypeScript by installing 'ts-node' and creating a 'forge.config.ts' file for project configuration.[5]",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Configure Webpack",
+          "description": "Install and configure Webpack for bundling TypeScript and Electron code.",
+          "dependencies": [
+            3
+          ],
+          "details": "Install Webpack and necessary loaders/plugins for TypeScript. Set up Webpack configuration files to handle both main and renderer processes, ensuring compatibility with Electron and TypeScript.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Structure Source Directories",
+          "description": "Organize the project directory structure for Electron's main and renderer processes.",
+          "dependencies": [
+            4
+          ],
+          "details": "Create directories such as 'src/main' and 'src/renderer' for clear separation of Electron's main and renderer code. Add entry files like 'main.ts' and 'index.html'.[2]",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Install and Configure Dependencies",
+          "description": "Install Electron, TypeScript types, and any additional dependencies required for development.",
+          "dependencies": [
+            5
+          ],
+          "details": "Install Electron, @types/electron, and any other libraries needed for your app. Update package.json scripts for building and running the app.[1][4]",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Set Up Development Tools and CSP Headers",
+          "description": "Configure development tools like nodemon for hot reloading and set up Content Security Policy (CSP) headers.",
+          "dependencies": [],
+          "details": "Install nodemon or similar tools for automatic reloads during development. Configure CSP headers in your Electron app to enhance security.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Implement SQLite Database Layer",
+      "description": "Setup SQLite database with TypeORM for managing EVE SDE data and user configurations",
+      "details": "Install better-sqlite3@9.3.0 and typeorm@0.3.19. Create database service in main process with entities for Ships, Modules, Skills, MarketGroups. Implement migrations system. Design schema: ships table (typeID, typeName, groupID, attributes JSON), modules table (typeID, typeName, effects JSON, requirements JSON), skills table. Create DatabaseService class with connection pooling. Implement data access layer with repositories pattern. Add indexes on frequently queried columns (typeID, groupID).",
+      "testStrategy": "Unit test all database operations, verify connection handling, test migration execution, benchmark query performance with large datasets",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Install Dependencies",
+          "description": "Install all required database and ORM dependencies for the project.",
+          "dependencies": [],
+          "details": "Install packages such as database drivers, ORM libraries (e.g., Entity Framework Core, Hibernate), and any supporting tools.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Create Entity Classes",
+          "description": "Implement entity classes that map to the database schema.",
+          "dependencies": [],
+          "details": "Write classes in the application codebase that represent database tables and relationships.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Set Up Migrations",
+          "description": "Configure and initialize database migrations.",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Set up migration tools (e.g., EF Core Migrations) to manage schema changes and versioning[5].",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement DatabaseService",
+          "description": "Create a service layer for database operations.",
+          "dependencies": [
+            3
+          ],
+          "details": "Implement a service class to encapsulate CRUD operations and business logic.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Configure Connection Pooling",
+          "description": "Optimize database connections with connection pooling.",
+          "dependencies": [
+            1
+          ],
+          "details": "Configure connection pooling settings in the application to improve performance and resource usage.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Build Data Access Layer",
+          "description": "Implement the data access layer for robust data retrieval and manipulation.",
+          "dependencies": [
+            3,
+            5
+          ],
+          "details": "Write repository or DAO classes to abstract data access logic from business logic[3][4].",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Add Indexes and Write Unit Tests",
+          "description": "Optimize queries with indexes and ensure reliability with unit tests.",
+          "dependencies": [
+            7
+          ],
+          "details": "Add appropriate database indexes for performance and write unit tests for data access and service layers.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Create EVE SDE Data Import System",
+      "description": "Build system to download, parse, and import EVE Online Static Data Export into local SQLite database",
+      "details": "Create SDE downloader using axios@1.6.5 to fetch from https://eve-static-data-export.s3-eu-west-1.amazonaws.com/. Parse YAML files using js-yaml@4.1.0. Implement incremental import with progress tracking. Create data transformers for typeIDs.yaml, invTypes.yaml, dgmTypeAttributes.yaml, dgmTypeEffects.yaml. Implement checksum verification. Add data validation layer. Create background import process with IPC communication to renderer for progress updates. Cache parsed data with version tracking.",
+      "testStrategy": "Test import of full SDE dataset, verify data integrity, test incremental updates, measure import performance, validate all ship/module relationships",
+      "priority": "high",
+      "dependencies": [
+        2
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Downloader",
+          "description": "Develop a module to download SDE data files from remote sources, supporting retries and error handling.",
+          "dependencies": [],
+          "details": "This component should handle network operations, manage download progress, and ensure files are saved to the correct location.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Parse YAML Files",
+          "description": "Create a parser to read and interpret YAML files from the downloaded SDE data.",
+          "dependencies": [
+            1
+          ],
+          "details": "The parser should efficiently handle large YAML files and convert them into in-memory data structures for further processing.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Handle Incremental Imports",
+          "description": "Design a mechanism to detect and process only new or changed data during subsequent imports.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "This should minimize processing time and resource usage by avoiding redundant imports.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Add Progress Tracking",
+          "description": "Integrate progress tracking throughout the import process to provide real-time feedback.",
+          "dependencies": [
+            1,
+            2,
+            4
+          ],
+          "details": "Progress indicators should cover downloading, parsing, transforming, and importing steps.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Checksum Verification",
+          "description": "Add checksum verification to ensure the integrity of downloaded and parsed data files.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Checksums should be validated before processing files to prevent corrupted data from entering the system.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Validate Data",
+          "description": "Develop validation routines to check the correctness and completeness of transformed data before import.",
+          "dependencies": [
+            6
+          ],
+          "details": "Validation should include schema checks, required fields, and logical consistency.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Set Up Background Import with IPC",
+          "description": "Implement background import functionality using inter-process communication (IPC) for coordination.",
+          "dependencies": [
+            4,
+            5,
+            7
+          ],
+          "details": "This allows imports to run asynchronously and enables communication between the main application and import workers.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Cache Parsed Data",
+          "description": "Introduce a caching layer for parsed and transformed data to speed up repeated imports and reduce redundant processing.",
+          "dependencies": [
+            2,
+            7
+          ],
+          "details": "The cache should be invalidated appropriately when source data changes or fails validation.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Implement EVE ESI OAuth 2.0 PKCE Authentication",
+      "description": "Setup secure OAuth 2.0 PKCE flow for EVE Online ESI API authentication without requiring a backend server",
+      "details": "Implement PKCE flow using electron's protocol.registerHttpProtocol for callback handling. Use crypto.randomBytes(32) for code verifier generation. Create AuthService with methods: generatePKCEChallenge(), initiateLogin(), handleCallback(). Store refresh tokens securely using electron-store@8.1.0 with encryption. Implement token refresh logic with automatic retry. Configure scopes: esi-skills.read_skills.v1, esi-universe.read_structures.v1, esi-markets.read_character_orders.v1. Handle auth errors gracefully with user-friendly messages.",
+      "testStrategy": "Test full auth flow, verify PKCE implementation against RFC 7636, test token refresh, verify secure storage, test error scenarios",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement PKCE Challenge Generation",
+          "description": "Generate a cryptographically secure code_verifier and derive the code_challenge using a secure hash algorithm (typically SHA256). Ensure the code_challenge_method is set appropriately.",
+          "dependencies": [],
+          "details": "This step involves creating a random code_verifier and hashing it to produce the code_challenge, which will be used in the authorization request.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Configure OAuth Scopes",
+          "description": "Define and configure the required OAuth scopes for the application to request appropriate permissions from the user during the authorization process.",
+          "dependencies": [],
+          "details": "Ensure that the scopes requested align with the application's needs and follow the principle of least privilege.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Initiate Login Flow",
+          "description": "Start the OAuth authorization request by redirecting the user to the authorization server with the code_challenge, code_challenge_method, and configured scopes.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "This step involves constructing the authorization URL with all necessary parameters and handling the user redirection.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Securely Store Tokens",
+          "description": "Implement secure storage mechanisms for access, refresh, and ID tokens to prevent unauthorized access or leakage.",
+          "dependencies": [],
+          "details": "Use platform-appropriate secure storage solutions (e.g., encrypted storage, keychain) to store sensitive tokens.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Token Refresh Logic",
+          "description": "Use the refresh token to obtain new access tokens when the current access token expires, ensuring continuous authentication.",
+          "dependencies": [
+            5
+          ],
+          "details": "Handle token expiration, securely use the refresh token, and update stored tokens as needed.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Handle Authentication Errors",
+          "description": "Implement robust error handling for all stages of the PKCE flow, including challenge generation, login, callback, token storage, and refresh.",
+          "dependencies": [
+            1,
+            2,
+            3,
+            5,
+            6
+          ],
+          "details": "Detect, log, and respond to errors such as invalid tokens, failed exchanges, or storage issues, providing appropriate user feedback and recovery options.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Build ESI API Integration Layer",
+      "description": "Create comprehensive API client for EVE Online ESI endpoints with caching and rate limiting",
+      "details": "Create ESIClient class using axios with interceptors for auth token injection. Implement rate limiting using p-limit@5.0.0 (20 requests/second). Add response caching with node-cache@5.1.2 (TTL based on ESI headers). Create typed interfaces for all ESI responses. Implement endpoints: /characters/{id}/skills/, /universe/types/{id}/, /markets/prices/, /markets/{region}/orders/. Add retry logic with exponential backoff using axios-retry@4.0.0. Handle ESI error codes properly. Create request queue for batch operations.",
+      "testStrategy": "Mock ESI responses for unit tests, test rate limiting behavior, verify cache invalidation, test error handling and retries",
+      "priority": "high",
+      "dependencies": [
+        4
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Create API Client",
+          "description": "Develop a base API client for ESI that will handle HTTP requests and responses",
+          "dependencies": [],
+          "details": "Implement a client class that will serve as the foundation for all ESI API interactions. Include configuration for base URLs for both live and staging environments, HTTP client setup, and request/response handling infrastructure.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Add Rate Limiting",
+          "description": "Implement rate limiting to comply with ESI API restrictions",
+          "dependencies": [
+            1
+          ],
+          "details": "Create a rate limiting mechanism that tracks request frequency, implements backoff strategies, and queues requests when approaching limits. Include configurable thresholds based on ESI's documented rate limits.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Response Caching",
+          "description": "Add caching layer to store API responses and reduce unnecessary requests",
+          "dependencies": [
+            1
+          ],
+          "details": "Develop a caching system that stores responses based on request parameters with configurable TTL. Implement cache invalidation strategies and ensure proper handling of cache headers from ESI responses.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Define Typed Interfaces",
+          "description": "Create strongly-typed interfaces for ESI API requests and responses",
+          "dependencies": [
+            1
+          ],
+          "details": "Define comprehensive type definitions for all API endpoints, request parameters, and response objects. Ensure proper validation and type checking to improve developer experience and reduce runtime errors.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Endpoints",
+          "description": "Build specific endpoint implementations using the base client",
+          "dependencies": [
+            1,
+            5
+          ],
+          "details": "Create individual endpoint implementations that leverage the base client. Group related endpoints into logical services or modules. Include parameter validation and response transformation as needed.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Add Retry Logic",
+          "description": "Implement automatic retry mechanism for failed requests",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Develop a retry system that automatically retries failed requests with exponential backoff. Configure retry policies based on specific error codes and ensure integration with the rate limiting system to prevent excessive retries.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Handle Error Codes",
+          "description": "Implement comprehensive error handling for ESI API responses",
+          "dependencies": [
+            1,
+            6
+          ],
+          "details": "Create a standardized error handling system that processes ESI error responses, translates them into application-specific exceptions, and provides meaningful error messages. Include logging and monitoring capabilities for troubleshooting.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Design Core Data Models and Types",
+      "description": "Create comprehensive TypeScript interfaces and classes for all domain entities",
+      "details": "Define interfaces in src/shared/types: IShip (slots: {high, mid, low, rig, subsystem}, attributes, bonuses), IModule (typeID, slot, meta, attributes, requirements), IFitting (ship, modules[], charges[], drones[], implants[]), ICharacterSkills (Map<skillID, level>), IOptimizationResult (fittings[], score, analysis). Create value objects for DamageProfile, ResistanceProfile. Implement domain logic classes: Ship, Fitting, Module with methods for validation. Use zod@3.22.4 for runtime validation. Create factory functions for complex object creation.",
+      "testStrategy": "Unit test all model validations, test serialization/deserialization, verify type safety with TypeScript strict mode",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define Interfaces and Type Structures",
+          "description": "Create TypeScript interfaces that clearly define the domain model structure with strict type-checking",
+          "dependencies": [],
+          "details": "Use TypeScript interfaces to define the domain model structure. Avoid using 'any' type and instead use more specific types or 'unknown' when necessary. Organize related interfaces into modules for better maintainability. Use union types instead of function overloads where appropriate.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Implement Value Objects",
+          "description": "Create immutable value objects that represent domain concepts with proper validation",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement value objects as immutable structures using readonly properties or Object.freeze(). Ensure proper validation in constructors. Use utility types for common patterns. Prefer pure functions and avoid side effects. Consider using factory functions for complex object creation.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Create Domain Logic Classes",
+          "description": "Develop domain logic classes that implement business rules and operations",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Create classes that encapsulate domain logic and business rules. Follow naming conventions with descriptive names. Keep functions small and focused. Reduce function parameters and use parameter defaults where appropriate. Organize code with proper modularization.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Add Runtime Validation",
+          "description": "Implement runtime validation to ensure data integrity beyond compile-time type checking",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Add runtime validation to complement TypeScript's compile-time checks. Implement validation logic for user inputs and external data. Use descriptive error messages. Consider using validation libraries if appropriate. Handle edge cases and invalid inputs gracefully.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Create Factory Functions",
+          "description": "Develop factory functions to standardize object creation with proper validation",
+          "dependencies": [
+            3,
+            4
+          ],
+          "details": "Implement factory functions that encapsulate object creation logic. Ensure proper validation is performed during object creation. Use descriptive names for factory functions. Consider implementing builder patterns for complex object creation scenarios.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Write Unit Tests for Validation",
+          "description": "Create comprehensive unit tests to verify type constraints and validation logic",
+          "dependencies": [
+            4,
+            5
+          ],
+          "details": "Write unit tests that verify both the type constraints and runtime validation logic. Test edge cases and error conditions. Ensure tests are isolated and repeatable. Use test-driven development approach when appropriate. Verify that factory functions create valid objects.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Create React Application Shell with Material-UI",
+      "description": "Setup React application structure with Material-UI components and routing",
+      "details": "Install react@18.2.0, react-dom@18.2.0, @mui/material@5.15.3, @emotion/react@11.11.3. Setup React Router v6 with routes: /ships, /fittings, /skills, /market. Create layout components: AppBar with navigation, Drawer for sidebar, Container for main content. Implement Material-UI theme with EVE Online color scheme (dark theme default). Setup responsive breakpoints. Create reusable components: LoadingSpinner, ErrorBoundary, ConfirmDialog. Configure webpack for optimal React builds with code splitting.",
+      "testStrategy": "Test component rendering, verify routing works, test responsive behavior, check theme application, test error boundaries",
+      "priority": "medium",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Install Dependencies",
+          "description": "Install necessary dependencies for the React app, including Material-UI and React Router.",
+          "dependencies": [],
+          "details": "Use npm or yarn to install required packages.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Set Up Routing",
+          "description": "Configure React Router for client-side routing.",
+          "dependencies": [
+            1
+          ],
+          "details": "Create routes for different pages and components.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Create Layout Components",
+          "description": "Design and implement basic layout components like Header, Footer, and Sidebar.",
+          "dependencies": [
+            2
+          ],
+          "details": "Use Material-UI components for styling.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Theme",
+          "description": "Apply a consistent theme across the application using Material-UI.",
+          "dependencies": [
+            3
+          ],
+          "details": "Define colors, typography, and spacing.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Configure Responsive Breakpoints",
+          "description": "Set up responsive design using Material-UI's breakpoints.",
+          "dependencies": [
+            4
+          ],
+          "details": "Ensure layout adapts to different screen sizes.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Create Reusable Components",
+          "description": "Develop reusable UI components for common elements like buttons and forms.",
+          "dependencies": [
+            5
+          ],
+          "details": "Use Material-UI for styling and consistency.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Optimize Webpack for React",
+          "description": "Configure Webpack for optimal performance in a React environment.",
+          "dependencies": [
+            6
+          ],
+          "details": "Minify code, split chunks, and optimize for production.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Implement State Management with Zustand",
+      "description": "Setup global state management using Zustand for application-wide state",
+      "details": "Install zustand@4.5.0. Create stores: useAuthStore (user, tokens, login/logout), useShipStore (ships, filters, selectedShip), useFittingStore (fittings, activeFitting, modifications), useSkillStore (characterSkills, skillQueue). Implement persistence for user preferences using zustand/middleware persist with electron-store. Create computed values using zustand subscriptions. Implement store devtools for debugging. Add TypeScript types for all store slices. Create store hooks with proper memoization.",
+      "testStrategy": "Test state updates, verify persistence works, test computed values update correctly, verify no unnecessary re-renders",
+      "priority": "medium",
+      "dependencies": [
+        7
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Set up core Zustand store structure",
+          "description": "Create the foundational store setup with proper folder structure and base configuration",
+          "dependencies": [],
+          "details": "Create a stores directory with index.js for the main store. Install zustand with npm/yarn. Set up the basic store structure using create() function. Implement the store provider pattern if needed for the application context.\n<info added on 2025-06-06T09:08:50.083Z>\nCompleted the core Zustand store setup:\n1. Installed zustand@4.5.0\n2. Created store directory structure at src/renderer/store\n3. Created basic types.ts file with common store types\n4. Added createStore.ts with utility functions for creating stores with devtools\n5. Setup index.ts to export all stores\n\nThe store structure is now ready for implementing individual store slices.\n</info added on 2025-06-06T09:08:50.083Z>",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Create individual store slices",
+          "description": "Implement separate store slices for auth, ships, fittings, and skills domains",
+          "dependencies": [
+            1
+          ],
+          "details": "Create separate files for each domain slice (authSlice.js, shipsSlice.js, fittingsSlice.js, skillsSlice.js). Define state structure and actions for each slice. Use proper typing if TypeScript is used. Implement proper state update patterns using the set function.\n<info added on 2025-06-06T09:14:19.485Z>\nSuccessfully implemented all required store slices with comprehensive functionality:\n\nauthStore.ts implementation includes user profile management storing character name, corporation, and avatar data. Authentication token handling with secure storage and automatic refresh capabilities. Login and logout functions with proper state cleanup.\n\nshipStore.ts provides complete ship data management including listing with advanced filtering options, ship selection tracking, and full CRUD operations for ship management. Implemented detailed TypeScript interfaces for ship properties, attributes, and requirements.\n\nfittingStore.ts delivers robust fitting management with module handling for high/mid/low slots and rigs. CRUD operations for creating, updating, and deleting fittings. Module operations support adding, removing, and toggling module states. Import/export functionality supports common fitting formats.\n\nskillStore.ts enables comprehensive skill tracking with skill data storage and filtering by groups and categories. Skill queue management with add/remove/reorder operations. Training time calculations considering character attributes and implants. TypeScript definitions for skill levels, requirements, and queue items.\n\nAll stores utilize Zustand's devtools middleware for enhanced debugging experience. Consistent action naming conventions across all stores improve devtool readability. Each store follows established patterns with proper TypeScript typing ensuring type safety throughout the application.\n</info added on 2025-06-06T09:14:19.485Z>",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Implement persistence with electron-store",
+          "description": "Add persistence layer to store state between application sessions",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Install electron-store package. Create a persistence middleware for Zustand. Configure which parts of the state should be persisted. Implement loading of persisted state on application startup. Add migration strategies for handling state structure changes.\n<info added on 2025-06-06T09:21:40.870Z>\nSuccessfully completed the persistence implementation with electron-store. Created a robust persistence middleware in src/renderer/store/middleware/persist.ts that includes an electronStorage adapter for Zustand's persist middleware and a createPersistentStore utility function for streamlined store creation. Added migration helpers to handle store version changes gracefully.\n\nImplemented two persistent stores as proof of concept:\n- configStore: Manages application-wide settings including theme and UI preferences\n- preferencesStore: Handles user preferences for different application views (ships, fittings, skills)\n\nBoth stores feature proper versioning and migration strategies to ensure data integrity across application updates. Used the partialize function to selectively persist only necessary state properties, optimizing storage efficiency. All implementations include comprehensive TypeScript types for stores and middleware, ensuring type safety throughout the persistence layer.\n\nThe persistence infrastructure is now production-ready and can be easily extended to any store requiring data persistence between application sessions.\n</info added on 2025-06-06T09:21:40.870Z>",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Add computed values with subscriptions",
+          "description": "Implement derived state values using Zustand subscriptions",
+          "dependencies": [
+            2
+          ],
+          "details": "Create computed properties that derive from the base state. Implement subscription mechanism to update computed values when dependencies change. Optimize subscriptions to prevent unnecessary recalculations. Document the subscription patterns for team reference.\n<info added on 2025-06-06T09:26:16.218Z>\nCompleted implementing computed values with subscriptions:\n\n1. Created a comprehensive computed values utility in src/renderer/store/utils/computed.ts:\n   - Implemented `computed` function to create computed hooks from store selectors\n   - Added `createComputed` for simplified computed value creation\n   - Created `createSubscription` for reactive store subscriptions\n   - Added `createSelector` for memoized selectors\n\n2. Created two stores that utilize computed values:\n   - statsStore: Aggregates statistics from multiple stores (ships, fittings, skills)\n   - fittingAnalysisStore: Performs complex calculations on ship fittings\n\n3. Implemented automatic subscriptions that update derived values when source data changes\n4. Created specialized computed selectors for component use:\n   - useActiveShipPercentage, useSkillCompletionPercentage, useDominantRace\n   - useSelectedAnalysis, useResourceUtilization, useDamageTypeBreakdown\n\n5. Ensured all computed values are properly typed with TypeScript\n\nThe computed values system provides efficient, reactive derived state that updates automatically when source data changes, preventing unnecessary re-renders and calculations.\n</info added on 2025-06-06T09:26:16.218Z>",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Configure store devtools for debugging",
+          "description": "Set up Redux DevTools integration for better debugging experience",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Import devtools middleware from zustand/middleware. Configure the store to use devtools in development environment only. Add meaningful action names for better debugging. Test the integration with Redux DevTools extension in browser.\n<info added on 2025-06-06T09:31:03.940Z>\nCompleted implementing devtools for debugging:\n\n1. Created a comprehensive devtools middleware configuration in src/renderer/store/middleware/devtools.ts:\n   - Implemented createDevtools function for consistent devtools configuration\n   - Added withDevtools helper to conditionally apply devtools only in development\n   - Configured default options for better performance and debugging experience\n\n2. Created a debug store with enhanced devtools capabilities:\n   - Added action history tracking\n   - Implemented performance metrics collection\n   - Created store snapshot functionality\n   - Added subscriptions to track state changes across stores\n\n3. Built a debug panel component to demonstrate the devtools:\n   - Created UI to toggle debug features\n   - Added performance metrics display\n   - Implemented action history visualization\n   - Added snapshot logging capability\n\n4. Configured all stores to use the devtools middleware consistently:\n   - Each store uses named actions for better tracing\n   - All state updates are properly tracked in Redux DevTools\n   - Ensured devtools are only active in development mode\n\nThe devtools implementation provides comprehensive debugging capabilities for the application, making it easier to track state changes, monitor performance, and debug issues during development.\n</info added on 2025-06-06T09:31:03.940Z>",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Create memoized hooks for components",
+          "description": "Develop optimized custom hooks for components to access store state",
+          "dependencies": [
+            2,
+            4
+          ],
+          "details": "Create custom hooks that select only needed state slices. Implement memoization to prevent unnecessary re-renders. Add TypeScript types for better developer experience. Create usage examples for the team. Test hooks with different component scenarios.\n<info added on 2025-06-06T09:39:06.985Z>\nCompleted creating memoized hooks for components:\n\n1. Created a comprehensive selectors utility in `src/renderer/store/utils/selectors.ts`:\n   - Implemented `createMemoizedSelector` for basic memoization\n   - Added `createMemoizedHook` to create hooks that select state with `shallow` equality checking\n   - Created `createStoreHook` to combine state and actions into a single hook\n   - Added `createActionHook` and `createActionsHook` for memoized action dispatching\n\n2. Implemented specialized, memoized hooks for each primary store:\n   - **`useShipHooks.ts`**: Created hooks like `useShips`, `useActiveShip`, `useFilteredShips`, `useShipById`, and action hooks like `useShipActions` and `useSetActiveShip`. Added derived data hooks like `useShipRaces` and `useShipGroups`\n   - **`useFittingHooks.ts`**: Implemented `useFittings`, `useActiveFitting`, `useFilteredFittings`, and derived hooks like `useFittingById`, `useFittingsByShipType`, and `useActiveFittingWithShip`\n   - **`useSkillHooks.ts`**: Added `useSkills`, `useSkillQueue`, `useFilteredSkills`, and derived/statistical hooks like `useSkillById`, `useSkillsInTraining`, and `useSkillTrainingStats`\n\n3. Organized all hooks into a central `src/renderer/store/hooks/index.ts` for easy importing\n\n4. Updated the main store entry point (`src/renderer/store/index.ts`) to export all selector utilities and the new hooks module\n\nThis structure provides an efficient, organized, and scalable way for components to interact with the stores, ensuring optimal performance by preventing unnecessary re-renders.\n</info added on 2025-06-06T09:39:06.985Z>",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Build Ship Browser UI Component",
+      "description": "Create comprehensive ship browsing interface with filtering and skill-aware display",
+      "details": "Create ShipBrowser component with Material-UI DataGrid for ship list. Implement filters: race (Caldari, Gallente, etc.), ship class, tech level, skill requirements met. Add search with fuzzy matching using fuse.js@7.0.0. Display ship cards with: image, name, slot layout, base stats, skill requirements (green if met, red if not). Implement virtualization for performance with react-window@1.8.10. Add sorting by name, class, required skills. Create ship detail modal with full stats. Use React.memo for optimization.",
+      "testStrategy": "Test filtering logic, verify skill requirement calculations, test performance with 500+ ships, test search functionality",
+      "priority": "medium",
+      "dependencies": [
+        7,
+        8
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 2,
+          "title": "Implement Filters",
+          "description": "Add filtering functionality to narrow down ship results based on specific criteria.",
+          "dependencies": [],
+          "details": "Use state management to handle filter changes.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Add Search with Fuzzy Matching",
+          "description": "Integrate a search bar with fuzzy matching to find ships by name or other attributes.",
+          "dependencies": [],
+          "details": "Utilize a library like Fuse.js for fuzzy matching.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Display Ship Cards",
+          "description": "Create and render individual ship cards within the main component.",
+          "dependencies": [],
+          "details": "Use JSX to define the card structure and content.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement Virtualization",
+          "description": "Optimize performance by implementing virtualization for large datasets of ship cards.",
+          "dependencies": [
+            4
+          ],
+          "details": "Use libraries like react-window for efficient rendering.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add Sorting",
+          "description": "Allow users to sort ship cards by various attributes.",
+          "dependencies": [
+            4
+          ],
+          "details": "Use state to manage sorting order and apply it to the rendered cards.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Create Detail Modal",
+          "description": "Design and implement a modal to display detailed information about a selected ship.",
+          "dependencies": [
+            4
+          ],
+          "details": "Use React Portal for modal rendering.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Optimize with React.memo",
+          "description": "Use React.memo to memoize components and improve performance by reducing unnecessary re-renders.",
+          "dependencies": [
+            4,
+            7
+          ],
+          "details": "Apply memoization to components that do not change frequently.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Implement Fitting Statistics Calculation Engine",
+      "description": "Build comprehensive fitting statistics calculator with all EVE Online mechanics",
+      "details": "Create FittingCalculator class implementing: DPS calculation (turrets, missiles, drones), tank calculation (shield/armor/hull HP, resistances, regen), capacitor simulation (peak recharge, stability), speed/agility calculations. Implement stacking penalties using formula: effect * 0.5^((n-1)/2.22292081). Handle skill bonuses application. Calculate CPU/PG usage with skills. Implement damage profiles (Uniform, EM/Thermal, etc.). Create calculation cache with dependency tracking. Handle all module effects (damage mods, tank mods, prop mods). Consider implants and boosters.",
+      "testStrategy": "Unit test each calculation against known EVE values, test stacking penalties, verify capacitor simulation accuracy, benchmark performance",
+      "priority": "high",
+      "dependencies": [
+        6
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 2,
+          "title": "Implement Tank Calculation",
+          "description": "Create algorithms to compute effective hit points (EHP), shield/armor/hull resistances, and repair rates for the fitting.",
+          "dependencies": [],
+          "details": "Must support stacking penalties, module effects, and skill bonuses affecting tank modules.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Implement Capacitor Simulation",
+          "description": "Simulate capacitor usage and regeneration over time, including module activation costs, passive recharge, and capacitor boosters.",
+          "dependencies": [],
+          "details": "Should model capacitor stability and time-to-cap depletion under various module activation scenarios.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Speed and Agility Calculations",
+          "description": "Calculate maximum velocity, acceleration, align time, and agility based on ship stats, modules, rigs, and skills.",
+          "dependencies": [],
+          "details": "Must account for stacking penalties and all relevant modifiers.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement Stacking Penalties Logic",
+          "description": "Develop the system to apply stacking penalties to modules and effects as per game mechanics.",
+          "dependencies": [],
+          "details": "Should be reusable by other calculation modules (tank, speed, etc.) and handle all stacking groups.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Skill Bonuses Application",
+          "description": "Integrate skill-based bonuses into all relevant calculations (DPS, tank, capacitor, speed, etc.).",
+          "dependencies": [],
+          "details": "Must support dynamic skill levels and their impact on ship and module performance.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement CPU and Powergrid Usage Calculation",
+          "description": "Calculate total CPU and powergrid (PG) usage for the fitting, including all modules, rigs, and their modifiers.",
+          "dependencies": [],
+          "details": "Should flag overfitting and support skill/module/rig bonuses to fitting resources.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Implement Damage Profile Handling",
+          "description": "Support calculation and display of damage profiles (EM, Thermal, Kinetic, Explosive) for both offense and defense.",
+          "dependencies": [
+            2
+          ],
+          "details": "Must integrate with DPS and tank calculations to show effective damage and resistances.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Implement Calculation Cache System",
+          "description": "Design and implement a caching mechanism to store and retrieve calculation results for performance optimization.",
+          "dependencies": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "details": "Should invalidate cache on relevant input changes and support partial recalculation.",
+          "status": "done"
+        },
+        {
+          "id": 10,
+          "title": "Implement Module Effect Handling Engine",
+          "description": "Develop a flexible system to apply module effects (active/passive, local/remote, conditional) to ship stats and calculations.",
+          "dependencies": [
+            5,
+            6
+          ],
+          "details": "Must support stacking penalties, skill interactions, and be extensible for new module types.",
+          "status": "done"
+        },
+        {
+          "id": 11,
+          "title": "Implement DPS Calculation",
+          "description": "Implement the basic DPS calculation, including placeholders for turrets, missiles, and drones.",
+          "details": "This will involve adding a new `calculateDps` method to the `FittingCalculator` class. The initial implementation will focus on the core damage formula and will include placeholders for applying skill and module effects.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 10
+        },
+        {
+          "id": 12,
+          "title": "Enhance EHP Calculation with Module and Skill Effects",
+          "description": "Flesh out the EHP calculation by applying module and skill effects to resistances.",
+          "details": "This will involve adding logic to the `calculateEhp` method to iterate through the fitted modules, identify resistance-modifying effects, and apply them to the base ship resistances before calculating the final EHP. It will also include placeholders for skill effects.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 10
+        },
+        {
+          "id": 13,
+          "title": "Enhance Capacitor Calculation",
+          "description": "Enhance the capacitor calculation by applying module and skill effects and calculating total capacitor usage from modules.",
+          "details": "This will involve adding logic to the `calculateCapacitor` method to iterate through the fitted modules, identify capacitor-related effects, and apply them to the ship's base capacitor stats. It will also calculate the total capacitor usage from all active modules.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 10
+        },
+        {
+          "id": 14,
+          "title": "Enhance Speed and Agility Calculation",
+          "description": "Enhance the speed and agility calculation by applying module and skill effects.",
+          "details": "This will involve adding logic to the `calculateSpeedAndAgility` method to iterate through the fitted modules, identify speed and agility-related effects, and apply them to the ship's base stats. It will also include placeholders for skill effects.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 10
+        },
+        {
+          "id": 15,
+          "title": "Map SDE Attribute IDs for Fitting Calculator",
+          "description": "Replace placeholder attribute IDs in the FittingCalculator with the correct IDs from the SDE.",
+          "details": "This task involves researching the correct attribute IDs for all relevant fitting statistics (resistances, capacitor, speed, etc.) by querying the SDE data in the local database. Once the correct IDs are identified, the FittingCalculator will be updated to use them, removing the placeholder values. This will also involve updating the module effect application logic to use the correct attributes.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 10
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "title": "Create Fitting Display and Editor UI",
+      "description": "Build interactive fitting display with drag-and-drop module management",
+      "details": "Create FittingEditor component with ship hull display showing slot layout. Implement drag-and-drop using react-dnd@16.0.1 for modules between slots. Show real-time stats update on module changes. Display fitting stats panel: DPS (by type), EHP, cap stability, speed, signature. Create module browser with categories, search, and skill filtering. Implement right-click context menus for module actions. Add visual indicators for CPU/PG usage (progress bars). Show module tooltips with stats. Create charge/script selection UI.",
+      "testStrategy": "Test drag-and-drop in all browsers, verify stat updates are immediate, test module compatibility validation, test UI responsiveness",
+      "priority": "medium",
+      "dependencies": [
+        9,
+        10
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Create Main Editor Component",
+          "description": "Develop the core editor interface that will serve as the foundation for the fitting editor UI",
+          "dependencies": [],
+          "details": "Design and implement the main editor layout with proper containers for modules, stats panel, and other UI elements. Ensure the component has a responsive design and follows UI design patterns for intuitive navigation.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Implement Drag-and-Drop Functionality",
+          "description": "Add the ability to drag and drop modules within the editor interface",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement the Inplace Editor pattern to allow users to manipulate modules directly in the interface. Include visual feedback during drag operations, valid drop zones highlighting, and proper event handling for module placement and rearrangement.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Build Module Browser Component",
+          "description": "Create a browsable interface for selecting modules to add to the fitting",
+          "dependencies": [
+            1
+          ],
+          "details": "Design a categorized module browser with search functionality, filtering options, and preview capabilities. Implement a consistent UI pattern for module selection and ensure smooth integration with the drag-and-drop system.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Real-Time Stats Calculation",
+          "description": "Create the logic to calculate and update fitting statistics as changes are made",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Develop the backend logic to process module changes and calculate relevant statistics in real-time. Ensure efficient computation to maintain UI responsiveness during updates and changes to the fitting configuration.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Display Stats Panel",
+          "description": "Create a comprehensive panel to display all relevant fitting statistics",
+          "dependencies": [
+            1,
+            4
+          ],
+          "details": "Design and implement a stats panel that clearly presents all relevant fitting information. Include visual indicators for optimal/suboptimal values and organize information in logical categories for easy scanning and comprehension.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add Context Menus",
+          "description": "Implement context-sensitive menus for modules and editor components",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Create context menus that provide relevant actions based on the selected element. Ensure menus follow UI design patterns for consistency and include keyboard shortcuts where appropriate. Implement proper positioning and focus management.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Show CPU/PG Indicators",
+          "description": "Implement visual indicators for CPU and power grid usage",
+          "dependencies": [
+            4,
+            5
+          ],
+          "details": "Design and implement clear visual indicators for CPU and power grid usage that update in real-time. Include appropriate color coding for different usage levels and ensure the indicators are prominently displayed for quick reference.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Implement Tooltips System",
+          "description": "Create an informative tooltip system for all interactive elements",
+          "dependencies": [
+            1,
+            3,
+            5,
+            6,
+            7
+          ],
+          "details": "Develop a consistent tooltip system that provides helpful information about modules, stats, and UI controls. Ensure tooltips appear with appropriate timing, positioning, and styling. Include detailed information relevant to the context.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Create Charge/Script Selection UI",
+          "description": "Implement interface for selecting and configuring charges and scripts",
+          "dependencies": [
+            1,
+            3,
+            6
+          ],
+          "details": "Design and implement UI components for selecting charges and scripts with appropriate configuration options. Include preview functionality and ensure the interface integrates with the overall fitting editor while maintaining consistency with established UI patterns.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Implement Multi-Objective Optimization Algorithm",
+      "description": "Build genetic algorithm for generating optimized fittings across DPS-Tank spectrum",
+      "details": "Implement NSGA-II algorithm for multi-objective optimization. Create FittingOptimizer class with fitness functions for DPS, EHP, cap stability. Generate initial population using heuristics (weapon systems, tank type). Implement crossover operations respecting slot constraints. Add mutation operators (swap modules, change charges). Use Pareto frontier selection. Configure parameters: population size 100, generations 50, mutation rate 0.1. Implement early stopping on convergence. Add constraints for CPU/PG, skill requirements. Create 5 representative fittings from Pareto frontier.",
+      "testStrategy": "Test algorithm convergence, verify Pareto optimality, test constraint satisfaction, benchmark optimization speed",
+      "priority": "high",
+      "dependencies": [
+        10
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement NSGA-II Core Structure",
+          "description": "Create the main NSGA-II algorithm framework with the basic genetic algorithm structure and modified selection mechanisms",
+          "dependencies": [],
+          "details": "Implement the core NSGA-II structure following the general outline of genetic algorithms with modified mating and survival selection. Include the non-dominated sorting approach with O(MN²) computational complexity where M is the number of objectives and N is the population size. Create the main loop structure that combines parent and offspring populations.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Create Multi-Objective Fitness Functions",
+          "description": "Develop fitness functions that can evaluate solutions across multiple objectives",
+          "dependencies": [],
+          "details": "Design and implement fitness functions that can handle multiple competing objectives. These functions should be able to evaluate solutions based on different criteria and return a vector of fitness values rather than a single scalar value. Test with benchmark problems like ZDT1 or ZDT5.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Generate Initial Population",
+          "description": "Implement methods to create a diverse initial population of candidate solutions",
+          "dependencies": [
+            1
+          ],
+          "details": "Create sampling methods for generating the initial population with appropriate diversity. Implement different sampling strategies like BinaryRandomSampling for binary decision variables or other sampling methods depending on the problem domain. Ensure the population size is configurable.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Crossover Operators",
+          "description": "Develop crossover mechanisms for creating offspring from parent solutions",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Implement various crossover operators such as TwoPointCrossover for binary problems or other appropriate crossover methods for different problem types. Ensure the crossover probability is configurable and the operators maintain solution validity.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Add Mutation Operators",
+          "description": "Create mutation functions to introduce diversity in the population",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Implement mutation operators like BitflipMutation for binary problems or other appropriate mutation methods. Ensure mutation rates are configurable and the operators maintain solution validity while introducing sufficient diversity to avoid premature convergence.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Handle Constraints",
+          "description": "Develop mechanisms to handle constrained optimization problems",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Modify the dominance definition to efficiently solve constrained multi-objective problems. Implement constraint handling techniques that can work with problems having multiple constraints (e.g., the referenced five-objective seven-constraint nonlinear problem).",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement Pareto Selection",
+          "description": "Create the non-dominated sorting and crowding distance calculation for Pareto-based selection",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Implement the fast non-dominated sorting approach to rank solutions into different non-dominated fronts. Add crowding distance calculation to maintain diversity along the Pareto front. Create the crowded-comparison operator for tournament selection and final population selection.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Configure Algorithm Parameters",
+          "description": "Create a parameter configuration system for the NSGA-II algorithm",
+          "dependencies": [
+            1,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "details": "Develop a configuration system that allows setting all relevant parameters: population size, number of generations, crossover and mutation probabilities, selection pressure, and other algorithm-specific parameters. Include options for eliminating duplicates.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Add Early Stopping Criteria",
+          "description": "Implement various termination conditions beyond maximum iterations",
+          "dependencies": [
+            1,
+            7
+          ],
+          "details": "Add multiple stopping criteria beyond the typical maximum number of iterations, such as convergence measures, diversity thresholds, or computational budget limits. Implement a flexible framework that allows combining different stopping criteria.",
+          "status": "done"
+        },
+        {
+          "id": 10,
+          "title": "Generate Representative Fittings",
+          "description": "Create visualization and analysis tools for the Pareto-optimal solutions",
+          "dependencies": [
+            1,
+            2,
+            7,
+            8
+          ],
+          "details": "Implement visualization tools like Scatter plots to display the Pareto front. Add functionality to compare the obtained front with the true Pareto front when available. Create methods to analyze the spread and convergence of solutions and to help decision-makers select final solutions from the Pareto set.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Build Optimization Results Display",
+      "description": "Create UI for displaying and comparing optimization results",
+      "details": "Create OptimizationResults component showing 5 generated fittings. Display fittings on DPS vs Tank scatter plot using recharts@2.10.4. Implement fitting comparison table with key stats. Add radar chart for multi-dimensional comparison (DPS, tank, speed, cap). Create fitting cards with preview and quick stats. Implement 'Apply Fitting' button to load into editor. Add export options (EFT, in-game format). Show optimization parameters used. Create animation for optimization progress. Add tooltips explaining each fitting's strengths.",
+      "testStrategy": "Test chart rendering with various data ranges, verify comparison accuracy, test export formats, check responsive design",
+      "priority": "medium",
+      "dependencies": [
+        11,
+        12
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Create Results Component",
+          "description": "Develop the main results display component that will serve as the container for all visualization and interaction elements.",
+          "dependencies": [],
+          "details": "This component will manage the layout and integration of all subcomponents, ensuring a cohesive user experience and consistent styling across the dashboard.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Implement Scatter Plot",
+          "description": "Add a scatter plot visualization to display data distributions and relationships.",
+          "dependencies": [
+            1
+          ],
+          "details": "Integrate a scatter plot chart within the results component, ensuring it supports interactive features such as tooltips and zooming.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Build Comparison Table",
+          "description": "Create a table for side-by-side comparison of key metrics and results.",
+          "dependencies": [
+            1
+          ],
+          "details": "Design and implement a comparison table that allows users to easily compare different data sets or optimization runs.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Add Radar Chart",
+          "description": "Integrate a radar chart to visualize multi-dimensional performance metrics.",
+          "dependencies": [
+            1
+          ],
+          "details": "The radar chart should be interactive and visually consistent with other dashboard elements, supporting comparison across multiple axes.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Create Fitting Cards",
+          "description": "Design and implement card components to display individual fitting results or model summaries.",
+          "dependencies": [
+            1
+          ],
+          "details": "Each card should encapsulate key information, such as model parameters, scores, and visualizations, following a consistent layout for easy scanning.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Apply Button",
+          "description": "Add an 'Apply' button to trigger actions such as applying selected filters or optimization settings.",
+          "dependencies": [
+            1
+          ],
+          "details": "Ensure the button is clearly visible and provides feedback upon interaction, updating the results display as needed.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Add Export Options",
+          "description": "Enable users to export results and visualizations in various formats (e.g., CSV, PNG, PDF).",
+          "dependencies": [
+            1
+          ],
+          "details": "Provide export functionality for tables, charts, and overall results, ensuring compatibility with common data formats.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Show Optimization Parameters",
+          "description": "Display the optimization parameters used for generating the results, ensuring transparency and reproducibility.",
+          "dependencies": [
+            1
+          ],
+          "details": "Present the parameters in a clear, accessible format, possibly within a dedicated section or modal within the results component.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Implement Fitting Import/Export System",
+      "description": "Build comprehensive fitting format parser and exporter supporting multiple formats",
+      "details": "Create FittingParser class supporting formats: EFT (EVE Fitting Tool), XML (in-game), PYFA. Implement regex-based EFT parser handling all edge cases. Create XML parser using fast-xml-parser@4.3.3. Build format detection from clipboard/file content. Implement exporters for each format with proper formatting. Handle cargo, drones, charges in all formats. Create clipboard integration using Electron clipboard API. Add batch import capability. Implement format validation with helpful error messages. Support URL-based fitting links.",
+      "testStrategy": "Test parsing of complex fittings in all formats, verify round-trip import/export, test error handling for malformed inputs",
+      "priority": "medium",
+      "dependencies": [
+        11
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement EFT Parser",
+          "description": "Develop a parser for Electronic File Transfer (EFT) format that can accurately read and interpret EFT data structures.",
+          "dependencies": [],
+          "details": "Create a robust parser that handles EFT format specifications, including header validation, record parsing, and error handling for malformed EFT files. Ensure compatibility with industry-standard EFT formats and implement proper exception handling for corrupted files.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Create XML Parser",
+          "description": "Build a comprehensive XML parser to import and export data in XML format.",
+          "dependencies": [],
+          "details": "Develop an XML parser that can read XML definition files, validate against schemas, and properly handle namespaces. Implement DOM or SAX parsing depending on file sizes, and ensure proper entity handling and character encoding support.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Build Format Detection System",
+          "description": "Create an intelligent system that can automatically detect and identify file formats for processing.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Implement format detection algorithms that analyze file headers, content patterns, and extensions to automatically determine the appropriate parser to use. Support detection of EFT, XML, CSV, and other common formats without requiring user specification.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Data Exporters",
+          "description": "Develop export functionality for all supported formats to enable data extraction.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Create export modules that can transform internal data structures into EFT, XML, CSV and other formats. Implement configurable export parameters, field mapping capabilities, and support for partial exports of selected data subsets.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Handle Specialized Data Types",
+          "description": "Extend the import/export system to properly handle cargo, drones, and charges data types.",
+          "dependencies": [
+            3,
+            4
+          ],
+          "details": "Implement specialized parsers and formatters for cargo manifests, drone specifications, and financial charges data. Create data validation rules specific to each type and ensure proper relationship mapping between these specialized entities.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add Clipboard Integration",
+          "description": "Implement clipboard functionality to allow copy/paste operations with the import/export system.",
+          "dependencies": [
+            4
+          ],
+          "details": "Develop clipboard handlers that can detect and process formatted data from the clipboard. Support copying exported data to clipboard in various formats and pasting data directly into the application for quick imports without requiring file operations.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement Batch Import Processing",
+          "description": "Create a system for handling multiple file imports as a single batch operation.",
+          "dependencies": [
+            3,
+            5
+          ],
+          "details": "Build a batch processing framework that can queue multiple import files, process them sequentially or in parallel, maintain transaction integrity across files, and provide consolidated reporting on batch results. Implement recovery mechanisms for partial batch failures.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Add Format Validation Framework",
+          "description": "Develop a comprehensive validation system to verify data integrity and format compliance.",
+          "dependencies": [
+            3,
+            7
+          ],
+          "details": "Create a validation framework with configurable rules for different data formats and types. Implement multi-level validation including syntax checking, semantic validation, business rule validation, and relationship verification. Provide detailed validation reports and error correction suggestions.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Create Character Skills Management Interface",
+      "description": "Build comprehensive skill viewer and planner interface",
+      "details": "Create SkillsView component displaying character skills in categories. Show skill levels with progress bars. Implement skill search and filtering. Display total SP and unallocated SP. Create skill queue viewer showing training plan. Add 'Skills for Fitting' analyzer showing missing skills. Implement skill plan optimizer suggesting shortest path to fly a ship/fitting. Use Material-UI TreeView for skill categories. Add skill tooltips with descriptions and bonuses. Create visual skill requirement trees. Cache skill data with 1-hour TTL.",
+      "testStrategy": "Test skill calculations, verify queue time estimates, test skill requirement analysis, check data synchronization with ESI",
+      "priority": "medium",
+      "dependencies": [
+        8,
+        5
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Create Skills View Component",
+          "description": "Design and implement the main skills view component that will serve as the container for all skill-related information and interactions.",
+          "dependencies": [],
+          "details": "Build a reusable component that displays skills in an organized layout. Implement proper visual hierarchy to highlight important skill information. Follow component architecture best practices by keeping the component focused on a single task and ensuring it can accept props for dynamic data display.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Implement Search and Filtering Functionality",
+          "description": "Create search and filtering components that allow users to quickly find specific skills or filter skills based on various criteria.",
+          "dependencies": [
+            1
+          ],
+          "details": "Design input fields for search functionality with real-time results. Implement dropdown menus or checkboxes for filtering options. Ensure the components are responsive and provide clear visual feedback during user interaction. Consider implementing debounce for search to optimize performance.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Display SP and Queue Information",
+          "description": "Create components to display Skill Points (SP) and queue information in an intuitive and user-friendly manner.",
+          "dependencies": [
+            1
+          ],
+          "details": "Design progress bars or numerical indicators for SP display. Implement a queue visualization that shows pending skill acquisitions. Ensure these components update dynamically when changes occur. Use appropriate color theory to indicate different states or priorities in the queue.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Build Skill Analyzer Component",
+          "description": "Develop a component that analyzes skills and provides useful insights or recommendations to the user.",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Create an analyzer that processes skill data and generates meaningful metrics. Implement data visualization elements like charts or graphs to represent analysis results. Ensure the component can handle complex calculations while maintaining good performance. Design clear visual outputs that help users understand the analysis.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement Skill Optimizer",
+          "description": "Create a component that helps users optimize their skill selections based on various factors and goals.",
+          "dependencies": [
+            4
+          ],
+          "details": "Design an interface that allows users to set optimization goals. Implement algorithms that calculate optimal skill paths based on user inputs. Create visual representations of optimization results using appropriate UI elements like tables or highlighted paths. Ensure the optimizer provides clear explanations of its recommendations.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add Tooltips for Skill Information",
+          "description": "Implement tooltips that provide additional information about skills when users hover over or interact with skill elements.",
+          "dependencies": [
+            1
+          ],
+          "details": "Design tooltips that display relevant skill details without cluttering the interface. Implement hover or click interactions to trigger tooltips. Ensure tooltips are positioned correctly and don't obscure important content. Include helpful information in tooltips such as skill requirements, benefits, and relationships to other skills.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Create Skill Trees Visualization",
+          "description": "Develop a component that visualizes skill relationships and dependencies in a tree or graph structure.",
+          "dependencies": [
+            1,
+            6
+          ],
+          "details": "Design an interactive skill tree that clearly shows relationships between skills. Implement navigation controls for large skill trees. Ensure the visualization is responsive and works across different screen sizes. Add visual indicators for acquired skills, available skills, and locked skills within the tree structure.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Implement Skill Data Caching",
+          "description": "Create a caching mechanism to improve performance when loading and displaying skill data.",
+          "dependencies": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            7
+          ],
+          "details": "Implement client-side caching of skill data to reduce server requests. Design a cache invalidation strategy to ensure data freshness. Create loading states for when cache is being populated. Optimize the caching mechanism to prioritize frequently accessed skill information for better user experience.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Implement Activity-Specific Fitting Templates",
+      "description": "Create system for activity-based fitting recommendations and constraints",
+      "details": "Define activity profiles: PvP (solo, fleet), PvE (missions L1-L4, abyssal), Mining, Exploration. Create constraint sets per activity (e.g., PvP needs tackle, PvE needs tank). Implement template system with required/recommended modules. Create ActivityOptimizer extending base optimizer with activity constraints. Add activity selection UI in optimization flow. Store common fits per activity as starting points. Implement activity-specific fitness functions. Create explanation system for activity choices. Add custom activity definition capability.",
+      "testStrategy": "Test constraint application for each activity, verify optimization produces viable fits, test template system, validate recommendations",
+      "priority": "medium",
+      "dependencies": [
+        12
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define Activity Profiles",
+          "description": "Create a comprehensive data structure for activity profiles that captures all necessary attributes and parameters for different types of activities.",
+          "dependencies": [],
+          "details": "Design a flexible schema that can represent various activity types with their specific characteristics, constraints, and requirements. Include metadata fields for categorization and searchability.\n<info added on 2025-06-06T09:40:30.318Z>\nCompleted defining activity profiles:\n\n1. Created a `types.ts` file in `src/renderer/features/fitting-optimizer` to define all necessary types for activity-specific fitting templates. This includes:\n   - `ActivityType`, `PvpActivity`, `PveActivity`, etc. to categorize activities\n   - `ActivityConstraints` to define rules for ship types, modules, performance, and cost\n   - `ActivityProfile` to structure the definition of each activity with constraints and metadata\n   - `FittingTemplate` to define a starting point for a fitting based on an activity\n\n2. Created a `data/activity-profiles.ts` file containing a predefined set of `ActivityProfile` objects. This includes profiles for:\n   - PvP: Solo Frigate, Fleet Cruiser\n   - PvE: Level 4 Mission, Tier 3 Abyssal\n   - Mining: Ore Mining Barge\n   - Exploration: Relic Site Exploration\n\n3. Each profile includes a clear `id`, `name`, `description`, `type`, `subType`, a set of `constraints`, and metadata like `tags`, `author`, and `version`.\n\nThis provides a solid and extensible data structure for defining various in-game activities and their associated fitting requirements.\n</info added on 2025-06-06T09:40:30.318Z>",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Create Constraint Sets",
+          "description": "Develop a system to define and manage sets of constraints that can be applied to different activity types.",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement a constraint definition language that allows for complex rule creation. Include validation mechanisms to ensure constraint consistency and compatibility between different constraint sets.\n<info added on 2025-06-06T09:41:32.021Z>\nCompleted implementation of constraint sets with the following components:\n\n1. Created `constraint-validator.ts` utility in `src/renderer/features/fitting-optimizer/utils` that provides:\n   - `validateFitting` function for orchestrating comprehensive fitting validation against activity constraints\n   - Specialized helper functions (`checkShipType`, `checkModules`, etc.) for validating each constraint category\n   - `findValidProfiles` function to identify all activity profiles compatible with a given fitting\n   - `mergeConstraints` function for combining multiple constraint sets into unified rule sets\n\n2. Implemented `useActivityStore` in `src/renderer/features/fitting-optimizer/store` for activity profile management:\n   - State management supporting both default and custom activity profiles\n   - CRUD operations for activity profiles (add, update, delete, set active)\n   - Retrieval methods for accessing profiles by ID, type, or tag\n   - Integration with constraint validator through `getValidProfilesForFitting` and `isFittingValidForProfile` methods\n\nThis implementation establishes a comprehensive system for defining, managing, and validating constraint sets across different EVE Online activities, fulfilling the core requirements for activity-specific fitting optimization.\n</info added on 2025-06-06T09:41:32.021Z>",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Implement Template System",
+          "description": "Build a flexible template system that can generate activity instances based on profiles and constraints.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Create a template engine that can interpret activity profiles and apply appropriate constraints to generate valid activity instances. Include versioning support for templates and a mechanism for template inheritance.\n<info added on 2025-06-06T09:42:36.872Z>\nCompleted implementing the template system:\n\n1. Created a `template-generator.ts` utility in `src/renderer/features/fitting-optimizer/utils` to handle the core logic of template creation and application. This includes:\n   - `createFittingFromTemplate`: Generates a new `Fitting` object from a `FittingTemplate`.\n   - `createTemplateFromFitting`: Creates a `FittingTemplate` from an existing `Fitting`.\n   - `applyTemplateToFitting`: Applies a template's modules to an existing fitting of the same ship type.\n   - `findTemplatesForActivity`: Finds all templates associated with a given activity profile.\n\n2. Created a `useTemplateStore` in `src/renderer/features/fitting-optimizer/store` to manage fitting templates. This store provides:\n   - State management for default and custom fitting templates.\n   - CRUD actions (`add`, `update`, `delete`) for custom templates.\n   - Methods that integrate the template generator, such as `createFitting`, `createTemplate`, and `applyTemplate`.\n   - Getter functions to retrieve templates by ID or by associated activity profile.\n\nThis provides a complete system for creating, managing, and applying fitting templates, which will serve as the starting point for activity-specific fitting optimization.\n</info added on 2025-06-06T09:42:36.872Z>",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Extend Optimizer",
+          "description": "Enhance the existing optimizer to work with the new template system and constraint sets.",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Modify the optimization algorithm to efficiently handle the new constraint types and template structures. Implement a greedy algorithm approach for activity selection to maximize the number of activities that can be performed within given constraints.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Add Activity Selection UI",
+          "description": "Design and implement a user interface for activity selection and configuration.",
+          "dependencies": [
+            3
+          ],
+          "details": "Create an intuitive UI that allows users to browse, filter, and select activities. Include features for indicating and highlighting selected elements, and provide options for simulating interactions with the selected activities.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Store Common Fits",
+          "description": "Develop a storage system for saving and retrieving commonly used activity configurations.",
+          "dependencies": [
+            3,
+            5
+          ],
+          "details": "Implement a database schema to efficiently store activity configurations and their associated metadata. Include functionality for searching, filtering, and recommending configurations based on user history and preferences.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement Fitness Functions",
+          "description": "Create a set of fitness functions to evaluate the suitability of activities for specific contexts.",
+          "dependencies": [
+            4
+          ],
+          "details": "Design and implement various fitness metrics that can assess how well an activity matches given requirements or constraints. Include customizable weighting systems to prioritize different aspects of fitness based on context.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Create Explanation System",
+          "description": "Develop a system to generate explanations for activity selection decisions.",
+          "dependencies": [
+            4,
+            7
+          ],
+          "details": "Implement a mechanism that can trace the decision-making process of the optimizer and generate human-readable explanations. Include visualizations to help users understand why certain activities were selected or rejected based on constraints and fitness scores.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "title": "Build Educational Guidance System",
+      "description": "Implement comprehensive educational features explaining fitting decisions",
+      "details": "Create FittingExplainer class generating natural language explanations. Implement explanation templates for module choices, trade-offs, synergies. Add 'Why this module?' tooltips with reasoning. Create fitting analysis showing strengths/weaknesses. Implement concept explanations (stacking penalties, resist profiles, etc.). Add interactive tutorials for fitting basics. Create glossary system for EVE terms. Implement 'Learn More' links to EVE University wiki. Add beginner mode with extra guidance. Store explanation templates in JSON for easy updates.",
+      "testStrategy": "Test explanation generation accuracy, verify educational content correctness, test tutorial flow, gather user feedback on clarity",
+      "priority": "medium",
+      "dependencies": [
+        13
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement explanation generator",
+          "description": "Develop a system that dynamically generates explanations for educational concepts based on user context and learning level",
+          "dependencies": [],
+          "details": "Create an AI-powered explanation engine that can break down complex topics into understandable components. The system should follow implementation science principles by identifying the 'active ingredients' of effective explanations and ensuring adaptability to different learning contexts.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Create templates",
+          "description": "Design standardized templates for different types of educational content to ensure consistency and quality",
+          "dependencies": [
+            1
+          ],
+          "details": "Develop a library of templates for various educational content types (lessons, quizzes, examples, etc.) that incorporate evidence-based practices. Templates should be performance-based and focused on measurable outcomes as part of a successful educational system implementation.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Add tooltips",
+          "description": "Implement contextual help tooltips throughout the application to provide just-in-time assistance",
+          "dependencies": [
+            1
+          ],
+          "details": "Create a system of tooltips that appear when users hover over complex terms or concepts. This implementation should consider the 'who' (different user types) and 'what' (specific information needed) to ensure tooltips are helpful without being intrusive.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Build fitting analysis",
+          "description": "Develop an algorithm to analyze how well educational content matches user needs and learning styles",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Create an analytical system that evaluates the fit between educational content and user requirements. This should incorporate implementation science principles of adaptability and assessment to ensure content can be tailored to meet local needs and individual learning styles.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement concept explanations",
+          "description": "Create in-depth explanations for core educational concepts that can be accessed throughout the application",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Develop comprehensive explanations for fundamental concepts that form the backbone of the educational content. These should be structured according to implementation phases with clear outcomes and success measures for learner understanding.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Create tutorials",
+          "description": "Design interactive tutorials that guide users through key features and educational processes",
+          "dependencies": [
+            2,
+            3,
+            5
+          ],
+          "details": "Build step-by-step tutorials that demonstrate how to use the system effectively. Implementation should consider the multilevel nature of educational systems, addressing the needs of different stakeholders and ensuring appropriate communication methods for each group.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Build glossary",
+          "description": "Compile a comprehensive glossary of educational terms with clear, accessible definitions",
+          "dependencies": [
+            1,
+            5
+          ],
+          "details": "Create an extensive glossary that defines all specialized terminology used in the educational content. This implementation should focus on acceptability and feasibility, ensuring definitions are accurate while remaining accessible to users at different knowledge levels.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Add beginner mode",
+          "description": "Implement a simplified interface and content presentation for new or novice users",
+          "dependencies": [
+            3,
+            5,
+            6,
+            7
+          ],
+          "details": "Develop a specialized mode that presents educational content in a more accessible way for beginners. This implementation should address the 'why' (solving the challenge of intimidating complexity) and include clear phases with short-term, mid-term, and long-term outcomes to measure success.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Implement Market Price Integration",
+      "description": "Build real-time market data integration for fitting cost analysis",
+      "details": "Extend ESI client for market endpoints (/markets/prices/, /markets/10000002/orders/). Create MarketService with price caching (5-minute TTL). Implement regional market selection (Jita, Amarr, etc.). Calculate total fitting cost including hull, modules, charges, drones. Add price history charts using recharts. Create budget-based fitting constraints for optimizer. Implement price alerts for saved fittings. Add 'Find Cheapest' option for modules. Show price breakdown in fitting display. Cache market data in SQLite for offline access.",
+      "testStrategy": "Test price calculation accuracy, verify cache invalidation, test regional price differences, mock ESI market endpoints",
+      "priority": "low",
+      "dependencies": [
+        5,
+        11
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Extend ESI Client for Market Integration",
+          "description": "Enhance the existing ESI client to support new market-related API endpoints and data structures required for market integration.",
+          "dependencies": [],
+          "details": "Update the ESI client library to fetch market data, handle authentication, and parse new responses as needed for downstream services.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Implement MarketService",
+          "description": "Develop a MarketService component to encapsulate business logic for market data retrieval, processing, and interaction with the ESI client.",
+          "dependencies": [
+            1
+          ],
+          "details": "Create a service layer that interfaces with the extended ESI client, providing methods for querying prices, volumes, and other market metrics.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Add Regional Selection Functionality",
+          "description": "Enable users to select different market regions, ensuring that all market queries and data visualizations are region-aware.",
+          "dependencies": [
+            2
+          ],
+          "details": "Implement UI controls and backend support for region selection, updating queries and data displays based on the selected region.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Calculate Fitting Cost",
+          "description": "Develop logic to compute the total cost of a ship fitting based on current market prices for all required items in the selected region.",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Aggregate item prices from the MarketService and sum them according to the fitting blueprint, updating dynamically as prices or regions change.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Build Price Charts",
+          "description": "Implement data visualization components to display historical and current price trends for selected items.",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Use charting libraries to render price history and volatility, sourcing data from the MarketService and updating in real time.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Budget Constraints",
+          "description": "Add functionality to allow users to set budget limits and receive feedback or warnings if their fitting exceeds the specified budget.",
+          "dependencies": [
+            4
+          ],
+          "details": "Integrate budget checks into the fitting cost calculation workflow, providing UI feedback and enforcing constraints as needed.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Cache Market Data",
+          "description": "Introduce caching mechanisms to store frequently accessed market data, reducing API calls and improving performance.",
+          "dependencies": [
+            2
+          ],
+          "details": "Implement in-memory or persistent caching strategies for market queries, with cache invalidation policies based on data freshness requirements.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "title": "Create Advanced Fitting Management System",
+      "description": "Build comprehensive fitting organization and sharing features",
+      "details": "Implement fitting folders/tags system for organization. Create fitting versioning with change history. Add fitting notes and descriptions. Implement fitting search across name, ship, modules. Create fitting comparison tool for side-by-side analysis. Add fitting sharing via URLs (using base64 encoding). Implement fitting templates/favorites system. Create bulk operations (delete, export, move). Add fitting statistics (usage count, last modified). Store fittings in SQLite with full-text search. Implement auto-save with undo/redo.",
+      "testStrategy": "Test CRUD operations, verify search functionality, test sharing URLs, validate versioning system, test bulk operations",
+      "priority": "low",
+      "dependencies": [
+        11,
+        14
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Folders and Tags System",
+          "description": "Create a hierarchical folder structure and tagging system to organize fittings",
+          "dependencies": [],
+          "details": "Design and implement a flexible organization system that allows users to create nested folders and apply multiple tags to fittings. Include drag-and-drop functionality for easy reorganization and bulk tag application.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Create Versioning System",
+          "description": "Develop a robust versioning mechanism to track changes to fittings over time",
+          "dependencies": [],
+          "details": "Implement automatic version creation when changes are made, with options to view version history, compare versions, and restore previous versions. Include metadata tracking for each version including timestamp and user information.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Add Notes and Descriptions Functionality",
+          "description": "Enable users to add detailed notes and descriptions to fittings",
+          "dependencies": [],
+          "details": "Create rich text editing capabilities for adding formatted notes and descriptions to fittings. Include support for attachments, links, and the ability to tag other users in notes for collaboration.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Build Search Functionality",
+          "description": "Implement comprehensive search capabilities across all fitting data",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Develop advanced search functionality with filters for folders, tags, content, dates, and other metadata. Include saved searches, recent searches, and search suggestions to enhance user experience.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Create Comparison Tool",
+          "description": "Develop a tool to compare different fittings or versions side by side",
+          "dependencies": [
+            2
+          ],
+          "details": "Build a visual comparison interface that highlights differences between fittings or versions. Include options to compare specific attributes and generate comparison reports.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Implement Sharing and Collaboration Features",
+          "description": "Enable secure sharing of fittings with different permission levels",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Create a permission system with view, edit, and admin access levels. Implement sharing via links, email invitations, and team/group assignments with audit logs for all sharing activities.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Add Templates and Favorites System",
+          "description": "Create functionality for saving templates and marking favorites",
+          "dependencies": [
+            1,
+            3
+          ],
+          "details": "Develop a system for creating and applying templates to new fittings. Implement a favorites mechanism for quick access to frequently used fittings with customizable sorting options.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Build Bulk Operations Functionality",
+          "description": "Implement tools for performing actions on multiple fittings simultaneously",
+          "dependencies": [
+            1,
+            6
+          ],
+          "details": "Create interfaces and backend processes for bulk selection, editing, tagging, moving, sharing, and exporting of fittings. Include progress tracking for large operations and undo functionality.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Implement Auto-Save and Recovery",
+          "description": "Develop automatic saving and recovery mechanisms",
+          "dependencies": [
+            2
+          ],
+          "details": "Create a system that automatically saves changes at regular intervals and during user actions. Implement a recovery system for unsaved changes in case of browser crashes or connectivity issues.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Implement Performance Monitoring and Analytics",
+      "description": "Add application performance monitoring and usage analytics",
+      "details": "Implement performance monitoring using Electron's performance API. Track app metrics: startup time, memory usage, calculation speeds. Add anonymous usage analytics with opt-in (using Plausible or similar privacy-focused solution). Monitor API response times and cache hit rates. Create performance dashboard in dev mode. Implement error tracking with Sentry (sanitize sensitive data). Add A/B testing framework for UI experiments. Create user feedback system. Log optimization algorithm performance. Generate performance reports.",
+      "testStrategy": "Verify metrics accuracy, test privacy compliance, ensure no PII in analytics, test error reporting, benchmark baseline performance",
+      "priority": "low",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Metrics Tracking",
+          "description": "Set up infrastructure to collect and store key performance metrics.",
+          "dependencies": [],
+          "details": "Define relevant metrics, integrate data collection tools, and ensure data is stored securely.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Add Analytics",
+          "description": "Integrate analytics tools to process and interpret collected metrics.",
+          "dependencies": [
+            1
+          ],
+          "details": "Configure analytics platforms, set up data pipelines, and ensure privacy compliance.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Monitor API Response Times",
+          "description": "Implement monitoring for API endpoints to track response times.",
+          "dependencies": [
+            1
+          ],
+          "details": "Instrument APIs, collect response time data, and set up alerts for anomalies.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Create Dashboard",
+          "description": "Develop a dashboard to visualize performance metrics and analytics.",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Design dashboard layout, integrate data sources, and ensure real-time updates.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement Error Tracking",
+          "description": "Set up error tracking to monitor and log system errors.",
+          "dependencies": [
+            1
+          ],
+          "details": "Integrate error logging tools, configure alerts, and ensure error data is accessible.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add A/B Testing",
+          "description": "Integrate A/B testing capabilities to compare performance of different features.",
+          "dependencies": [
+            2
+          ],
+          "details": "Set up A/B testing framework, define experiments, and ensure privacy compliance.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Create Feedback System",
+          "description": "Develop a system to collect and analyze user feedback.",
+          "dependencies": [
+            2,
+            4
+          ],
+          "details": "Design feedback collection mechanisms, integrate with analytics, and ensure user privacy.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "title": "Build Intelligent Caching System",
+      "description": "Implement sophisticated multi-layer caching for optimal performance",
+      "details": "Create CacheManager with memory (LRU) and disk (SQLite) layers. Implement cache key generation with versioning. Add TTL management based on data type (SDE: permanent, skills: 1 hour, market: 5 min). Create cache warming on app start for common data. Implement cache invalidation strategies. Add offline mode detection with graceful degradation. Create cache size management with eviction policies. Implement differential updates for large datasets. Add cache statistics monitoring. Use IPC for cache synchronization between processes.",
+      "testStrategy": "Test cache hit/miss rates, verify TTL expiration, test offline functionality, measure performance improvements, test cache size limits",
+      "priority": "medium",
+      "dependencies": [
+        2,
+        5
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Design and Implement CacheManager",
+          "description": "Develop the core CacheManager component responsible for orchestrating cache operations, including storing, retrieving, and managing cached data.",
+          "dependencies": [],
+          "details": "Define interfaces and core logic for cache access, ensuring extensibility for future layers and features.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Integrate Memory and Disk Cache Layers",
+          "description": "Add support for both in-memory and disk-based cache layers to enable multi-tiered caching.",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement logic for reading from and writing to both memory and disk, with fallback mechanisms and synchronization between layers.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Implement Time-To-Live (TTL) Management",
+          "description": "Add TTL support to automatically expire cache entries after a specified duration.",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Ensure each cache entry can be assigned a TTL and that expired entries are purged or refreshed as needed.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Develop Cache Warming Mechanism",
+          "description": "Create a system to pre-populate the cache with frequently accessed or critical data at startup or on demand.",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Design strategies for identifying and loading hot data to minimize cold start latency.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Implement Cache Invalidation Strategies",
+          "description": "Develop mechanisms to invalidate or update cache entries when underlying data changes.",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Support manual, event-driven, and TTL-based invalidation to ensure cache consistency.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add Offline Detection and Handling",
+          "description": "Enable the cache system to detect offline scenarios and adjust cache behavior accordingly.",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Implement logic to serve stale data or queue updates when the system is offline, resynchronizing when connectivity is restored.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement Cache Size Management and Eviction Policies",
+          "description": "Add mechanisms to monitor and control cache size, including eviction policies like LRU or LFU.",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Ensure optimal resource usage by automatically removing least valuable entries when limits are reached.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Enable Differential Cache Updates",
+          "description": "Implement support for updating only changed portions of cached data rather than full replacements.",
+          "dependencies": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "details": "Optimize network and storage usage by applying diffs or patches to cached entries.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Add Cache Statistics and Monitoring",
+          "description": "Integrate monitoring tools to track cache performance, hit/miss rates, and resource usage.",
+          "dependencies": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "details": "Expose metrics for observability and tuning, supporting alerts and dashboards as needed.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 22,
+      "title": "Implement Advanced Skill Planning Optimizer",
+      "description": "Build intelligent skill training plan generator for optimal fitting paths",
+      "details": "Create SkillPlanOptimizer using graph algorithms for shortest training paths. Calculate skill training times with attribute modifiers. Implement multi-goal optimization (fly multiple ships/fittings). Add skill priority weighting system. Create visual skill plan timeline using Gantt charts. Implement 'remap optimizer' for attribute optimization. Add skill plan comparison tool. Export to EVEMon format. Calculate plan with/without implants. Show intermediate milestone ships. Implement skill book cost calculation. Add Alpha/Omega clone considerations.",
+      "testStrategy": "Verify training time calculations, test path optimization, validate against EVE skill planner, test export formats",
+      "priority": "low",
+      "dependencies": [
+        15,
+        10
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Core Skill Optimizer",
+          "description": "Develop the foundational optimization engine that identifies essential competencies and maps current workforce skills against requirements",
+          "dependencies": [],
+          "details": "Create algorithms to define core competencies, assess current workforce skills, and identify gaps. Implement functionality to forecast future skill needs based on organizational objectives and industry trends. Include methods for prioritizing skill development based on business impact.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Calculate Training Times",
+          "description": "Build a module to estimate time required for skill acquisition and development",
+          "dependencies": [
+            1
+          ],
+          "details": "Develop algorithms to calculate realistic training timelines based on skill complexity, employee learning curves, and available learning resources. Include functionality to adjust estimates based on historical training data and individual employee performance metrics.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Add Multi-Goal Optimization",
+          "description": "Enhance the optimizer to balance multiple competing objectives simultaneously",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement advanced algorithms to handle multiple optimization goals such as minimizing training costs, maximizing skill coverage, and optimizing workforce utilization. Create weighting mechanisms to balance short-term operational needs with long-term strategic skill development.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Priority Weighting",
+          "description": "Create a system for assigning different weights to skills based on organizational priorities",
+          "dependencies": [
+            3
+          ],
+          "details": "Develop a flexible weighting system that allows organizations to prioritize skills based on business impact, strategic importance, and market demand. Include functionality to adjust weights dynamically based on changing business conditions and emerging skill requirements.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Create Timeline Visualization",
+          "description": "Design and implement visual representations of skill development timelines",
+          "dependencies": [
+            2
+          ],
+          "details": "Build interactive visualizations showing skill acquisition paths, training milestones, and projected competency levels over time. Include features to highlight critical skill gaps, training bottlenecks, and optimization opportunities. Ensure visualizations are accessible and intuitive for different stakeholders.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Add Remap Optimizer",
+          "description": "Develop functionality to reassign and redistribute skills across the workforce",
+          "dependencies": [
+            1,
+            4
+          ],
+          "details": "Create algorithms to optimize the distribution of skills across teams and departments. Implement functionality to identify opportunities for cross-training, skill sharing, and resource reallocation. Include mechanisms to balance workload and ensure critical skill coverage.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Build Comparison Tool",
+          "description": "Create functionality to compare different skill development scenarios and strategies",
+          "dependencies": [
+            3,
+            5
+          ],
+          "details": "Develop tools to generate and compare multiple skill development scenarios based on different assumptions, constraints, and optimization goals. Include metrics for evaluating scenarios based on cost, time, risk, and strategic alignment. Provide clear visualizations of trade-offs between different approaches.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Implement Export Functionality",
+          "description": "Create mechanisms to export optimization results in various formats",
+          "dependencies": [
+            5,
+            7
+          ],
+          "details": "Develop export capabilities for skill matrices, development plans, and optimization reports in multiple formats (CSV, PDF, interactive dashboards). Ensure exports include appropriate metadata, timestamps, and version information. Create templates for different stakeholder needs (executives, managers, L&D teams).",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Handle Clone Considerations",
+          "description": "Implement functionality to manage duplicate skills and create skill hierarchies",
+          "dependencies": [
+            6
+          ],
+          "details": "Develop mechanisms to identify and manage duplicate or overlapping skills. Create functionality to establish skill hierarchies, prerequisites, and dependencies. Implement tools to consolidate similar skills and standardize skill definitions across the organization.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Create Comprehensive Testing Suite",
+      "description": "Build full testing infrastructure for unit, integration, and E2E tests",
+      "details": "Setup Jest for unit tests with ts-jest@29.1.1. Configure React Testing Library for component tests. Implement Playwright@1.41.0 for E2E tests. Create test data factories using Fishery. Mock ESI API responses with MSW@2.1.0. Achieve 80% code coverage minimum. Setup GitHub Actions for CI/CD. Create performance benchmarks with Jest. Add visual regression tests with Percy. Implement database tests with in-memory SQLite. Create fitting calculation test suite against known values. Add security tests for auth flow.",
+      "testStrategy": "Run tests in CI pipeline, monitor coverage trends, test on Windows/Mac/Linux, run E2E tests nightly, benchmark performance",
+      "priority": "high",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Set Up Jest",
+          "description": "Install and configure Jest as the primary test runner for the project.",
+          "dependencies": [],
+          "details": "Install Jest via npm or yarn, create a basic jest.config.js file, and ensure it is recognized by the project.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Configure React Testing Library",
+          "description": "Integrate React Testing Library with Jest for component testing.",
+          "dependencies": [
+            1
+          ],
+          "details": "Install @testing-library/react and @testing-library/jest-dom, update jest.config.js to include setupFilesAfterEnv, and create a jest.setup.js file to import necessary matchers.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Implement Playwright E2E Tests",
+          "description": "Set up Playwright for end-to-end (E2E) browser-based testing.",
+          "dependencies": [
+            1
+          ],
+          "details": "Install Playwright, configure test scripts, and create initial E2E test cases for critical user flows.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Create Test Data Factories",
+          "description": "Develop factories or utilities to generate consistent and reusable test data.",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement functions or libraries (e.g., factory-girl, faker) to produce mock data for unit, integration, and E2E tests.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Mock APIs",
+          "description": "Set up API mocking for both unit/integration and E2E tests.",
+          "dependencies": [
+            2,
+            3,
+            4
+          ],
+          "details": "Use tools like MSW (Mock Service Worker) or Jest mocks to simulate backend responses and control test environments.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Achieve Code Coverage",
+          "description": "Configure Jest to collect and report code coverage metrics.",
+          "dependencies": [
+            2
+          ],
+          "details": "Enable collectCoverage and collectCoverageFrom in jest.config.js, and ensure coverage reports are generated after test runs.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Set Up CI/CD Integration",
+          "description": "Integrate the test suite into the project's CI/CD pipeline.",
+          "dependencies": [],
+          "details": "Configure CI/CD tools (e.g., GitHub Actions, GitLab CI) to run tests, enforce coverage thresholds, and report results on pull requests.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Add Performance Benchmarks",
+          "description": "Implement performance testing and benchmarking for critical flows.",
+          "dependencies": [],
+          "details": "Use tools like Lighthouse, WebPageTest, or Playwright's performance APIs to measure and track performance metrics.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Implement Visual Regression Testing",
+          "description": "Set up visual regression tests to catch unintended UI changes.",
+          "dependencies": [
+            3,
+            7
+          ],
+          "details": "Integrate tools like Percy, Chromatic, or Playwright's screenshot comparison to automate visual checks.",
+          "status": "done"
+        },
+        {
+          "id": 10,
+          "title": "Add Security Tests",
+          "description": "Incorporate automated security testing into the suite.",
+          "dependencies": [],
+          "details": "Use tools such as Snyk, npm audit, or OWASP ZAP to scan for vulnerabilities and enforce secure coding practices.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "title": "Implement Auto-Update System",
+      "description": "Build secure auto-update mechanism for distributing new versions",
+      "details": "Implement electron-updater@6.1.7 with code signing certificates. Setup update server (GitHub Releases or custom). Create update UI with progress indication. Implement differential updates to minimize download size. Add update channels (stable, beta). Create rollback mechanism for failed updates. Implement update notifications with changelog display. Add manual update check option. Configure auto-update settings (frequency, background downloads). Sign updates for Windows/Mac. Create update testing framework.",
+      "testStrategy": "Test update flow on all platforms, verify signature validation, test rollback scenarios, test differential updates, verify security",
+      "priority": "low",
+      "dependencies": [
+        1
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Core Updater Component",
+          "description": "Develop the core updater component that can check for, download, and apply updates",
+          "dependencies": [],
+          "details": "Create a robust updater module that can scan the environment, identify outdated components, and handle the update process. Implement reliability mechanisms to ensure updates complete successfully even with interruptions. Include integrity verification to confirm updates are complete and valid before applying.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Set Up Secure Update Server",
+          "description": "Establish a secure server infrastructure to host and distribute update files",
+          "dependencies": [],
+          "details": "Configure a server environment with proper authentication, encryption, and access controls. Implement mechanisms to store different versions of updates, manage update metadata, and track update distribution statistics. Ensure the server can handle the expected load and has redundancy measures.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Create User-Friendly Update Interface",
+          "description": "Design and implement a user interface for update notifications and controls",
+          "dependencies": [
+            1
+          ],
+          "details": "Develop an intuitive UI that notifies users about available updates, displays update details, shows progress during installation, and provides options to schedule, postpone, or skip updates. Ensure the interface is accessible and provides clear information about update benefits.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Differential Update System",
+          "description": "Create a system that only downloads and applies changes between versions",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Design and implement a differential update mechanism that identifies only the changed components between versions, reducing bandwidth usage and update time. Include verification systems to ensure differential updates are applied correctly and completely.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Add Multiple Update Channels",
+          "description": "Implement different update channels (stable, beta, nightly) for various user segments",
+          "dependencies": [
+            2
+          ],
+          "details": "Create a channel-based distribution system allowing users to opt into different update streams based on their preference for stability versus new features. Include channel switching capabilities and proper versioning to manage transitions between channels.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Create Rollback Mechanism",
+          "description": "Develop functionality to revert to previous versions if updates cause issues",
+          "dependencies": [
+            1,
+            4
+          ],
+          "details": "Implement a system to backup critical components before updates, track update history, and provide mechanisms to restore previous versions if problems are detected. Include automated health checks post-update to trigger rollbacks when necessary.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement Notification System",
+          "description": "Create a comprehensive notification system for update events and statuses",
+          "dependencies": [
+            3
+          ],
+          "details": "Develop a notification framework that alerts users about available updates, scheduled maintenance windows, update progress, completion status, and any issues encountered. Include customization options for notification frequency and types.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Configure Code Signing and Security Verification",
+          "description": "Implement code signing and verification to ensure update authenticity",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Set up a code signing infrastructure to digitally sign all updates. Implement verification mechanisms in the updater to confirm signature validity before applying updates. Include certificate management processes and revocation handling for compromised certificates.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "title": "Production Build and Distribution Setup",
+      "description": "Configure production builds and distribution for all platforms",
+      "details": "Configure electron-forge for production builds. Setup code signing for Windows (EV certificate) and Mac (Developer ID). Create installers: Windows (NSIS), Mac (DMG), Linux (AppImage, deb, rpm). Implement build optimization: tree shaking, minification, compression. Setup GitHub Actions for automated builds. Create distribution channels: GitHub Releases, website downloads. Implement license validation system. Add crash reporting with symbol upload. Create portable version option. Configure auto-update feed generation. Add telemetry for install/uninstall events.",
+      "testStrategy": "Test installers on clean systems, verify code signing, test auto-update from production, validate all distribution formats, security scan",
+      "priority": "high",
+      "dependencies": [
+        23,
+        24
+      ],
+      "status": "done",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Configure Electron Forge",
+          "description": "Set up and configure Electron Forge as the build system for the application",
+          "dependencies": [],
+          "details": "Install Electron Forge using npm, create initial project structure with 'npx create-electron-app@latest my-app', and set up the forge configuration in package.json. Define build targets and customize packager options.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Set Up Code Signing",
+          "description": "Implement code signing for all platform builds to ensure security and trust",
+          "dependencies": [
+            1
+          ],
+          "details": "Obtain code signing certificates for Windows, macOS, and if applicable, Linux. Configure code signing in the Electron Forge configuration. Test the signing process on each platform to ensure executables are properly signed.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "Create Platform-Specific Installers",
+          "description": "Configure and build installers for Windows, macOS, and Linux",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Set up maker configurations for each target platform (Windows: NSIS/MSI, macOS: DMG, Linux: deb/rpm). Customize installer appearance, license agreements, and installation options. Test installation process on each platform.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Implement Build Optimizations",
+          "description": "Optimize the application build for performance and size",
+          "dependencies": [
+            1
+          ],
+          "details": "Configure minification and tree-shaking for JavaScript code. Optimize asset loading and bundling. Implement code splitting where applicable. Measure and compare build sizes before and after optimizations.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Set Up CI/CD Pipeline",
+          "description": "Create automated build and deployment workflows",
+          "dependencies": [
+            1,
+            2,
+            3
+          ],
+          "details": "Configure CI/CD platform (GitHub Actions, Jenkins, etc.) to automate builds for all target platforms. Set up automated testing before builds. Configure deployment to distribution channels upon successful builds.",
+          "status": "done"
+        },
+        {
+          "id": 6,
+          "title": "Create Distribution Channels",
+          "description": "Set up channels for distributing the application to users",
+          "dependencies": [
+            3,
+            5
+          ],
+          "details": "Configure Electron Forge publishers for distribution platforms (GitHub Releases, S3, etc.). Set up auto-update server if applicable. Create documentation for manual download and installation procedures.",
+          "status": "done"
+        },
+        {
+          "id": 7,
+          "title": "Implement License Validation",
+          "description": "Add license validation system to the application",
+          "dependencies": [
+            1
+          ],
+          "details": "Design and implement license key generation and validation system. Create UI for license activation. Implement secure storage of license information. Test license validation in both online and offline scenarios.",
+          "status": "done"
+        },
+        {
+          "id": 8,
+          "title": "Add Crash Reporting",
+          "description": "Implement crash reporting to track and fix application issues",
+          "dependencies": [
+            1
+          ],
+          "details": "Integrate a crash reporting service (Sentry, Bugsnag, etc.). Configure automatic crash report submission. Create a system for users to add context to crash reports. Set up alerts and monitoring for critical issues.",
+          "status": "done"
+        },
+        {
+          "id": 9,
+          "title": "Create Portable Version",
+          "description": "Build a portable version of the application that requires no installation",
+          "dependencies": [
+            1,
+            4
+          ],
+          "details": "Configure Electron Forge to create portable builds. Ensure all dependencies are bundled correctly. Test portable version on all target platforms to verify functionality without installation.",
+          "status": "done"
+        },
+        {
+          "id": 10,
+          "title": "Configure Telemetry",
+          "description": "Set up anonymous usage tracking to improve the application",
+          "dependencies": [
+            1
+          ],
+          "details": "Select and integrate a telemetry service. Define key metrics to track. Implement opt-in/opt-out functionality for users. Ensure compliance with privacy regulations. Create a dashboard for monitoring collected data.",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Design Database Schema - refined",
+      "description": "Define the structure and relationships of database tables.",
+      "details": "Create an ER diagram and document table definitions, primary/foreign keys, and relationships.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Analyze Database Requirements",
+          "description": "Identify and document all data elements, relationships, and business rules needed for the database schema.",
+          "dependencies": [],
+          "details": "Create a comprehensive data dictionary listing all data elements to be stored. Document business rules that affect data integrity and relationships. Identify primary entities and their attributes.",
+          "status": "done",
+          "testStrategy": "Review requirements with stakeholders to ensure all data needs are captured correctly."
+        },
+        {
+          "id": 2,
+          "title": "Create Entity-Relationship Diagram",
+          "description": "Design a visual representation of database entities and their relationships.",
+          "dependencies": [
+            1
+          ],
+          "details": "Use appropriate notation to represent entities, attributes, and relationships. Clearly indicate cardinality (one-to-one, one-to-many, many-to-many). Include all entities identified in the requirements analysis.",
+          "status": "done",
+          "testStrategy": "Validate ER diagram against requirements to ensure all entities and relationships are properly represented."
+        },
+        {
+          "id": 3,
+          "title": "Define Table Structures",
+          "description": "Specify detailed table definitions including columns, data types, and constraints.",
+          "dependencies": [
+            2
+          ],
+          "details": "For each entity in the ER diagram, create corresponding table definitions. Document column names, data types, and constraints (NOT NULL, UNIQUE, etc.). Establish naming conventions for consistency.",
+          "status": "done",
+          "testStrategy": "Review table definitions to ensure they accurately represent the entities and support all required queries."
+        },
+        {
+          "id": 4,
+          "title": "Implement Keys and Relationships",
+          "description": "Define primary keys, foreign keys, and implement table relationships.",
+          "dependencies": [
+            3
+          ],
+          "details": "Identify and document primary keys for each table. Define foreign keys to implement relationships between tables. Consider indexing strategies for performance optimization. Document referential integrity constraints.",
+          "status": "done",
+          "testStrategy": "Verify that all relationships from the ER diagram are properly implemented with appropriate keys."
+        },
+        {
+          "id": 5,
+          "title": "Normalize and Optimize Schema",
+          "description": "Apply normalization techniques and optimize the schema for performance and data integrity.",
+          "dependencies": [
+            4
+          ],
+          "details": "Apply appropriate normalization forms (1NF, 2NF, 3NF) to eliminate redundancy. Consider denormalization where necessary for performance. Document any performance optimizations or trade-offs made in the design.",
+          "status": "done",
+          "testStrategy": "Test schema with sample data to ensure it meets performance requirements and maintains data integrity."
+        }
+      ]
+    },
+    {
+      "id": 27,
+      "title": "Create Data Transformers - refined",
+      "description": "Implement data transformation logic to convert parsed YAML data into the application's required formats.",
+      "details": "Transformers should support mapping, filtering, and restructuring of data as needed for downstream use.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Design Transformer Architecture",
+          "description": "Create the core architecture for data transformers that will handle YAML data conversion",
+          "dependencies": [],
+          "details": "Develop a flexible transformer architecture that supports mapping, filtering, and restructuring operations. Include interfaces/abstract classes that define the transformation contract and establish a pipeline for sequential transformations.",
+          "status": "done",
+          "testStrategy": "Create unit tests with sample YAML inputs to verify the architecture correctly processes data through the transformation pipeline"
+        },
+        {
+          "id": 2,
+          "title": "Implement Mapping Transformers",
+          "description": "Build transformers that map fields from source YAML to target application formats",
+          "dependencies": [
+            1
+          ],
+          "details": "Create mapping transformers that can rename fields, transform data types, and handle nested structures. Implement both simple 1:1 field mapping and complex transformations that combine multiple source fields into target fields.",
+          "status": "done",
+          "testStrategy": "Test with various YAML structures to ensure correct field mapping, type conversion, and handling of edge cases like missing fields"
+        },
+        {
+          "id": 3,
+          "title": "Develop Filtering Transformers",
+          "description": "Create transformers that can filter YAML data based on specified conditions",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement filtering logic that can include/exclude data based on field values, existence checks, or custom predicates. Support both simple boolean conditions and complex logical expressions combining multiple conditions.",
+          "status": "done",
+          "testStrategy": "Verify filtering accuracy with test cases covering various conditions, including boundary values and complex logical expressions"
+        },
+        {
+          "id": 4,
+          "title": "Build Restructuring Transformers",
+          "description": "Implement transformers that can reshape the structure of YAML data",
+          "dependencies": [
+            1
+          ],
+          "details": "Create transformers capable of restructuring data hierarchies, flattening nested structures, grouping related data, and transforming arrays/lists. Support operations like splitting, merging, and reordering of data elements.",
+          "status": "done",
+          "testStrategy": "Test with complex nested YAML structures to ensure correct restructuring while preserving data integrity"
+        },
+        {
+          "id": 5,
+          "title": "Create Transformer Configuration System",
+          "description": "Develop a configuration mechanism to define and customize transformer behavior",
+          "dependencies": [
+            2,
+            3,
+            4
+          ],
+          "details": "Implement a declarative configuration system that allows defining transformation rules without code changes. Support configuration via YAML/JSON files that specify mapping rules, filter conditions, and restructuring operations. Include validation for configuration correctness.",
+          "status": "done",
+          "testStrategy": "Test with various configuration files to verify transformers correctly apply the specified rules and handle configuration errors gracefully"
+        }
+      ]
+    },
+    {
+      "id": 28,
+      "title": "Handle OAuth Callback - refined",
+      "description": "Process the redirect/callback from the authorization server, extract the authorization code, and exchange it for tokens using the code_verifier.",
+      "details": "This step includes validating the callback, securely sending the code_verifier, and handling the token response.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Validate OAuth Callback Parameters",
+          "description": "Verify the state parameter to prevent CSRF attacks and validate all incoming parameters from the authorization server.",
+          "dependencies": [],
+          "details": "Retrieve the stored state from the session and compare it with the state parameter in the callback URL. Check for error parameters that might indicate authorization failure. Ensure all required parameters (especially the authorization code) are present.",
+          "status": "done",
+          "testStrategy": "Test with valid state parameters, invalid states, missing parameters, and error responses from the authorization server."
+        },
+        {
+          "id": 2,
+          "title": "Extract Authorization Code",
+          "description": "Parse and securely extract the authorization code from the callback URL parameters.",
+          "dependencies": [
+            1
+          ],
+          "details": "After validation is complete, extract the authorization code from the query parameters. Handle URL decoding if necessary. Store the code securely for the token exchange process.",
+          "status": "done",
+          "testStrategy": "Test extraction with various code formats, special characters, and edge cases."
+        },
+        {
+          "id": 3,
+          "title": "Prepare Token Exchange Request",
+          "description": "Construct the request to exchange the authorization code for access and refresh tokens.",
+          "dependencies": [
+            2
+          ],
+          "details": "Build the token request with required parameters: authorization code, redirect_uri (must match the one used in authorization request), client_id, code_verifier (that corresponds to the code_challenge sent earlier), and grant_type='authorization_code'.",
+          "status": "done",
+          "testStrategy": "Test with different code_verifier values, including edge cases for PKCE implementation."
+        },
+        {
+          "id": 4,
+          "title": "Execute Token Exchange",
+          "description": "Send the token request to the authorization server's token endpoint and handle the response.",
+          "dependencies": [
+            3
+          ],
+          "details": "Make a secure POST request to the token endpoint with proper headers. Handle network errors, timeouts, and unexpected responses. Implement retry logic for transient failures.",
+          "status": "done",
+          "testStrategy": "Test with mocked server responses including success, various error codes, timeouts, and malformed responses."
+        },
+        {
+          "id": 5,
+          "title": "Process and Store Tokens",
+          "description": "Parse the token response, validate the tokens, and store them securely for future API requests.",
+          "dependencies": [
+            4
+          ],
+          "details": "Extract access_token, refresh_token (if provided), token_type, and expiration information. Validate token format if possible. Store tokens securely using appropriate encryption. Set up token refresh mechanisms based on expiration time.",
+          "status": "done",
+          "testStrategy": "Test token storage with various token types, missing optional fields, and verify secure storage implementation."
+        }
+      ]
+    },
+    {
+      "id": 29,
+      "title": "Implement Auth Token Injection - refined",
+      "description": "Add authentication mechanism to inject tokens into API requests",
+      "details": "Implement token acquisition, storage, refresh logic, and automatic injection into request headers. Ensure the solution handles token expiration gracefully and supports different authentication flows as required by ESI.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Implement Token Acquisition Flow",
+          "description": "Create a mechanism to obtain authentication tokens from the server",
+          "dependencies": [],
+          "details": "Develop a service that handles user credential submission, server validation, and token generation. Implement the initial authentication flow that exchanges user credentials for an access token. Support different authentication flows as required by ESI.",
+          "status": "done",
+          "testStrategy": "Test successful token acquisition with valid credentials and proper error handling for invalid credentials"
+        },
+        {
+          "id": 2,
+          "title": "Implement Secure Token Storage",
+          "description": "Create a secure storage mechanism for authentication tokens",
+          "dependencies": [
+            1
+          ],
+          "details": "Implement secure storage for tokens using HTTP-only cookies, secure local storage, or device-specific secure storage depending on the application requirements. Ensure tokens are encrypted and protected from unauthorized access.",
+          "status": "done",
+          "testStrategy": "Verify tokens are properly stored and cannot be accessed by unauthorized scripts or processes"
+        },
+        {
+          "id": 3,
+          "title": "Develop Token Refresh Logic",
+          "description": "Implement mechanism to refresh tokens before they expire",
+          "dependencies": [
+            1,
+            2
+          ],
+          "details": "Create a service that monitors token expiration and proactively refreshes tokens before they expire. Implement logic to handle refresh token usage and fallback to re-authentication if refresh fails.",
+          "status": "done",
+          "testStrategy": "Test automatic token refresh before expiration and verify system behavior when refresh tokens are invalid"
+        },
+        {
+          "id": 4,
+          "title": "Create Request Header Injection Mechanism",
+          "description": "Develop system to automatically inject authentication tokens into API request headers",
+          "dependencies": [
+            2
+          ],
+          "details": "Implement an interceptor or middleware that automatically adds the authentication token to the Authorization header of outgoing API requests. Ensure the token is properly formatted (e.g., 'Bearer {token}') according to API requirements.",
+          "status": "done",
+          "testStrategy": "Verify all API requests contain the proper Authorization header with the correct token format"
+        },
+        {
+          "id": 5,
+          "title": "Implement Token Validation and Error Handling",
+          "description": "Create robust error handling for authentication failures and token validation",
+          "dependencies": [
+            3,
+            4
+          ],
+          "details": "Develop logic to handle API responses indicating authentication failures (e.g., 401 errors). Implement token validation on the client side to prevent sending expired tokens. Create user-friendly error messages and recovery flows for authentication issues.",
+          "status": "done",
+          "testStrategy": "Test system behavior with expired tokens, invalid tokens, and server-side authentication rejections"
+        }
+      ]
+    },
+    {
+      "id": 30,
+      "title": "Create Main Component - refined",
+      "description": "Design and implement the main component structure for the ship browser UI.",
+      "details": "Use React to create a basic layout for the UI.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define Main Component Structure",
+          "description": "Outline the core structure and responsibilities of the main component for the ship browser UI, including its role in the overall application.",
+          "dependencies": [],
+          "details": "Identify the main component's place in the UI tree, its expected props, and how it will interact with other components such as navigation, layout, and content areas.",
+          "status": "done",
+          "testStrategy": "Review the component outline with stakeholders and ensure alignment with UI requirements."
+        },
+        {
+          "id": 2,
+          "title": "Set Up React Project and File Structure",
+          "description": "Initialize a new React project and organize the file structure to accommodate the main component and its related subcomponents.",
+          "dependencies": [
+            1
+          ],
+          "details": "Use best practices for React project organization, grouping components by domain (e.g., layouts, navigations, messages) to ensure scalability and maintainability[5].",
+          "status": "done",
+          "testStrategy": "Verify that the project builds successfully and that the file structure matches the planned organization."
+        },
+        {
+          "id": 3,
+          "title": "Implement Main Component Layout",
+          "description": "Develop the main component using React, creating the basic UI layout including navigation, content area, and footer.",
+          "dependencies": [
+            2
+          ],
+          "details": "Leverage React's component-based architecture to build the layout, possibly utilizing a UI component library for faster development[2][3][5].",
+          "status": "done",
+          "testStrategy": "Render the main component in the browser and confirm that all layout sections are present and styled appropriately."
+        },
+        {
+          "id": 4,
+          "title": "Integrate Subcomponents and State Management",
+          "description": "Connect the main component with its subcomponents (e.g., navigation, messages) and implement state management for dynamic UI updates.",
+          "dependencies": [
+            3
+          ],
+          "details": "Ensure the main component passes necessary props to subcomponents and manages state for UI interactions, such as ship selection or filtering[1][5].",
+          "status": "done",
+          "testStrategy": "Test interactions between the main component and its subcomponents to ensure correct data flow and UI updates."
+        },
+        {
+          "id": 5,
+          "title": "Test and Refine Main Component",
+          "description": "Conduct comprehensive testing of the main component, addressing usability, responsiveness, and integration with the overall application.",
+          "dependencies": [
+            4
+          ],
+          "details": "Perform both manual and automated tests to validate the component's functionality and appearance across different devices and browsers.",
+          "status": "done",
+          "testStrategy": "Use unit and integration tests, as well as user acceptance testing, to confirm the main component meets all requirements and is ready for deployment."
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "title": "Implement DPS Calculation - refined",
+      "description": "Develop the logic to calculate damage per second (DPS) for all weapon and module types, accounting for rate of fire, damage modifiers, and relevant bonuses.",
+      "details": "This includes handling different weapon types, ammo effects, and integrating with skill and module bonuses.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define Base DPS Formula Implementation",
+          "description": "Create the core DPS calculation function that multiplies damage per hit by hits per second",
+          "dependencies": [],
+          "details": "Implement the fundamental DPS = Damage * HitsPerSecond formula as a reusable function that will serve as the foundation for all weapon types. Include proper documentation and unit tests to verify basic functionality.",
+          "status": "done",
+          "testStrategy": "Create test cases with known damage and hit rate values to verify correct calculation results"
+        },
+        {
+          "id": 2,
+          "title": "Implement Weapon Type-Specific DPS Calculations",
+          "description": "Extend the base DPS calculation to handle different weapon types with unique firing mechanics",
+          "dependencies": [
+            1
+          ],
+          "details": "Create specialized calculation methods for each weapon type (e.g., single-shot, burst fire, continuous beam) that account for their unique rate of fire characteristics, reload times, and damage profiles.",
+          "status": "done",
+          "testStrategy": "Test each weapon type with various configurations to ensure accurate DPS calculations across different scenarios"
+        },
+        {
+          "id": 3,
+          "title": "Implement Ammunition and Damage Modifier Effects",
+          "description": "Add support for ammunition types and damage modifiers that affect the final DPS calculation",
+          "dependencies": [
+            2
+          ],
+          "details": "Create a system to apply various ammunition effects (elemental damage, armor penetration, etc.) and damage modifiers to the base DPS calculation. This should include percentage-based and flat damage adjustments.",
+          "status": "done",
+          "testStrategy": "Verify that different ammunition types and damage modifiers correctly adjust the final DPS values"
+        },
+        {
+          "id": 4,
+          "title": "Integrate Skill and Module Bonus Systems",
+          "description": "Connect the DPS calculation with character skills and module bonuses that affect damage output",
+          "dependencies": [
+            3
+          ],
+          "details": "Develop an interface to incorporate skill-based and module-based bonuses into the DPS calculation. This should handle both offensive bonuses (increased damage, critical hit chance) and defensive considerations (target armor, resistances).",
+          "status": "done",
+          "testStrategy": "Test various skill and module combinations to ensure they properly modify the DPS calculations"
+        },
+        {
+          "id": 5,
+          "title": "Create DPS Comparison and Optimization Tools",
+          "description": "Develop utilities to compare DPS across different weapon configurations and suggest optimizations",
+          "dependencies": [
+            4
+          ],
+          "details": "Build tools that allow for easy comparison of DPS across different weapon, ammunition, and module combinations. Include visualization components and optimization suggestions to help users maximize their damage output.",
+          "status": "done",
+          "testStrategy": "Verify that the comparison tools accurately represent DPS differences and provide meaningful optimization recommendations"
+        }
+      ]
+    },
+    {
+      "id": 32,
+      "title": "Implement Drag-and-Drop Functionality - refined",
+      "description": "Add the ability to drag and drop modules within the editor interface",
+      "details": "Implement the Inplace Editor pattern to allow users to manipulate modules directly in the interface. Include visual feedback during drag operations, valid drop zones highlighting, and proper event handling for module placement and rearrangement.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Define Draggable Modules and Drop Zones",
+          "description": "Identify which modules within the editor interface should be draggable and specify valid drop zones for module placement.",
+          "dependencies": [],
+          "details": "Review the editor's module structure and mark elements with the 'draggable' attribute. Clearly define and visually distinguish valid drop zones for module rearrangement.",
+          "status": "done",
+          "testStrategy": "Verify that all intended modules are draggable and that drop zones are visually indicated in the UI."
+        },
+        {
+          "id": 2,
+          "title": "Implement Drag Event Handlers",
+          "description": "Add event handlers for drag operations, including dragstart, dragover, dragenter, dragleave, and drop events.",
+          "dependencies": [
+            1
+          ],
+          "details": "Attach appropriate event listeners to draggable modules and drop zones. Use the dataTransfer API to manage drag data and ensure correct module identification during drag-and-drop.",
+          "status": "done",
+          "testStrategy": "Test that drag events are triggered as expected and that data is correctly transferred between modules during drag-and-drop."
+        },
+        {
+          "id": 3,
+          "title": "Provide Visual Feedback During Drag Operations",
+          "description": "Implement visual cues such as highlighting dragged modules and valid drop zones to enhance user experience.",
+          "dependencies": [
+            2
+          ],
+          "details": "Update module and drop zone styles dynamically during drag events to indicate active dragging and valid drop targets.",
+          "status": "done",
+          "testStrategy": "Check that visual feedback appears when dragging modules and that drop zones are highlighted only when valid."
+        },
+        {
+          "id": 4,
+          "title": "Handle Module Placement and Rearrangement",
+          "description": "Update the editor's state to reflect module placement and rearrangement upon successful drop actions.",
+          "dependencies": [
+            3
+          ],
+          "details": "Modify the underlying data structure to move modules based on user drag-and-drop actions, ensuring the UI updates accordingly.",
+          "status": "done",
+          "testStrategy": "Drag modules to new positions and confirm that the editor state and UI reflect the changes accurately."
+        },
+        {
+          "id": 5,
+          "title": "Test and Refine Drag-and-Drop Functionality",
+          "description": "Conduct comprehensive testing to ensure robust drag-and-drop behavior, accessibility, and edge case handling.",
+          "dependencies": [
+            4
+          ],
+          "details": "Perform manual and automated tests for various scenarios, including invalid drops, rapid interactions, and keyboard accessibility. Refine implementation based on test results.",
+          "status": "done",
+          "testStrategy": "Run test cases covering all drag-and-drop scenarios, verify accessibility compliance, and resolve any identified issues."
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "title": "Implement Full Dogma Engine for Fitting Calculator",
+      "description": "Implement the full Dogma engine for the FittingCalculator, including skill and module effects.",
+      "details": "This task involves a deep dive into the EVE Online Dogma engine. The goal is to replace the placeholder effect application logic in the FittingCalculator with a robust system that can traverse the Dogma expression tree and accurately apply all skill and module effects to the fitting statistics. This will require a thorough understanding of the dgmEffects, dgmTypeEffects, and dgmExpressions tables in the SDE, as well as the various operand IDs and their meanings. The implementation should be flexible enough to handle a wide range of effects, including those with filters and multiple modifiers. The final result should be a FittingCalculator that can accurately calculate all relevant fitting statistics, taking into account all skills and module effects.",
+      "testStrategy": "",
+      "status": "done",
+      "dependencies": [],
+      "priority": "high",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Create Dogma Entities",
+          "description": "Create TypeORM entities for the Dogma effects and expressions tables.",
+          "details": "This will involve creating new TypeORM entities for the dgmEffects, dgmTypeEffects, and dgmExpressions tables from the EVE Online SDE. These entities will be used to query the Dogma data and implement the full Dogma engine.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 2,
+          "title": "Build Dogma Expression Tree Traversal Engine",
+          "description": "Build the core Dogma engine to traverse the expression tree.",
+          "details": "This will involve creating a new service, DogmaEngine, that can take an effectID and traverse the corresponding expression tree in the dgmExpressions table. The engine will need to handle the various operandIDs and their arguments, and it should be able to recursively build a representation of the effect's logic. The initial implementation will focus on correctly traversing the tree and logging the results. Later subtasks will add the logic to apply the effects to the fitting statistics.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 33
+        },
+        {
+          "id": 3,
+          "title": "Implement Dogma Expression Interpretation Engine",
+          "description": "Interpret and apply Dogma expressions to fitting statistics.",
+          "details": "This task involves enhancing the DogmaEngine to interpret the expressions it traverses and apply them to the fitting statistics. This will require creating a mapping between operandIDs and their corresponding operations, and then implementing the logic to perform those operations. The initial implementation will focus on a small subset of common operands, such as those related to resistance and damage modifications. The goal is to replace the placeholder effect application logic in the FittingCalculator with a system that can accurately apply a wide range of Dogma effects.",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 33
+        }
+      ]
+    },
+    {
+      "id": 34,
+      "title": "Implement Magic 14 Default Skill Plan",
+      "description": "Create a default skill plan system that displays the 'Magic 14' fundamental skills when no ship or fitting is selected for optimization, providing new players with a proven starting point for character development.",
+      "details": "Create Magic14SkillPlan component that defines the 14 core skills: CPU Management V, Power Grid Management V, Capacitor Management V, Capacitor Systems Operation V, Mechanics V, Hull Upgrades V, Shield Management V, Shield Operation V, Navigation V, Evasive Maneuvering V, Warp Drive Operation V, Spaceship Command V, Drones V, and Weapon Upgrades V. Implement detection logic in SkillPlanOptimizer to check if selectedShip or activeFitting exists in stores. When neither is selected, display Magic14View with skill cards showing: skill name, current level vs recommended level V, training time remaining, total SP required, and skill description from ESI. Create progress visualization showing overall Magic 14 completion percentage. Add 'Why Magic 14?' info panel explaining benefits: fitting flexibility, capacitor stability, navigation improvements, and tank bonuses. Implement skill prioritization algorithm suggesting training order based on current levels and time efficiency. Add export functionality to create EVE skill plan format. Include tooltips showing which ship attributes each skill improves. Create comparison view showing character's current stats vs stats with Magic 14 completed. Store Magic 14 progress in useSkillStore for quick access. Add notification when character completes Magic 14. Implement skill book cost calculator showing total ISK investment needed.",
+      "testStrategy": "Verify Magic 14 displays when no ship/fitting is selected by clearing selections and checking UI. Confirm all 14 skills are correctly identified with proper typeIDs. Test skill level detection matches character's actual skills from ESI. Validate training time calculations account for current skill levels and attributes. Check progress percentage accurately reflects completion status (0-100%). Test export function generates valid EVE skill plan format. Verify tooltips display correct attribute improvements for each skill. Test prioritization algorithm suggests logical training order. Confirm cost calculator shows accurate ISK values from market data. Validate info panel clearly explains Magic 14 benefits. Test responsive layout on different screen sizes. Verify state persistence of Magic 14 progress across app restarts. Check performance with large skill queues. Test edge cases: character with all Magic 14 at V, character with no skills trained, alpha clone restrictions.",
+      "status": "done",
+      "dependencies": [
+        15,
+        22
+      ],
+      "priority": "medium",
+      "subtasks": []
+    },
+    {
+      "id": 35,
+      "title": "Implement Fitting Recommendation System with Strategy Selection",
+      "description": "Create a fitting recommendation system that generates 5 optimized ship fittings based on user-selected strategic goals, integrating with the multi-objective optimization algorithm and presenting results through an intuitive UI.",
+      "details": "Create FittingRecommendationService class that interfaces with the existing FittingOptimizer. Define strategy profiles: 'Max Range' (prioritize optimal range, tracking, application range), 'Close Range' (maximize DPS at 0-10km, web/scram range), 'Speed Tanking' (prioritize speed, sig radius, agility), 'All Round' (balanced DPS/tank/cap stability). \n\nImplement strategy-specific fitness functions:\n- Max Range: weight optimal range 40%, DPS at range 30%, tracking 20%, cap stability 10%\n- Close Range: weight DPS 50%, tank 30%, tackle modules 20%\n- Speed Tanking: weight speed 40%, signature 30%, tank 20%, cap stability 10%\n- All Round: equal weights for DPS, EHP, cap stability, speed\n\nCreate RecommendationPanel component using Material-UI Card layout. Display strategy selector as ToggleButtonGroup with icons for each strategy. Show loading state during optimization (use Skeleton components). Display results in expandable AccordionDetails showing: fitting preview, key stats comparison, radar chart visualization using recharts@2.10.0.\n\nImplement caching mechanism using Map<shipId+strategy, results> to avoid redundant calculations. Add \"Apply Fitting\" button that loads selected fitting into the FittingEditor. Include tooltips explaining each strategy's focus. Handle edge cases: ships with limited fitting options, invalid module combinations. \n\nAdd analytics tracking for strategy selection patterns. Implement export functionality to save recommended fittings as JSON. Consider skill requirements and highlight modules user cannot use. Add comparison view to see all 5 recommendations side-by-side with sortable stats table.",
+      "testStrategy": "Verify strategy selector displays all 4 options with appropriate icons and descriptions. Test recommendation generation for different ship types: combat (battleship, cruiser), support (logistics), specialty (stealth bomber). Confirm each strategy produces distinctly different fittings by comparing key metrics. Validate Max Range fittings have longest engagement range, Close Range have highest DPS at 0km, Speed Tanking have highest speed/lowest signature, All Round have balanced stats.\n\nTest caching by generating recommendations twice and verifying second call is instant. Verify loading states appear during optimization and skeleton loaders display correctly. Test \"Apply Fitting\" button correctly loads fitting into editor with all modules in correct slots. Validate error handling for ships with very limited module options.\n\nCheck responsive design on different screen sizes. Verify radar charts render correctly and display meaningful stat comparisons. Test export functionality produces valid JSON that can be reimported. Confirm tooltips provide clear explanations of each strategy. Test with characters of different skill levels to ensure recommendations respect skill requirements. Verify performance with rapid strategy switching doesn't cause UI lag.",
+      "status": "done",
+      "dependencies": [
+        11,
+        12
+      ],
+      "priority": "medium",
+      "subtasks": []
+    },
+    {
+      "id": 36,
+      "title": "Implement Self-Contained EVE Online OAuth Login Flow",
+      "description": "Create a secure, user-friendly OAuth login system that handles the entire EVE Online authentication flow through a single button click, managing token exchange and refresh token storage without requiring users to create their own EVE application.",
+      "details": "Implement a complete OAuth flow using a proxy service approach to protect client credentials. Create an AuthService class that manages the entire authentication lifecycle. Setup a secure backend proxy (either self-hosted or cloud function) that holds the EVE application credentials and handles the OAuth token exchange. The proxy should accept authorization codes from the client and return access/refresh tokens.\n\nFrontend implementation:\n- Create a \"Login with EVE Online\" button component that opens the OAuth authorization URL in the default browser\n- Implement a local HTTP server (using express) on a random port to receive the OAuth callback\n- Generate and verify state parameter for CSRF protection\n- Handle the authorization code reception and forward to proxy service\n\nBackend proxy requirements:\n- Store EVE application client_id and client_secret securely\n- Implement /token endpoint that accepts authorization codes and returns tokens\n- Add rate limiting and request validation\n- Use HTTPS with proper CORS configuration\n\nToken management:\n- Store refresh tokens encrypted in Electron's safeStorage API\n- Implement automatic token refresh when access token expires\n- Create TokenManager class with methods: getAccessToken(), refreshToken(), clearTokens()\n- Add token expiry tracking and preemptive refresh (5 minutes before expiry)\n\nSecurity considerations:\n- Use crypto.randomBytes() for state generation\n- Implement PKCE if supported by EVE SSO\n- Clear sensitive data from memory after use\n- Add timeout for OAuth flow (5 minutes)\n- Validate all redirect URIs\n\nError handling:\n- User cancellation of OAuth flow\n- Network failures during token exchange\n- Invalid or expired refresh tokens\n- Proxy service unavailability\n\nIntegration with existing ESIClient:\n- Update ESIClient to use AuthService for token management\n- Add interceptor to automatically refresh tokens on 401 responses\n- Implement logout functionality that revokes tokens",
+      "testStrategy": "1. Test OAuth flow initiation:\n   - Verify clicking login button opens correct EVE SSO URL with proper parameters\n   - Confirm state parameter is randomly generated and stored\n   - Check local callback server starts on available port\n\n2. Test callback handling:\n   - Simulate successful callback with authorization code\n   - Verify state parameter validation\n   - Confirm authorization code is sent to proxy service\n   - Test error callbacks (user denial, invalid state)\n\n3. Test token storage:\n   - Verify refresh tokens are encrypted using safeStorage\n   - Confirm tokens persist across app restarts\n   - Test token retrieval and decryption\n   - Verify secure deletion on logout\n\n4. Test token refresh:\n   - Mock expired access token scenario\n   - Verify automatic refresh using stored refresh token\n   - Test preemptive refresh before expiry\n   - Confirm new tokens are properly stored\n\n5. Test error scenarios:\n   - Proxy service unavailable\n   - Invalid refresh token\n   - Network timeout during token exchange\n   - Corrupted stored tokens\n\n6. Test security measures:\n   - Verify CSRF protection with state parameter\n   - Confirm no credentials exposed in client code\n   - Test timeout of incomplete OAuth flows\n   - Verify proper cleanup of sensitive data\n\n7. Integration testing:\n   - Test full flow from login button to authenticated ESI request\n   - Verify ESIClient uses new auth tokens\n   - Test logout clears all stored credentials\n   - Confirm multiple login/logout cycles work correctly",
+      "status": "done",
+      "dependencies": [
+        4,
+        5
+      ],
+      "priority": "medium",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Research EVE Online OAuth for Desktop Apps",
+          "description": "Research and determine the best-practice EVE Online OAuth flow for a distributed Electron application. Investigate options like the Authorization Code Flow with PKCE to avoid exposing a client secret. The output should be a clear recommendation on the flow to implement.",
+          "details": "",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 36
+        },
+        {
+          "id": 2,
+          "title": "Implement Core OAuth Flow",
+          "description": "Implement the recommended OAuth flow from the research task. This will involve opening the EVE login page, handling the redirect with a custom protocol handler (e.g., eve-assistant://callback), and securely exchanging the authorization code for an access token.",
+          "details": "",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 36
+        },
+        {
+          "id": 3,
+          "title": "Implement Secure Token Storage",
+          "description": "Implement secure storage for the OAuth refresh token using electron-store or a more secure alternative like electron-keytar if available. This will allow the application to refresh access tokens without requiring the user to log in repeatedly.",
+          "details": "",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 36
+        },
+        {
+          "id": 4,
+          "title": "Refactor UI for Simple Login",
+          "description": "Update the user interface to remove all fields related to manual Client ID/Secret entry. Replace them with a single, prominent 'Login with EVE Online' button that initiates the new OAuth flow. Ensure the UI provides clear feedback during the login process.",
+          "details": "",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 36
+        },
+        {
+          "id": 5,
+          "title": "Update Documentation for New Login Flow",
+          "description": "Update the README.md and any other relevant documentation to reflect the new, simplified login process. Remove all instructions related to creating an EVE application and setting environment variables. Add a section for end-users explaining how to install and log in.",
+          "details": "",
+          "status": "done",
+          "dependencies": [],
+          "parentTaskId": 36
+        }
+      ]
+    },
+    {
+      "id": 37,
+      "title": "Create Cross-Platform Application Installers",
+      "description": "Configure and implement distributable installers for Windows and macOS platforms, including build process setup, code signing configuration, and generation of platform-specific installer packages.",
+      "details": "Setup electron-builder@24.9.1 for cross-platform installer generation. Configure build scripts in package.json with platform-specific targets: Windows (NSIS installer, portable exe), macOS (DMG, pkg). Implement auto-update functionality using electron-updater@6.1.7. Configure code signing for Windows using signtool with EV certificate (stored in GitHub secrets). Setup macOS code signing with Developer ID certificate and notarization workflow. Create build configuration in electron-builder.yml with: productName, appId (com.example.eve-fitting-tool), directories structure, file associations for .eft files. Configure NSIS installer with custom graphics, license agreement, and installation options. Setup DMG background image and window positioning for macOS. Implement CI/CD pipeline in GitHub Actions for automated builds on tagged releases. Configure artifact compression and optimization. Add installer customization: custom icons (1024x1024 for macOS, multiple sizes for Windows), installer graphics (header 150x57, wizard 164x314), EULA text. Setup release channels (stable, beta) with different update feeds. Implement delta updates to reduce download sizes. Configure app signing for both platforms to prevent security warnings. Add installer analytics to track successful installations. Create build matrix for multiple architectures (x64, arm64 for macOS). Setup automatic upload to GitHub Releases with checksums.",
+      "testStrategy": "Verify electron-builder configuration by running 'npm run dist' locally for each platform. Test Windows installer on Windows 10/11: check silent install, custom directory, shortcuts creation, uninstaller functionality, file associations. Test macOS installer on macOS 12+: verify DMG mounting, drag-to-Applications flow, code signing with 'codesign --verify', notarization status with 'spctl -a -v'. Test auto-updater by creating test releases and verifying update detection and installation. Validate code signing prevents security warnings on fresh systems. Test portable Windows version runs without installation. Verify installer size optimization (should be under 100MB). Test offline installation scenarios. Validate that all application features work in installed version. Check installer localization if implemented. Test upgrade scenarios from older versions. Verify uninstaller removes all files and registry entries. Test installer on systems without admin privileges. Validate GitHub Actions workflow produces signed installers for both platforms.",
+      "status": "done",
+      "dependencies": [
+        1,
+        23
+      ],
+      "priority": "medium",
+      "subtasks": [
+        {
+          "id": 1,
+          "title": "Basic electron-builder Setup",
+          "description": "Initialize the Electron project and configure electron-builder in the project. Ensure package.json includes required metadata and install electron-builder as a development dependency.",
+          "dependencies": [],
+          "details": "Set up the project structure, add electron-builder to devDependencies, and verify installation. Configure basic build settings in package.json.",
+          "status": "done"
+        },
+        {
+          "id": 2,
+          "title": "Windows Installer Configuration",
+          "description": "Configure electron-builder to generate Windows installers (e.g., NSIS, Squirrel.Windows). Set Windows-specific options such as installer icon, target architecture, and signing placeholders.",
+          "dependencies": [
+            1
+          ],
+          "details": "Update build configuration in package.json or electron-builder config file for Windows targets. Test building a Windows installer locally or via a Windows build environment.",
+          "status": "done"
+        },
+        {
+          "id": 3,
+          "title": "macOS Installer Configuration",
+          "description": "Configure electron-builder to generate macOS installers (e.g., DMG, PKG). Set macOS-specific options such as app category, entitlements, and signing placeholders.",
+          "dependencies": [
+            1
+          ],
+          "details": "Update build configuration for macOS targets. Test building a macOS installer on a macOS machine, as code signing and some packaging steps require macOS.",
+          "status": "done"
+        },
+        {
+          "id": 4,
+          "title": "Code Signing Implementation",
+          "description": "Implement code signing for both Windows and macOS installers to ensure security and compliance with OS requirements.",
+          "dependencies": [
+            2,
+            3
+          ],
+          "details": "Obtain code signing certificates for both platforms. Integrate signing steps into the build process, updating configuration with certificate paths and credentials.",
+          "status": "done"
+        },
+        {
+          "id": 5,
+          "title": "Auto-Update Functionality",
+          "description": "Integrate auto-update functionality using electron-builder's update server or a custom solution. Configure update URLs and ensure signed updates.",
+          "dependencies": [
+            4
+          ],
+          "details": "Set up update server or use a service like GitHub Releases. Update app code to check for and apply updates securely.",
+          "status": "done"
+        }
+      ]
+    }
+  ]
+}

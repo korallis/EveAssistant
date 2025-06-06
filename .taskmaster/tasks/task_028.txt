@@ -1,0 +1,43 @@
+# Task ID: 28
+# Title: Handle OAuth Callback - refined
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Process the redirect/callback from the authorization server, extract the authorization code, and exchange it for tokens using the code_verifier.
+# Details:
+This step includes validating the callback, securely sending the code_verifier, and handling the token response.
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Validate OAuth Callback Parameters [done]
+### Dependencies: None
+### Description: Verify the state parameter to prevent CSRF attacks and validate all incoming parameters from the authorization server.
+### Details:
+Retrieve the stored state from the session and compare it with the state parameter in the callback URL. Check for error parameters that might indicate authorization failure. Ensure all required parameters (especially the authorization code) are present.
+
+## 2. Extract Authorization Code [done]
+### Dependencies: 28.1
+### Description: Parse and securely extract the authorization code from the callback URL parameters.
+### Details:
+After validation is complete, extract the authorization code from the query parameters. Handle URL decoding if necessary. Store the code securely for the token exchange process.
+
+## 3. Prepare Token Exchange Request [done]
+### Dependencies: 28.2
+### Description: Construct the request to exchange the authorization code for access and refresh tokens.
+### Details:
+Build the token request with required parameters: authorization code, redirect_uri (must match the one used in authorization request), client_id, code_verifier (that corresponds to the code_challenge sent earlier), and grant_type='authorization_code'.
+
+## 4. Execute Token Exchange [done]
+### Dependencies: 28.3
+### Description: Send the token request to the authorization server's token endpoint and handle the response.
+### Details:
+Make a secure POST request to the token endpoint with proper headers. Handle network errors, timeouts, and unexpected responses. Implement retry logic for transient failures.
+
+## 5. Process and Store Tokens [done]
+### Dependencies: 28.4
+### Description: Parse the token response, validate the tokens, and store them securely for future API requests.
+### Details:
+Extract access_token, refresh_token (if provided), token_type, and expiration information. Validate token format if possible. Store tokens securely using appropriate encryption. Set up token refresh mechanisms based on expiration time.
+

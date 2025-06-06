@@ -1,0 +1,61 @@
+# Task ID: 17
+# Title: Build Educational Guidance System
+# Status: done
+# Dependencies: 13
+# Priority: medium
+# Description: Implement comprehensive educational features explaining fitting decisions
+# Details:
+Create FittingExplainer class generating natural language explanations. Implement explanation templates for module choices, trade-offs, synergies. Add 'Why this module?' tooltips with reasoning. Create fitting analysis showing strengths/weaknesses. Implement concept explanations (stacking penalties, resist profiles, etc.). Add interactive tutorials for fitting basics. Create glossary system for EVE terms. Implement 'Learn More' links to EVE University wiki. Add beginner mode with extra guidance. Store explanation templates in JSON for easy updates.
+
+# Test Strategy:
+Test explanation generation accuracy, verify educational content correctness, test tutorial flow, gather user feedback on clarity
+
+# Subtasks:
+## 1. Implement explanation generator [done]
+### Dependencies: None
+### Description: Develop a system that dynamically generates explanations for educational concepts based on user context and learning level
+### Details:
+Create an AI-powered explanation engine that can break down complex topics into understandable components. The system should follow implementation science principles by identifying the 'active ingredients' of effective explanations and ensuring adaptability to different learning contexts.
+
+## 2. Create templates [done]
+### Dependencies: 17.1
+### Description: Design standardized templates for different types of educational content to ensure consistency and quality
+### Details:
+Develop a library of templates for various educational content types (lessons, quizzes, examples, etc.) that incorporate evidence-based practices. Templates should be performance-based and focused on measurable outcomes as part of a successful educational system implementation.
+
+## 3. Add tooltips [done]
+### Dependencies: 17.1
+### Description: Implement contextual help tooltips throughout the application to provide just-in-time assistance
+### Details:
+Create a system of tooltips that appear when users hover over complex terms or concepts. This implementation should consider the 'who' (different user types) and 'what' (specific information needed) to ensure tooltips are helpful without being intrusive.
+
+## 4. Build fitting analysis [done]
+### Dependencies: 17.1, 17.2
+### Description: Develop an algorithm to analyze how well educational content matches user needs and learning styles
+### Details:
+Create an analytical system that evaluates the fit between educational content and user requirements. This should incorporate implementation science principles of adaptability and assessment to ensure content can be tailored to meet local needs and individual learning styles.
+
+## 5. Implement concept explanations [done]
+### Dependencies: 17.1, 17.2
+### Description: Create in-depth explanations for core educational concepts that can be accessed throughout the application
+### Details:
+Develop comprehensive explanations for fundamental concepts that form the backbone of the educational content. These should be structured according to implementation phases with clear outcomes and success measures for learner understanding.
+
+## 6. Create tutorials [done]
+### Dependencies: 17.2, 17.3, 17.5
+### Description: Design interactive tutorials that guide users through key features and educational processes
+### Details:
+Build step-by-step tutorials that demonstrate how to use the system effectively. Implementation should consider the multilevel nature of educational systems, addressing the needs of different stakeholders and ensuring appropriate communication methods for each group.
+
+## 7. Build glossary [done]
+### Dependencies: 17.1, 17.5
+### Description: Compile a comprehensive glossary of educational terms with clear, accessible definitions
+### Details:
+Create an extensive glossary that defines all specialized terminology used in the educational content. This implementation should focus on acceptability and feasibility, ensuring definitions are accurate while remaining accessible to users at different knowledge levels.
+
+## 8. Add beginner mode [done]
+### Dependencies: 17.3, 17.5, 17.6, 17.7
+### Description: Implement a simplified interface and content presentation for new or novice users
+### Details:
+Develop a specialized mode that presents educational content in a more accessible way for beginners. This implementation should address the 'why' (solving the challenge of intimidating complexity) and include clear phases with short-term, mid-term, and long-term outcomes to measure success.
+

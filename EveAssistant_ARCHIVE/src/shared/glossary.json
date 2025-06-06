@@ -1,0 +1,14 @@
+[
+  {
+    "term": "DPS",
+    "definition": "Damage Per Second. The average amount of damage a ship can deal over time."
+  },
+  {
+    "term": "EHP",
+    "definition": "Effective Hit Points. The total amount of damage a ship can sustain before being destroyed, taking into account resistances."
+  },
+  {
+    "term": "Kiting",
+    "definition": "A combat tactic that involves staying at long range and attacking a slower opponent, who is unable to close the distance."
+  }
+] 

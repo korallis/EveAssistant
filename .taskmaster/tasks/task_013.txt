@@ -1,0 +1,61 @@
+# Task ID: 13
+# Title: Build Optimization Results Display
+# Status: done
+# Dependencies: 11, 12
+# Priority: medium
+# Description: Create UI for displaying and comparing optimization results
+# Details:
+Create OptimizationResults component showing 5 generated fittings. Display fittings on DPS vs Tank scatter plot using recharts@2.10.4. Implement fitting comparison table with key stats. Add radar chart for multi-dimensional comparison (DPS, tank, speed, cap). Create fitting cards with preview and quick stats. Implement 'Apply Fitting' button to load into editor. Add export options (EFT, in-game format). Show optimization parameters used. Create animation for optimization progress. Add tooltips explaining each fitting's strengths.
+
+# Test Strategy:
+Test chart rendering with various data ranges, verify comparison accuracy, test export formats, check responsive design
+
+# Subtasks:
+## 1. Create Results Component [done]
+### Dependencies: None
+### Description: Develop the main results display component that will serve as the container for all visualization and interaction elements.
+### Details:
+This component will manage the layout and integration of all subcomponents, ensuring a cohesive user experience and consistent styling across the dashboard.
+
+## 2. Implement Scatter Plot [done]
+### Dependencies: 13.1
+### Description: Add a scatter plot visualization to display data distributions and relationships.
+### Details:
+Integrate a scatter plot chart within the results component, ensuring it supports interactive features such as tooltips and zooming.
+
+## 3. Build Comparison Table [done]
+### Dependencies: 13.1
+### Description: Create a table for side-by-side comparison of key metrics and results.
+### Details:
+Design and implement a comparison table that allows users to easily compare different data sets or optimization runs.
+
+## 4. Add Radar Chart [done]
+### Dependencies: 13.1
+### Description: Integrate a radar chart to visualize multi-dimensional performance metrics.
+### Details:
+The radar chart should be interactive and visually consistent with other dashboard elements, supporting comparison across multiple axes.
+
+## 5. Create Fitting Cards [done]
+### Dependencies: 13.1
+### Description: Design and implement card components to display individual fitting results or model summaries.
+### Details:
+Each card should encapsulate key information, such as model parameters, scores, and visualizations, following a consistent layout for easy scanning.
+
+## 6. Implement Apply Button [done]
+### Dependencies: 13.1
+### Description: Add an 'Apply' button to trigger actions such as applying selected filters or optimization settings.
+### Details:
+Ensure the button is clearly visible and provides feedback upon interaction, updating the results display as needed.
+
+## 7. Add Export Options [done]
+### Dependencies: 13.1
+### Description: Enable users to export results and visualizations in various formats (e.g., CSV, PNG, PDF).
+### Details:
+Provide export functionality for tables, charts, and overall results, ensuring compatibility with common data formats.
+
+## 8. Show Optimization Parameters [done]
+### Dependencies: 13.1
+### Description: Display the optimization parameters used for generating the results, ensuring transparency and reproducibility.
+### Details:
+Present the parameters in a clear, accessible format, possibly within a dedicated section or modal within the results component.
+

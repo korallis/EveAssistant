@@ -1,0 +1,43 @@
+# Task ID: 31
+# Title: Implement DPS Calculation - refined
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: Develop the logic to calculate damage per second (DPS) for all weapon and module types, accounting for rate of fire, damage modifiers, and relevant bonuses.
+# Details:
+This includes handling different weapon types, ammo effects, and integrating with skill and module bonuses.
+
+# Test Strategy:
+
+
+# Subtasks:
+## 1. Define Base DPS Formula Implementation [done]
+### Dependencies: None
+### Description: Create the core DPS calculation function that multiplies damage per hit by hits per second
+### Details:
+Implement the fundamental DPS = Damage * HitsPerSecond formula as a reusable function that will serve as the foundation for all weapon types. Include proper documentation and unit tests to verify basic functionality.
+
+## 2. Implement Weapon Type-Specific DPS Calculations [done]
+### Dependencies: 31.1
+### Description: Extend the base DPS calculation to handle different weapon types with unique firing mechanics
+### Details:
+Create specialized calculation methods for each weapon type (e.g., single-shot, burst fire, continuous beam) that account for their unique rate of fire characteristics, reload times, and damage profiles.
+
+## 3. Implement Ammunition and Damage Modifier Effects [done]
+### Dependencies: 31.2
+### Description: Add support for ammunition types and damage modifiers that affect the final DPS calculation
+### Details:
+Create a system to apply various ammunition effects (elemental damage, armor penetration, etc.) and damage modifiers to the base DPS calculation. This should include percentage-based and flat damage adjustments.
+
+## 4. Integrate Skill and Module Bonus Systems [done]
+### Dependencies: 31.3
+### Description: Connect the DPS calculation with character skills and module bonuses that affect damage output
+### Details:
+Develop an interface to incorporate skill-based and module-based bonuses into the DPS calculation. This should handle both offensive bonuses (increased damage, critical hit chance) and defensive considerations (target armor, resistances).
+
+## 5. Create DPS Comparison and Optimization Tools [done]
+### Dependencies: 31.4
+### Description: Develop utilities to compare DPS across different weapon configurations and suggest optimizations
+### Details:
+Build tools that allow for easy comparison of DPS across different weapon, ammunition, and module combinations. Include visualization components and optimization suggestions to help users maximize their damage output.
+

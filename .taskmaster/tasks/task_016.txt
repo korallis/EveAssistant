@@ -1,0 +1,114 @@
+# Task ID: 16
+# Title: Implement Activity-Specific Fitting Templates
+# Status: done
+# Dependencies: 12
+# Priority: medium
+# Description: Create system for activity-based fitting recommendations and constraints
+# Details:
+Define activity profiles: PvP (solo, fleet), PvE (missions L1-L4, abyssal), Mining, Exploration. Create constraint sets per activity (e.g., PvP needs tackle, PvE needs tank). Implement template system with required/recommended modules. Create ActivityOptimizer extending base optimizer with activity constraints. Add activity selection UI in optimization flow. Store common fits per activity as starting points. Implement activity-specific fitness functions. Create explanation system for activity choices. Add custom activity definition capability.
+
+# Test Strategy:
+Test constraint application for each activity, verify optimization produces viable fits, test template system, validate recommendations
+
+# Subtasks:
+## 1. Define Activity Profiles [done]
+### Dependencies: None
+### Description: Create a comprehensive data structure for activity profiles that captures all necessary attributes and parameters for different types of activities.
+### Details:
+Design a flexible schema that can represent various activity types with their specific characteristics, constraints, and requirements. Include metadata fields for categorization and searchability.
+<info added on 2025-06-06T09:40:30.318Z>
+Completed defining activity profiles:
+
+1. Created a `types.ts` file in `src/renderer/features/fitting-optimizer` to define all necessary types for activity-specific fitting templates. This includes:
+   - `ActivityType`, `PvpActivity`, `PveActivity`, etc. to categorize activities
+   - `ActivityConstraints` to define rules for ship types, modules, performance, and cost
+   - `ActivityProfile` to structure the definition of each activity with constraints and metadata
+   - `FittingTemplate` to define a starting point for a fitting based on an activity
+
+2. Created a `data/activity-profiles.ts` file containing a predefined set of `ActivityProfile` objects. This includes profiles for:
+   - PvP: Solo Frigate, Fleet Cruiser
+   - PvE: Level 4 Mission, Tier 3 Abyssal
+   - Mining: Ore Mining Barge
+   - Exploration: Relic Site Exploration
+
+3. Each profile includes a clear `id`, `name`, `description`, `type`, `subType`, a set of `constraints`, and metadata like `tags`, `author`, and `version`.
+
+This provides a solid and extensible data structure for defining various in-game activities and their associated fitting requirements.
+</info added on 2025-06-06T09:40:30.318Z>
+
+## 2. Create Constraint Sets [done]
+### Dependencies: 16.1
+### Description: Develop a system to define and manage sets of constraints that can be applied to different activity types.
+### Details:
+Implement a constraint definition language that allows for complex rule creation. Include validation mechanisms to ensure constraint consistency and compatibility between different constraint sets.
+<info added on 2025-06-06T09:41:32.021Z>
+Completed implementation of constraint sets with the following components:
+
+1. Created `constraint-validator.ts` utility in `src/renderer/features/fitting-optimizer/utils` that provides:
+   - `validateFitting` function for orchestrating comprehensive fitting validation against activity constraints
+   - Specialized helper functions (`checkShipType`, `checkModules`, etc.) for validating each constraint category
+   - `findValidProfiles` function to identify all activity profiles compatible with a given fitting
+   - `mergeConstraints` function for combining multiple constraint sets into unified rule sets
+
+2. Implemented `useActivityStore` in `src/renderer/features/fitting-optimizer/store` for activity profile management:
+   - State management supporting both default and custom activity profiles
+   - CRUD operations for activity profiles (add, update, delete, set active)
+   - Retrieval methods for accessing profiles by ID, type, or tag
+   - Integration with constraint validator through `getValidProfilesForFitting` and `isFittingValidForProfile` methods
+
+This implementation establishes a comprehensive system for defining, managing, and validating constraint sets across different EVE Online activities, fulfilling the core requirements for activity-specific fitting optimization.
+</info added on 2025-06-06T09:41:32.021Z>
+
+## 3. Implement Template System [done]
+### Dependencies: 16.1, 16.2
+### Description: Build a flexible template system that can generate activity instances based on profiles and constraints.
+### Details:
+Create a template engine that can interpret activity profiles and apply appropriate constraints to generate valid activity instances. Include versioning support for templates and a mechanism for template inheritance.
+<info added on 2025-06-06T09:42:36.872Z>
+Completed implementing the template system:
+
+1. Created a `template-generator.ts` utility in `src/renderer/features/fitting-optimizer/utils` to handle the core logic of template creation and application. This includes:
+   - `createFittingFromTemplate`: Generates a new `Fitting` object from a `FittingTemplate`.
+   - `createTemplateFromFitting`: Creates a `FittingTemplate` from an existing `Fitting`.
+   - `applyTemplateToFitting`: Applies a template's modules to an existing fitting of the same ship type.
+   - `findTemplatesForActivity`: Finds all templates associated with a given activity profile.
+
+2. Created a `useTemplateStore` in `src/renderer/features/fitting-optimizer/store` to manage fitting templates. This store provides:
+   - State management for default and custom fitting templates.
+   - CRUD actions (`add`, `update`, `delete`) for custom templates.
+   - Methods that integrate the template generator, such as `createFitting`, `createTemplate`, and `applyTemplate`.
+   - Getter functions to retrieve templates by ID or by associated activity profile.
+
+This provides a complete system for creating, managing, and applying fitting templates, which will serve as the starting point for activity-specific fitting optimization.
+</info added on 2025-06-06T09:42:36.872Z>
+
+## 4. Extend Optimizer [done]
+### Dependencies: 16.2, 16.3
+### Description: Enhance the existing optimizer to work with the new template system and constraint sets.
+### Details:
+Modify the optimization algorithm to efficiently handle the new constraint types and template structures. Implement a greedy algorithm approach for activity selection to maximize the number of activities that can be performed within given constraints.
+
+## 5. Add Activity Selection UI [done]
+### Dependencies: 16.3
+### Description: Design and implement a user interface for activity selection and configuration.
+### Details:
+Create an intuitive UI that allows users to browse, filter, and select activities. Include features for indicating and highlighting selected elements, and provide options for simulating interactions with the selected activities.
+
+## 6. Store Common Fits [done]
+### Dependencies: 16.3, 16.5
+### Description: Develop a storage system for saving and retrieving commonly used activity configurations.
+### Details:
+Implement a database schema to efficiently store activity configurations and their associated metadata. Include functionality for searching, filtering, and recommending configurations based on user history and preferences.
+
+## 7. Implement Fitness Functions [done]
+### Dependencies: 16.4
+### Description: Create a set of fitness functions to evaluate the suitability of activities for specific contexts.
+### Details:
+Design and implement various fitness metrics that can assess how well an activity matches given requirements or constraints. Include customizable weighting systems to prioritize different aspects of fitness based on context.
+
+## 8. Create Explanation System [done]
+### Dependencies: 16.4, 16.7
+### Description: Develop a system to generate explanations for activity selection decisions.
+### Details:
+Implement a mechanism that can trace the decision-making process of the optimizer and generate human-readable explanations. Include visualizations to help users understand why certain activities were selected or rejected based on constraints and fitness scores.
+

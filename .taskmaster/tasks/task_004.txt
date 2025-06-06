@@ -1,0 +1,49 @@
+# Task ID: 4
+# Title: Implement EVE ESI OAuth 2.0 PKCE Authentication
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Setup secure OAuth 2.0 PKCE flow for EVE Online ESI API authentication without requiring a backend server
+# Details:
+Implement PKCE flow using electron's protocol.registerHttpProtocol for callback handling. Use crypto.randomBytes(32) for code verifier generation. Create AuthService with methods: generatePKCEChallenge(), initiateLogin(), handleCallback(). Store refresh tokens securely using electron-store@8.1.0 with encryption. Implement token refresh logic with automatic retry. Configure scopes: esi-skills.read_skills.v1, esi-universe.read_structures.v1, esi-markets.read_character_orders.v1. Handle auth errors gracefully with user-friendly messages.
+
+# Test Strategy:
+Test full auth flow, verify PKCE implementation against RFC 7636, test token refresh, verify secure storage, test error scenarios
+
+# Subtasks:
+## 1. Implement PKCE Challenge Generation [done]
+### Dependencies: None
+### Description: Generate a cryptographically secure code_verifier and derive the code_challenge using a secure hash algorithm (typically SHA256). Ensure the code_challenge_method is set appropriately.
+### Details:
+This step involves creating a random code_verifier and hashing it to produce the code_challenge, which will be used in the authorization request.
+
+## 2. Configure OAuth Scopes [done]
+### Dependencies: None
+### Description: Define and configure the required OAuth scopes for the application to request appropriate permissions from the user during the authorization process.
+### Details:
+Ensure that the scopes requested align with the application's needs and follow the principle of least privilege.
+
+## 3. Initiate Login Flow [done]
+### Dependencies: 4.1, 4.2
+### Description: Start the OAuth authorization request by redirecting the user to the authorization server with the code_challenge, code_challenge_method, and configured scopes.
+### Details:
+This step involves constructing the authorization URL with all necessary parameters and handling the user redirection.
+
+## 5. Securely Store Tokens [done]
+### Dependencies: None
+### Description: Implement secure storage mechanisms for access, refresh, and ID tokens to prevent unauthorized access or leakage.
+### Details:
+Use platform-appropriate secure storage solutions (e.g., encrypted storage, keychain) to store sensitive tokens.
+
+## 6. Implement Token Refresh Logic [done]
+### Dependencies: 4.5
+### Description: Use the refresh token to obtain new access tokens when the current access token expires, ensuring continuous authentication.
+### Details:
+Handle token expiration, securely use the refresh token, and update stored tokens as needed.
+
+## 7. Handle Authentication Errors [done]
+### Dependencies: 4.1, 4.2, 4.3, 4.5, 4.6
+### Description: Implement robust error handling for all stages of the PKCE flow, including challenge generation, login, callback, token storage, and refresh.
+### Details:
+Detect, log, and respond to errors such as invalid tokens, failed exchanges, or storage issues, providing appropriate user feedback and recovery options.
+

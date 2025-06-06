@@ -1,0 +1,55 @@
+# Task ID: 18
+# Title: Implement Market Price Integration
+# Status: done
+# Dependencies: 5, 11
+# Priority: low
+# Description: Build real-time market data integration for fitting cost analysis
+# Details:
+Extend ESI client for market endpoints (/markets/prices/, /markets/10000002/orders/). Create MarketService with price caching (5-minute TTL). Implement regional market selection (Jita, Amarr, etc.). Calculate total fitting cost including hull, modules, charges, drones. Add price history charts using recharts. Create budget-based fitting constraints for optimizer. Implement price alerts for saved fittings. Add 'Find Cheapest' option for modules. Show price breakdown in fitting display. Cache market data in SQLite for offline access.
+
+# Test Strategy:
+Test price calculation accuracy, verify cache invalidation, test regional price differences, mock ESI market endpoints
+
+# Subtasks:
+## 1. Extend ESI Client for Market Integration [done]
+### Dependencies: None
+### Description: Enhance the existing ESI client to support new market-related API endpoints and data structures required for market integration.
+### Details:
+Update the ESI client library to fetch market data, handle authentication, and parse new responses as needed for downstream services.
+
+## 2. Implement MarketService [done]
+### Dependencies: 18.1
+### Description: Develop a MarketService component to encapsulate business logic for market data retrieval, processing, and interaction with the ESI client.
+### Details:
+Create a service layer that interfaces with the extended ESI client, providing methods for querying prices, volumes, and other market metrics.
+
+## 3. Add Regional Selection Functionality [done]
+### Dependencies: 18.2
+### Description: Enable users to select different market regions, ensuring that all market queries and data visualizations are region-aware.
+### Details:
+Implement UI controls and backend support for region selection, updating queries and data displays based on the selected region.
+
+## 4. Calculate Fitting Cost [done]
+### Dependencies: 18.2, 18.3
+### Description: Develop logic to compute the total cost of a ship fitting based on current market prices for all required items in the selected region.
+### Details:
+Aggregate item prices from the MarketService and sum them according to the fitting blueprint, updating dynamically as prices or regions change.
+
+## 5. Build Price Charts [done]
+### Dependencies: 18.2, 18.3
+### Description: Implement data visualization components to display historical and current price trends for selected items.
+### Details:
+Use charting libraries to render price history and volatility, sourcing data from the MarketService and updating in real time.
+
+## 6. Implement Budget Constraints [done]
+### Dependencies: 18.4
+### Description: Add functionality to allow users to set budget limits and receive feedback or warnings if their fitting exceeds the specified budget.
+### Details:
+Integrate budget checks into the fitting cost calculation workflow, providing UI feedback and enforcing constraints as needed.
+
+## 7. Cache Market Data [done]
+### Dependencies: 18.2
+### Description: Introduce caching mechanisms to store frequently accessed market data, reducing API calls and improving performance.
+### Details:
+Implement in-memory or persistent caching strategies for market queries, with cache invalidation policies based on data freshness requirements.
+
